@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://dataone.org/coordinating_node_sysmeta"
+    targetNamespace="http://dataone.org/coordinating_node_sysmeta">
+    
+    <xs:element name="SystemMetadata">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="OriginMemberNode" type="xs:string"/>
+                <xs:element name="AuthoritativeMemberNode" type="xs:string"/>
+
+                <xs:element name="Replica" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="ReplicaMemberNode" type="xs:string"/>
+                            <xs:element name="ReplicationStatus">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="Queued"/>
+                                        <xs:enumeration value="Requested"/>
+                                        <xs:enumeration value="Completed"/>
+                                        <xs:enumeration value="Invalidated"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="DateReplicaVerified" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="DateReplicaVerified" type="xs:date"/>
+                <!-- Need to define ReplicationPolicy -->
+                <xs:element name="Submitter"/>
+                <xs:element name="RightsHolder"/>
+                <xs:element name="DateCreated" type="xs:date"/>
+                <xs:element name="DateExpires" type="xs:date" minOccurs="0"/>
+                <xs:element name="DateEmbargoExpires" type="xs:date" minOccurs="0"/>
+                <xs:element name="DateSysMetadataCreated" type="xs:dateTime"/>
+                <xs:element name="DateSysMetadataModified" type="xs:dateTime"/>
+                <xs:element name="ObjectFormat" type="xs:string"/>
+                <xs:element name="Checksum" type="xs:string"/>
+                
+                <xs:element name="ChecksumAlgorithm">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="Algo1"/>
+                            <xs:enumeration value="Algo2"/>
+                            <xs:enumeration value="Algo3"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+
+                <xs:element name="Size" type="xs:decimal"/>
+
+                <xs:element name="AccessRule" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:attribute name="RuleType">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:enumeration value="Allow"/>
+                                    <xs:enumeration value="Deny"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                         </xs:attribute>
+
+                        <xs:attribute name="Service">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:enumeration value="Read"/>
+                                    <xs:enumeration value="Write"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                        
+                        <xs:attribute name="Principal" type="xs:string"/>
+                        
+                    </xs:complexType>
+                    
+                </xs:element>
+                
+                <xs:element name="Obsoletes" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="ObsoletedBy" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="DerivedFrom" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                
+                <xs:element name="IsAuthorizationRequired" type="xs:boolean"/>
+                
+            </xs:sequence>
+            <xs:attribute name="Identifier" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
