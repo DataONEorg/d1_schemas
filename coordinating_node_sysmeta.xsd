@@ -1,38 +1,70 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<xs:schema xmlns="http://dataone.org/coordinating_node_sysmeta" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://dataone.org/coordinating_node_sysmeta">
-
+<xs:schema xmlns="http://dataone.org/coordinating_node_sysmeta_0.1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://dataone.org/coordinating_node_sysmeta_0.1">
+    <!-- TODO: Discuss the namespace for this document, and pick an effective, versioned URI for the namespace -->
+    
     <!-- IdentifierType -->
     <xs:simpleType name="IdentifierType">
-            <xs:restriction base="xs:string">
-                    <xs:pattern value="[^ ]+"/>
-            </xs:restriction>
+            <xs:restriction base="NonEmptyStringType"/>
     </xs:simpleType>
 
-    <!-- MemberNodeReferenceType -->
-    <xs:simpleType name="MemberNodeReferenceType">
-        <xs:restriction base="xs:string">
-            <xs:pattern value=".*"/>
-        </xs:restriction>
+    <!-- NodeReferenceType -->
+    <xs:simpleType name="NodeReferenceType">
+        <xs:restriction base="NonEmptyStringType"/>
+    </xs:simpleType>
+    
+    <xs:simpleType name="PrincipalType">
+    	<xs:restriction base="NonEmptyStringType"></xs:restriction>
     </xs:simpleType>
 
+    <xs:simpleType name="ObjectFormatIdentifierType">
+        <!-- This should really be a dynamic namespace registry, but for now 
+             a simple type will get us started -->
+		<xs:restriction base="xs:string">
+		    <!-- Metadata specifications -->
+		    <xs:enumeration value="http://dataone.org/coordinating_node_sysmeta_0.1"/> <!-- ref to self --> 
+      		<xs:enumeration value="eml://ecoinformatics.org/eml-2.0.0"/>
+      		<xs:enumeration value="eml://ecoinformatics.org/eml-2.0.1"/>
+      		<xs:enumeration value="eml://ecoinformatics.org/eml-2.1.0"/>
+      		<xs:enumeration value="FGDC-STD-001.1-1999"/> <!-- FGDC BDP -->  
+      		<xs:enumeration value="FGDC-STD-001-1998"/> <!-- FGDC CSDGM -->
+      		<xs:enumeration value="INCITS 453-2009"/> <!-- NAP of ISO 19115 -->
+      		<xs:enumeration value="http://www.unidata.ucar.edu/namespaces/netcdf/ncml-2.2"/> <!-- NcML -->
+      		<xs:enumeration value="CF-1.0"/>
+      		<xs:enumeration value="CF-1.1"/>
+      		<xs:enumeration value="CF-1.2"/>
+      		<xs:enumeration value="CF-1.3"/>      		      		
+      		<xs:enumeration value="CF-1.4"/>
+      		      		
+      		<!-- Data formats -->
+			<xs:enumeration value="netCDF-3"/> <!-- NetCDF Classic and 64-bit offset formats -->
+			<xs:enumeration value="netCDF-4"/> <!-- NetCDF-4 and netCDF-4 classic model formats -->
+      		<xs:enumeration value="text/csv"/>
+      		<xs:enumeration value="image/gif"/>
+      		<xs:enumeration value="http://rs.tdwg.org/dwc/xsd/simpledarwincore/"/> <!-- DwC current schema standard -->
+      		<xs:enumeration value="http://digir.net/schema/conceptual/darwin/2003/1.0/darwin2.xsd"/> <!--  CLASSIC -->
+      	</xs:restriction>
+    </xs:simpleType>
+    
     <xs:element name="SystemMetadata">
         <xs:complexType>
             <xs:sequence>
                 <!-- Provenance -->
+                <xs:element name="Identifier" type="IdentifierType" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="OriginMemberNode" type="NodeReferenceType"/>
+                <xs:element name="AuthoritativeMemberNode" type="NodeReferenceType"/>
+
+                <xs:element name="Obsoletes" type="IdentifierType" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="ObsoletedBy" type="IdentifierType" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="DerivedFrom" type="IdentifierType" minOccurs="0" maxOccurs="unbounded"/>                
+                <xs:element name="Describes" type="IdentifierType" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="DescribedBy" type="IdentifierType" minOccurs="0" maxOccurs="unbounded"/>
                 
-                <xs:element name="OriginMemberNode" type="MemberNodeReferenceType"/>
-                <xs:element name="AuthoritativeMemberNode" type="MemberNodeReferenceType"/>
-
-                <xs:element maxOccurs="unbounded" minOccurs="0" name="Obsoletes" type="IdentifierType"/>
-                <xs:element maxOccurs="unbounded" minOccurs="0" name="ObsoletedBy" type="IdentifierType"/>
-                <xs:element maxOccurs="unbounded" minOccurs="0" name="DerivedFrom" type="IdentifierType"/>                
-
                 <!-- Replication -->
 
-                <xs:element maxOccurs="unbounded" minOccurs="0" name="Replica">
+                <xs:element name="Replica" maxOccurs="unbounded" minOccurs="0">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="ReplicaMemberNode" type="MemberNodeReferenceType"/>
+                            <xs:element name="ReplicaMemberNode" type="NodeReferenceType"/>
                             <xs:element name="ReplicationStatus">
                                 <xs:simpleType>
                                     <xs:restriction base="xs:string">
@@ -50,18 +82,17 @@
 
                 <!-- Need to define ReplicationPolicy -->
 
-                <xs:element name="Submitter"/>
-                <xs:element name="RightsHolder"/>
+                <xs:element name="Submitter" type="PrincipalType"/>
+                <xs:element name="RightsHolder" type="PrincipalType"/>
                 <xs:element name="DateCreated" type="xs:dateTime"/>
-                <xs:element minOccurs="0" name="DateExpires" type="xs:dateTime"/>
-                <xs:element minOccurs="0" name="DateEmbargoExpires" type="xs:dateTime"/>
+                <xs:element name="DateEmbargoExpires" minOccurs="0" type="xs:dateTime"/>
                 <xs:element name="DateSysMetadataCreated" type="xs:dateTime"/>
                 <xs:element name="DateSysMetadataModified" type="xs:dateTime"/>
-                <xs:element name="ObjectFormat" type="xs:string"/>
+                <xs:element name="ObjectFormat" type="ObjectFormatIdentifierType"/>
 
                 <!-- Data Consistency -->
 
-                <xs:element name="Checksum" type="xs:string"/>
+                <xs:element name="Checksum" type="NonEmptyStringType"/>
                 <xs:element name="ChecksumAlgorithm">
                     <xs:simpleType>
                         <xs:restriction base="xs:string">
@@ -72,12 +103,9 @@
                     </xs:simpleType>
                 </xs:element>
 
-                <xs:element name="Size" type="xs:decimal"/>
+                <xs:element name="Size" type="xs:decimal"/> <!-- Is this the right type?  Maybe long? -->
 
                 <!-- Access Control -->
-                
-                <xs:element name="IsAuthorizationRequired" type="xs:boolean"/>
-
                 <xs:element maxOccurs="unbounded" minOccurs="0" name="AccessRule">
                     <xs:complexType>
                         <xs:attribute name="RuleType">
@@ -94,15 +122,24 @@
                                 <xs:restriction base="xs:string">
                                     <xs:enumeration value="Read"/>
                                     <xs:enumeration value="Write"/>
+                                    <xs:enumeration value="ChangePermission"/>                                    
                                 </xs:restriction>
                             </xs:simpleType>
                         </xs:attribute>
                         
-                        <xs:attribute name="Principal" type="xs:string"/>
+                        <xs:attribute name="Principal" type="PrincipalType"/>
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
-            <xs:attribute name="Identifier" type="IdentifierType" use="required"/>
         </xs:complexType>
     </xs:element>
+
+    <!-- A derived string type with at least length 1 and it must contain non-whitespace -->
+	<xs:simpleType name="NonEmptyStringType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1" />
+			<xs:pattern value="[\s]*[\S][\s\S]*" />
+		</xs:restriction>
+	</xs:simpleType>
+    
 </xs:schema>
