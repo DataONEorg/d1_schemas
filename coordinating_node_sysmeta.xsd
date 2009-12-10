@@ -34,6 +34,8 @@
       		<xs:enumeration value="CF-1.2"/>
       		<xs:enumeration value="CF-1.3"/>      		      		
       		<xs:enumeration value="CF-1.4"/>
+      		<xs:enumeration value="http://www.cuahsi.org/waterML/1.0/"/>
+      		<xs:enumeration value="http://www.cuahsi.org/waterML/1.1/"/>
       		      		
       		<!-- Data formats -->
 			<xs:enumeration value="netCDF-3"/> <!-- NetCDF Classic and 64-bit offset formats -->
