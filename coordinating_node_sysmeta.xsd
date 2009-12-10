@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<xs:schema xmlns="http://dataone.org/coordinating_node_sysmeta_0.1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://dataone.org/coordinating_node_sysmeta_0.1">
+<xs:schema
+    xmlns="http://dataone.org/coordinating_node_sysmeta_0.1"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://dataone.org/coordinating_node_sysmeta_0.1">
+    
     <!-- TODO: Discuss the namespace for this document, and pick an effective, versioned URI for the namespace -->
     
     <!-- IdentifierType -->
@@ -17,8 +21,7 @@
     </xs:simpleType>
 
     <xs:simpleType name="ObjectFormatIdentifierType">
-        <!-- This should really be a dynamic namespace registry, but for now 
-             a simple type will get us started -->
+        <!-- This should really be a dynamic namespace registry, but for now a simple type will get us started -->
 		<xs:restriction base="xs:string">
 		    <!-- Metadata specifications -->
 		    <xs:enumeration value="http://dataone.org/coordinating_node_sysmeta_0.1"/> <!-- ref to self --> 
@@ -50,8 +53,19 @@
     <xs:element name="SystemMetadata">
         <xs:complexType>
             <xs:sequence>
-                <!-- Provenance -->
                 <xs:element name="Identifier" type="IdentifierType" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="Created" type="xs:dateTime"/>
+                <xs:element name="Expires" type="xs:dateTime"/>
+                <xs:element name="SysMetadataCreated" type="xs:dateTime"/>
+                <xs:element name="SysMetadataModified" type="xs:dateTime"/>
+                <xs:element name="ObjectFormat" type="ObjectFormatIdentifierType"/>
+                <xs:element name="Size" type="xs:decimal"/> <!-- Is this the right type?  Maybe long? -->
+                
+                <!-- Provenance -->
+                
+                <xs:element name="Submitter" type="PrincipalType"/>
+                <xs:element name="RightsHolder" type="PrincipalType"/>
+                
                 <xs:element name="OriginMemberNode" type="NodeReferenceType"/>
                 <xs:element name="AuthoritativeMemberNode" type="NodeReferenceType"/>
 
@@ -77,20 +91,13 @@
                                     </xs:restriction>
                                 </xs:simpleType>
                             </xs:element>
-                            <xs:element name="DateReplicaVerified" type="xs:dateTime"/>
+                            <xs:element name="ReplicaVerified" type="xs:dateTime"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
 
                 <!-- Need to define ReplicationPolicy -->
 
-                <xs:element name="Submitter" type="PrincipalType"/>
-                <xs:element name="RightsHolder" type="PrincipalType"/>
-                <xs:element name="DateCreated" type="xs:dateTime"/>
-                <xs:element name="DateEmbargoExpires" minOccurs="0" type="xs:dateTime"/>
-                <xs:element name="DateSysMetadataCreated" type="xs:dateTime"/>
-                <xs:element name="DateSysMetadataModified" type="xs:dateTime"/>
-                <xs:element name="ObjectFormat" type="ObjectFormatIdentifierType"/>
 
                 <!-- Data Consistency -->
 
@@ -105,10 +112,11 @@
                     </xs:simpleType>
                 </xs:element>
 
-                <xs:element name="Size" type="xs:decimal"/> <!-- Is this the right type?  Maybe long? -->
-
                 <!-- Access Control -->
-                <xs:element maxOccurs="unbounded" minOccurs="0" name="AccessRule">
+
+                <xs:element name="EmbargoExpires" minOccurs="0" type="xs:dateTime"/>
+                
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="AccessRule">
                     <xs:complexType>
                         <xs:attribute name="RuleType">
                             <xs:simpleType>
