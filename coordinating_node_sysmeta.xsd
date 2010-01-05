@@ -20,7 +20,7 @@
     	<xs:restriction base="NonEmptyStringType"></xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="ObjectFormatIdentifierType">
+    <xs:simpleType name="ObjectFormatType">
         <!-- This should really be a dynamic namespace registry, but for now a simple type will get us started -->
 		<xs:restriction base="xs:string">
 		    <!-- Metadata specifications -->
@@ -58,7 +58,7 @@
                 <xs:element name="Expires" type="xs:dateTime"/>
                 <xs:element name="SysMetadataCreated" type="xs:dateTime"/>
                 <xs:element name="SysMetadataModified" type="xs:dateTime"/>
-                <xs:element name="ObjectFormat" type="ObjectFormatIdentifierType"/>
+                <xs:element name="ObjectFormat" type="ObjectFormatType"/>
                 <xs:element name="Size" type="xs:decimal"/> <!-- Is this the right type?  Maybe long? -->
                 
                 <!-- Provenance -->
