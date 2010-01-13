@@ -2,7 +2,9 @@
 <xs:schema
     xmlns="http://dataone.org/coordinating_node_sysmeta_0.1"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    targetNamespace="http://dataone.org/coordinating_node_sysmeta_0.1">
+    targetNamespace="http://dataone.org/coordinating_node_sysmeta_0.1"
+    elementFormDefault="unqualified"
+    attributeFormDefault="unqualified">
     
     <!-- TODO: Discuss the namespace for this document, and pick an effective, versioned URI for the namespace -->
     
