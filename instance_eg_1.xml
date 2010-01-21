@@ -36,8 +36,8 @@
         <ReplicationStatus>Queued</ReplicationStatus>
         <ReplicaVerified>2006-05-04T18:13:51.0Z</ReplicaVerified>
     </Replica>
-    <Checksum>Checksum0</Checksum>
-    <ChecksumAlgorithm>Algo1</ChecksumAlgorithm>
+    <Checksum>2e01e17467891f7c933dbaa00e1459d23db3fe4f</Checksum>
+    <ChecksumAlgorithm>SHA-1</ChecksumAlgorithm>
     <EmbargoExpires>2006-05-04T18:13:51.0Z</EmbargoExpires>
     <AccessRule RuleType="Allow" Service="Read" Principal="Principal0"/>
     <AccessRule RuleType="Allow" Service="Read" Principal="Principal1"/>
