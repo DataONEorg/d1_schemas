@@ -60,26 +60,72 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <xs:simpleType name="ChecksumAlgorithmType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SHA-1"/>
+            <xs:enumeration value="SHA-224"/>
+            <xs:enumeration value="SHA-256"/>
+            <xs:enumeration value="SHA-384"/>
+            <xs:enumeration value="SHA-512"/>
+            <xs:enumeration value="MD5"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="AccessRuleType">
+        <xs:attribute name="RuleType">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="Allow"/>
+                    <xs:enumeration value="Deny"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+
+        <xs:attribute name="Service">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="Read"/>
+                    <xs:enumeration value="Write"/>
+                    <xs:enumeration value="ChangePermission"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+
+        <xs:attribute name="Principal" type="PrincipalType"/>
+    </xs:complexType>
+
+    <xs:complexType name="ReplicationPolicyType">
+        <xs:sequence>
+            <xs:element name="PreferredMemberNode" type="NodeReferenceType"
+                minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="BlockedMemberNode" type="NodeReferenceType"
+                minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+
+        <xs:attribute name="ReplicationAllowed">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+
+        <xs:attribute name="NumberReplicas" type="xs:int"/>
+    </xs:complexType>
+
+    <!-- Definition of the SystemMetdata element -->
     <xs:element name="SystemMetadata">
         <xs:complexType>
             <xs:sequence>
+                <!-- Client Provided system metadata fields -->
                 <xs:element name="Identifier" type="IdentifierType" minOccurs="1" maxOccurs="1"/>
-                <xs:element name="Created" type="xs:dateTime"/>
-                <xs:element name="Expires" type="xs:dateTime"/>
-                <xs:element name="SysMetadataCreated" type="xs:dateTime"/>
-                <xs:element name="SysMetadataModified" type="xs:dateTime"/>
                 <xs:element name="ObjectFormat" type="ObjectFormatType"/>
-                <xs:element name="Size" type="xs:decimal"/>
-                <!-- Is this the right type?  Maybe long? -->
-
-                <!-- Provenance -->
-
+                <xs:element name="Size" type="xs:long"/>
                 <xs:element name="Submitter" type="PrincipalType"/>
                 <xs:element name="RightsHolder" type="PrincipalType"/>
 
-                <xs:element name="OriginMemberNode" type="NodeReferenceType"/>
-                <xs:element name="AuthoritativeMemberNode" type="NodeReferenceType"/>
-
+                <!-- Client provided relationship fields -->
                 <xs:element name="Obsoletes" type="IdentifierType" minOccurs="0"
                     maxOccurs="unbounded"/>
                 <xs:element name="ObsoletedBy" type="IdentifierType" minOccurs="0"
@@ -90,9 +136,22 @@
                     maxOccurs="unbounded"/>
                 <xs:element name="DescribedBy" type="IdentifierType" minOccurs="0"
                     maxOccurs="unbounded"/>
+                <xs:element name="Checksum" type="NonEmptyStringType"/>
+                <xs:element name="ChecksumAlgorithm" type="ChecksumAlgorithmType"/>
+                <xs:element name="EmbargoExpires" type="xs:dateTime"
+                    minOccurs="0"/>
+                <xs:element name="AccessRule" type="AccessRuleType"
+                    minOccurs="0" maxOccurs="unbounded" />
+                <!-- Need to define ReplicationPolicy -->
+                <xs:element name="ReplicationPolicy" type="ReplicationPolicyType"
+                    minOccurs="0" maxOccurs="1" />
 
-                <!-- Replication -->
+                <!-- Fields provided by Member Node and Coordinating Node -->
+                <xs:element name="DateUploaded" type="xs:dateTime"/>
+                <xs:element name="DateSysMetadataModified" type="xs:dateTime"/>
 
+                <xs:element name="OriginMemberNode" type="NodeReferenceType"/>
+                <xs:element name="AuthoritativeMemberNode" type="NodeReferenceType"/>
                 <xs:element name="Replica" maxOccurs="unbounded" minOccurs="0">
                     <xs:complexType>
                         <xs:sequence>
@@ -112,53 +171,6 @@
                     </xs:complexType>
                 </xs:element>
 
-                <!-- Need to define ReplicationPolicy -->
-
-
-                <!-- Data Consistency -->
-
-                <xs:element name="Checksum" type="NonEmptyStringType"/>
-                <xs:element name="ChecksumAlgorithm">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:enumeration value="SHA-1"/>
-                            <xs:enumeration value="SHA-224"/>
-                            <xs:enumeration value="SHA-256"/>
-                            <xs:enumeration value="SHA-384"/>
-                            <xs:enumeration value="SHA-512"/>
-                            <xs:enumeration value="MD5"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
-
-                <!-- Access Control -->
-
-                <xs:element name="EmbargoExpires" minOccurs="0" type="xs:dateTime"/>
-
-                <xs:element minOccurs="0" maxOccurs="unbounded" name="AccessRule">
-                    <xs:complexType>
-                        <xs:attribute name="RuleType">
-                            <xs:simpleType>
-                                <xs:restriction base="xs:string">
-                                    <xs:enumeration value="Allow"/>
-                                    <xs:enumeration value="Deny"/>
-                                </xs:restriction>
-                            </xs:simpleType>
-                        </xs:attribute>
-
-                        <xs:attribute name="Service">
-                            <xs:simpleType>
-                                <xs:restriction base="xs:string">
-                                    <xs:enumeration value="Read"/>
-                                    <xs:enumeration value="Write"/>
-                                    <xs:enumeration value="ChangePermission"/>
-                                </xs:restriction>
-                            </xs:simpleType>
-                        </xs:attribute>
-
-                        <xs:attribute name="Principal" type="PrincipalType"/>
-                    </xs:complexType>
-                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
