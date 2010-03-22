@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<log xmlns="http://dataone.org/logging-0.0.1"
+<d1:log xmlns:d1="http://dataone.org/logging-0.0.1"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://dataone.org/logging-0.0.1 https://repository.dataone.org/software/cicore/trunk/schemas/logging.xsd">
     <logEntry>
@@ -9,7 +9,7 @@
         <userAgent>Kepler/1.0.0</userAgent>
         <principal>public</principal>
         <event>read</event>
-        <dateLogged>2010-02-01 00:00:11.152</dateLogged>
+        <dateLogged>2010-02-01T00:00:11.152</dateLogged>
         <memberNode>mnode:001:KNB</memberNode>
     </logEntry> 
     <logEntry>
@@ -19,7 +19,7 @@
         <userAgent>Morpho/1.8.0</userAgent>
         <principal>uid=jones,o=unaffiliated,dc=ecoinformatics,dc=org</principal>
         <event>insert</event>
-        <dateLogged>2010-02-01 09:51:46.068</dateLogged>
+        <dateLogged>2010-02-01T09:51:46.068</dateLogged>
         <memberNode>mnode:002:Dryad</memberNode>
     </logEntry> 
     <logEntry>
@@ -29,7 +29,7 @@
         <userAgent>Morpho/1.8.0</userAgent>
         <principal>uid=jones,o=unaffiliated,dc=ecoinformatics,dc=org</principal>
         <event>update</event>
-        <dateLogged>2010-02-01 10:03:48.715</dateLogged>
+        <dateLogged>2010-02-01T10:03:48.715</dateLogged>
         <memberNode>mnode:002:ORNL_DAAC</memberNode>
     </logEntry> 
     <logEntry>
@@ -39,7 +39,7 @@
         <userAgent>Morpho/1.8.0</userAgent>
         <principal>uid=jones,o=unaffiliated,dc=ecoinformatics,dc=org</principal>
         <event>delete</event>
-        <dateLogged>2010-02-01 09:51:46.068</dateLogged>
+        <dateLogged>2010-02-01T09:51:46.068</dateLogged>
         <memberNode>mnode:001:KNB</memberNode>
     </logEntry> 
     <logEntry>
@@ -49,7 +49,7 @@
         <userAgent>Metacat/1.10.3</userAgent>
         <principal>uid=someuser,o=unaffiliated,dc=ecoinformatics,dc=org</principal>
         <event>replicate</event>
-        <dateLogged>2010-02-01 09:51:46.068</dateLogged>
+        <dateLogged>2010-02-01T09:51:46.068</dateLogged>
         <memberNode>mnode:001:KNB</memberNode>
     </logEntry> 
-</log> 
+</d1:log> 
