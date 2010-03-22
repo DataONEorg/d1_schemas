@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema xmlns="http://dataone.org/logging-0.0.1"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://dataone.org/logging-0.0.1"
+    elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+    <!-- TODO: Discuss the namespace for this document, and pick an effective, versioned URI for the namespace -->
+
+    <!-- IdentifierType -->
+    <xs:simpleType name="IdentifierType">
+        <xs:restriction base="NonEmptyStringType"/>
+    </xs:simpleType>
+
+    <!-- NodeReferenceType -->
+    <xs:simpleType name="NodeReferenceType">
+        <xs:restriction base="NonEmptyStringType"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="PrincipalType">
+        <xs:restriction base="NonEmptyStringType"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="EventType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="create"/>
+            <xs:enumeration value="read"/>
+            <xs:enumeration value="update"/>
+            <xs:enumeration value="delete"/>
+            <xs:enumeration value="replicate"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="LogEntry">
+        <xs:sequence>
+            <xs:element name="entryId" type="IdentifierType" 
+                minOccurs="1" maxOccurs="1"/>
+            <xs:element name="identifier" type="IdentifierType" 
+                minOccurs="1" maxOccurs="1"/>
+            <xs:element name="ipAddress" type="xs:string"
+                minOccurs="1" maxOccurs="1"/>
+            <xs:element name="userAgent" type="xs:string"
+                minOccurs="1" maxOccurs="1"/>
+            <xs:element name="principal" type="PrincipalType"
+                minOccurs="1" maxOccurs="1"/>
+            <xs:element name="event" type="EventType"
+                minOccurs="1" maxOccurs="1"/>
+            <xs:element name="dateLogged" type="xs:dateTime"
+                minOccurs="1" maxOccurs="1"/>
+            <xs:element name="memebrNode" type="NodeReferenceType"
+                minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Definition of the Logging element -->
+    <xs:element name="log">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="logEntry" type="LogEntry"
+                    minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- A derived string type with at least length 1 and it must contain non-whitespace -->
+    <xs:simpleType name="NonEmptyStringType">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:pattern value="[\s]*[\S][\s\S]*"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

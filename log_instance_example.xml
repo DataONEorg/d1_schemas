@@ -1,6 +1,9 @@
-<log> 
+<?xml version="1.0" encoding="UTF-8"?>
+<log xmlns="http://dataone.org/logging-0.0.1"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://dataone.org/logging-0.0.1 https://repository.dataone.org/software/cicore/trunk/schemas/logging.xsd">
     <logEntry>
-        <entryid>845797</entryid>
+        <entryId>845797</entryId>
         <identifier>nceas.951.27</identifier>
         <ipAddress>128.111.220.17</ipAddress>
         <userAgent>Kepler/1.0.0</userAgent>
@@ -10,7 +13,7 @@
         <memberNode>mnode:001:KNB</memberNode>
     </logEntry> 
     <logEntry>
-        <entryid>846267</entryid>
+        <entryId>846267</entryId>
         <identifier>nceas.962.1</identifier>
         <ipAddress>128.111.242.15</ipAddress>
         <userAgent>Morpho/1.8.0</userAgent>
@@ -20,7 +23,7 @@
         <memberNode>mnode:002:Dryad</memberNode>
     </logEntry> 
     <logEntry>
-        <entryid>846284</entryid>
+        <entryId>846284</entryId>
         <identifier>nceas.962.2</identifier>
         <ipAddress>128.111.220.240</ipAddress>
         <userAgent>Morpho/1.8.0</userAgent>
@@ -30,7 +33,7 @@
         <memberNode>mnode:002:ORNL_DAAC</memberNode>
     </logEntry> 
     <logEntry>
-        <entryid>846267</entryid>
+        <entryId>846267</entryId>
         <identifier>nceas.966.1</identifier>
         <ipAddress>128.111.242.15</ipAddress>
         <userAgent>Morpho/1.8.0</userAgent>
@@ -40,7 +43,7 @@
         <memberNode>mnode:001:KNB</memberNode>
     </logEntry> 
     <logEntry>
-        <entryid>816267</entryid>
+        <entryId>816267</entryId>
         <identifier>nceas.911.1</identifier>
         <ipAddress>128.111.242.15</ipAddress>
         <userAgent>Metacat/1.10.3</userAgent>
