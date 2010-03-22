@@ -119,54 +119,54 @@
         <xs:complexType>
             <xs:sequence>
                 <!-- Client Provided system metadata fields -->
-                <xs:element name="Identifier" type="IdentifierType" minOccurs="1" maxOccurs="1"/>
-                <xs:element name="ObjectFormat" type="ObjectFormatType"/>
-                <xs:element name="Size" type="xs:long"/>
-                <xs:element name="Submitter" type="PrincipalType"/>
-                <xs:element name="RightsHolder" type="PrincipalType"/>
+                <xs:element name="identifier" type="IdentifierType" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="objectFormat" type="ObjectFormatType"/>
+                <xs:element name="size" type="xs:long"/>
+                <xs:element name="submitter" type="PrincipalType"/>
+                <xs:element name="rightsHolder" type="PrincipalType"/>
 
                 <!-- Client provided relationship fields -->
-                <xs:element name="Obsoletes" type="IdentifierType" minOccurs="0"
+                <xs:element name="obsoletes" type="IdentifierType" minOccurs="0"
                     maxOccurs="unbounded"/>
-                <xs:element name="ObsoletedBy" type="IdentifierType" minOccurs="0"
+                <xs:element name="obsoletedBy" type="IdentifierType" minOccurs="0"
                     maxOccurs="unbounded"/>
-                <xs:element name="DerivedFrom" type="IdentifierType" minOccurs="0"
+                <xs:element name="derivedFrom" type="IdentifierType" minOccurs="0"
                     maxOccurs="unbounded"/>
-                <xs:element name="Describes" type="IdentifierType" minOccurs="0"
+                <xs:element name="describes" type="IdentifierType" minOccurs="0"
                     maxOccurs="unbounded"/>
-                <xs:element name="DescribedBy" type="IdentifierType" minOccurs="0"
+                <xs:element name="describedBy" type="IdentifierType" minOccurs="0"
                     maxOccurs="unbounded"/>
-                <xs:element name="Checksum" type="NonEmptyStringType"/>
-                <xs:element name="ChecksumAlgorithm" type="ChecksumAlgorithmType"/>
-                <xs:element name="EmbargoExpires" type="xs:dateTime"
+                <xs:element name="checksum" type="NonEmptyStringType"/>
+                <xs:element name="checksumAlgorithm" type="ChecksumAlgorithmType"/>
+                <xs:element name="embargoExpires" type="xs:dateTime"
                     minOccurs="0"/>
-                <xs:element name="AccessRule" type="AccessRuleType"
+                <xs:element name="accessRule" type="AccessRuleType"
                     minOccurs="0" maxOccurs="unbounded" />
                 <!-- Need to define ReplicationPolicy -->
-                <xs:element name="ReplicationPolicy" type="ReplicationPolicyType"
+                <xs:element name="replicationPolicy" type="ReplicationPolicyType"
                     minOccurs="0" maxOccurs="1" />
 
                 <!-- Fields provided by Member Node and Coordinating Node -->
-                <xs:element name="DateUploaded" type="xs:dateTime"/>
-                <xs:element name="DateSysMetadataModified" type="xs:dateTime"/>
+                <xs:element name="dateUploaded" type="xs:dateTime"/>
+                <xs:element name="dateSysMetadataModified" type="xs:dateTime"/>
 
-                <xs:element name="OriginMemberNode" type="NodeReferenceType"/>
-                <xs:element name="AuthoritativeMemberNode" type="NodeReferenceType"/>
-                <xs:element name="Replica" maxOccurs="unbounded" minOccurs="0">
+                <xs:element name="originMemberNode" type="NodeReferenceType"/>
+                <xs:element name="authoritativeMemberNode" type="NodeReferenceType"/>
+                <xs:element name="replica" maxOccurs="unbounded" minOccurs="0">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="ReplicaMemberNode" type="NodeReferenceType"/>
-                            <xs:element name="ReplicationStatus">
+                            <xs:element name="replicaMemberNode" type="NodeReferenceType"/>
+                            <xs:element name="replicationStatus">
                                 <xs:simpleType>
                                     <xs:restriction base="xs:string">
-                                        <xs:enumeration value="Queued"/>
-                                        <xs:enumeration value="Requested"/>
-                                        <xs:enumeration value="Completed"/>
-                                        <xs:enumeration value="Invalidated"/>
+                                        <xs:enumeration value="queued"/>
+                                        <xs:enumeration value="requested"/>
+                                        <xs:enumeration value="completed"/>
+                                        <xs:enumeration value="invalidated"/>
                                     </xs:restriction>
                                 </xs:simpleType>
                             </xs:element>
-                            <xs:element name="ReplicaVerified" type="xs:dateTime"/>
+                            <xs:element name="replicaVerified" type="xs:dateTime"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
