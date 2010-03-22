@@ -75,8 +75,8 @@
         <xs:attribute name="RuleType">
             <xs:simpleType>
                 <xs:restriction base="xs:string">
-                    <xs:enumeration value="Allow"/>
-                    <xs:enumeration value="Deny"/>
+                    <xs:enumeration value="allow"/>
+                    <xs:enumeration value="deny"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
@@ -84,9 +84,9 @@
         <xs:attribute name="Service">
             <xs:simpleType>
                 <xs:restriction base="xs:string">
-                    <xs:enumeration value="Read"/>
-                    <xs:enumeration value="Write"/>
-                    <xs:enumeration value="ChangePermission"/>
+                    <xs:enumeration value="read"/>
+                    <xs:enumeration value="write"/>
+                    <xs:enumeration value="changePermission"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
@@ -96,9 +96,9 @@
 
     <xs:complexType name="ReplicationPolicyType">
         <xs:sequence>
-            <xs:element name="PreferredMemberNode" type="NodeReferenceType"
+            <xs:element name="preferredMemberNode" type="NodeReferenceType"
                 minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="BlockedMemberNode" type="NodeReferenceType"
+            <xs:element name="blockedMemberNode" type="NodeReferenceType"
                 minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
 
