@@ -3,32 +3,50 @@
         <entryid>845797</entryid>
         <identifier>nceas.951.27</identifier>
         <ipAddress>128.111.220.17</ipAddress>
+        <userAgent>Kepler/1.0.0</userAgent>
         <principal>public</principal>
         <event>read</event>
         <dateLogged>2010-02-01 00:00:11.152</dateLogged>
+        <memberNode>mnode:001:KNB</memberNode>
     </logEntry> 
     <logEntry>
         <entryid>846267</entryid>
         <identifier>nceas.962.1</identifier>
         <ipAddress>128.111.242.15</ipAddress>
+        <userAgent>Morpho/1.8.0</userAgent>
         <principal>uid=jones,o=unaffiliated,dc=ecoinformatics,dc=org</principal>
         <event>insert</event>
         <dateLogged>2010-02-01 09:51:46.068</dateLogged>
+        <memberNode>mnode:002:Dryad</memberNode>
     </logEntry> 
     <logEntry>
         <entryid>846284</entryid>
         <identifier>nceas.962.2</identifier>
         <ipAddress>128.111.220.240</ipAddress>
+        <userAgent>Morpho/1.8.0</userAgent>
         <principal>uid=jones,o=unaffiliated,dc=ecoinformatics,dc=org</principal>
         <event>update</event>
         <dateLogged>2010-02-01 10:03:48.715</dateLogged>
+        <memberNode>mnode:002:ORNL_DAAC</memberNode>
     </logEntry> 
     <logEntry>
         <entryid>846267</entryid>
         <identifier>nceas.966.1</identifier>
         <ipAddress>128.111.242.15</ipAddress>
+        <userAgent>Morpho/1.8.0</userAgent>
         <principal>uid=jones,o=unaffiliated,dc=ecoinformatics,dc=org</principal>
         <event>delete</event>
         <dateLogged>2010-02-01 09:51:46.068</dateLogged>
+        <memberNode>mnode:001:KNB</memberNode>
+    </logEntry> 
+    <logEntry>
+        <entryid>816267</entryid>
+        <identifier>nceas.911.1</identifier>
+        <ipAddress>128.111.242.15</ipAddress>
+        <userAgent>Metacat/1.10.3</userAgent>
+        <principal>uid=someuser,o=unaffiliated,dc=ecoinformatics,dc=org</principal>
+        <event>replicate</event>
+        <dateLogged>2010-02-01 09:51:46.068</dateLogged>
+        <memberNode>mnode:001:KNB</memberNode>
     </logEntry> 
 </log> 
