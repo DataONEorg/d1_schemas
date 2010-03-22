@@ -72,7 +72,7 @@
     </xs:simpleType>
 
     <xs:complexType name="AccessRuleType">
-        <xs:attribute name="RuleType">
+        <xs:attribute name="rule">
             <xs:simpleType>
                 <xs:restriction base="xs:string">
                     <xs:enumeration value="allow"/>
@@ -81,7 +81,7 @@
             </xs:simpleType>
         </xs:attribute>
 
-        <xs:attribute name="Service">
+        <xs:attribute name="service">
             <xs:simpleType>
                 <xs:restriction base="xs:string">
                     <xs:enumeration value="read"/>
@@ -91,7 +91,7 @@
             </xs:simpleType>
         </xs:attribute>
 
-        <xs:attribute name="Principal" type="PrincipalType"/>
+        <xs:attribute name="principal" type="PrincipalType"/>
     </xs:complexType>
 
     <xs:complexType name="ReplicationPolicyType">
@@ -102,7 +102,7 @@
                 minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
 
-        <xs:attribute name="ReplicationAllowed">
+        <xs:attribute name="replicationAllowed">
             <xs:simpleType>
                 <xs:restriction base="xs:string">
                     <xs:enumeration value="true"/>
@@ -111,12 +111,11 @@
             </xs:simpleType>
         </xs:attribute>
 
-        <xs:attribute name="NumberReplicas" type="xs:int"/>
+        <xs:attribute name="numberReplicas" type="xs:int"/>
     </xs:complexType>
 
     <!-- Definition of the SystemMetdata element -->
-    <xs:element name="SystemMetadata">
-        <xs:complexType>
+        <xs:complexType name="SystemMetadata">
             <xs:sequence>
                 <!-- Client Provided system metadata fields -->
                 <xs:element name="identifier" type="IdentifierType" minOccurs="1" maxOccurs="1"/>
@@ -173,7 +172,8 @@
 
             </xs:sequence>
         </xs:complexType>
-    </xs:element>
+    
+    <xs:element name="systemMetadata" type="SystemMetadata"></xs:element>
 
     <!-- A derived string type with at least length 1 and it must contain non-whitespace -->
     <xs:simpleType name="NonEmptyStringType">
