@@ -18,7 +18,7 @@
         <ipAddress>128.111.242.15</ipAddress>
         <userAgent>Morpho/1.8.0</userAgent>
         <principal>uid=jones,o=unaffiliated,dc=ecoinformatics,dc=org</principal>
-        <event>insert</event>
+        <event>create</event>
         <dateLogged>2010-02-01T09:51:46.068</dateLogged>
         <memberNode>mnode:002:Dryad</memberNode>
     </logEntry> 
