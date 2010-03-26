@@ -20,8 +20,7 @@
     <describes>Describes1</describes>
     <describedBy>DescribedBy0</describedBy>
     <describedBy>DescribedBy1</describedBy>
-    <checksum>2e01e17467891f7c933dbaa00e1459d23db3fe4f</checksum>
-    <checksumAlgorithm>SHA-1</checksumAlgorithm>
+    <checksum algorithm="SHA-1">2e01e17467891f7c933dbaa00e1459d23db3fe4f</checksum>
     <embargoExpires>2006-05-04T18:13:51.0Z</embargoExpires>
     <accessRule rule="allow" service="read" principal="Principal0"/>
     <accessRule rule="allow" service="read" principal="Principal1"/>

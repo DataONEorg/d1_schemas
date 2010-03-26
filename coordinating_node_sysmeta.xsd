@@ -60,6 +60,15 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <xs:complexType name="Checksum">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="algorithm" type="ChecksumAlgorithmType" 
+                    use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
     <xs:simpleType name="ChecksumAlgorithmType">
         <xs:restriction base="xs:string">
             <xs:enumeration value="SHA-1"/>
@@ -135,8 +144,8 @@
                     maxOccurs="unbounded"/>
                 <xs:element name="describedBy" type="IdentifierType" minOccurs="0"
                     maxOccurs="unbounded"/>
-                <xs:element name="checksum" type="NonEmptyStringType"/>
-                <xs:element name="checksumAlgorithm" type="ChecksumAlgorithmType"/>
+                <xs:element name="checksum" type="Checksum"
+                    minOccurs="1" maxOccurs="1" />
                 <xs:element name="embargoExpires" type="xs:dateTime"
                     minOccurs="0"/>
                 <xs:element name="accessRule" type="AccessRuleType"
