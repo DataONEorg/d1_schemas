@@ -6,7 +6,7 @@
          It contains no useful information.
     -->
     <identifier>Identifier0</identifier>
-    <objectFormat>http://dataone.org/coordinating_node_sysmeta_0.1</objectFormat>
+    <objectFormat>eml://ecoinformatics.org/eml-2.0.1</objectFormat>
     <size>0</size>
     <submitter>uid=jones,o=NCEAS,dc=ecoinformatics,dc=org</submitter>
     <rightsHolder>uid=jones,o=NCEAS,dc=ecoinformatics,dc=org</rightsHolder>
