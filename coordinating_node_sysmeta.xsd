@@ -24,8 +24,6 @@
         <!-- This should really be a dynamic namespace registry, but for now a simple type will get us started -->
         <xs:restriction base="xs:string">
             <!-- Metadata specifications -->
-            <xs:enumeration value="http://dataone.org/coordinating_node_sysmeta_0.1"/>
-            <!-- ref to self -->
             <xs:enumeration value="eml://ecoinformatics.org/eml-2.0.0"/>
             <xs:enumeration value="eml://ecoinformatics.org/eml-2.0.1"/>
             <xs:enumeration value="eml://ecoinformatics.org/eml-2.1.0"/>
