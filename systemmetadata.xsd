@@ -2,24 +2,13 @@
 <xs:schema xmlns="http://dataone.org/service/types/SystemMetadata/0.1"
     version="0.1"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:common="http://dataone.org/service/types/common/0.1"
     targetNamespace="http://dataone.org/service/types/SystemMetadata/0.1"
     elementFormDefault="unqualified" attributeFormDefault="unqualified">
-
+    <xs:import namespace="http://dataone.org/service/types/common/0.1" 
+        schemaLocation="https://repository.dataone.org/software/cicore/trunk/schemas/common.xsd" />
+    
     <!-- TODO: Discuss the namespace for this document, and pick an effective, versioned URI for the namespace -->
-
-    <!-- Identifier -->
-    <xs:simpleType name="Identifier">
-        <xs:restriction base="NonEmptyString"/>
-    </xs:simpleType>
-
-    <!-- NodeReference -->
-    <xs:simpleType name="NodeReference">
-        <xs:restriction base="NonEmptyString"/>
-    </xs:simpleType>
-
-    <xs:simpleType name="Principal">
-        <xs:restriction base="NonEmptyString"/>
-    </xs:simpleType>
 
     <xs:simpleType name="ObjectFormat">
         <!-- This should really be a dynamic namespace registry, but for now a simple type will get us started -->
@@ -99,14 +88,14 @@
             </xs:simpleType>
         </xs:attribute>
 
-        <xs:attribute name="principal" type="Principal"/>
+        <xs:attribute name="principal" type="common:Principal"/>
     </xs:complexType>
 
     <xs:complexType name="ReplicationPolicy">
         <xs:sequence>
-            <xs:element name="preferredMemberNode" type="NodeReference"
+            <xs:element name="preferredMemberNode" type="common:NodeReference"
                 minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="blockedMemberNode" type="NodeReference"
+            <xs:element name="blockedMemberNode" type="common:NodeReference"
                 minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
 
@@ -126,22 +115,22 @@
         <xs:complexType name="SystemMetadata">
             <xs:sequence>
                 <!-- Client Provided system metadata fields -->
-                <xs:element name="identifier" type="Identifier" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="identifier" type="common:Identifier" minOccurs="1" maxOccurs="1"/>
                 <xs:element name="objectFormat" type="ObjectFormat"/>
                 <xs:element name="size" type="xs:long"/>
-                <xs:element name="submitter" type="Principal"/>
-                <xs:element name="rightsHolder" type="Principal"/>
+                <xs:element name="submitter" type="common:Principal"/>
+                <xs:element name="rightsHolder" type="common:Principal"/>
 
                 <!-- Client provided relationship fields -->
-                <xs:element name="obsoletes" type="Identifier" minOccurs="0"
+                <xs:element name="obsoletes" type="common:Identifier" minOccurs="0"
                     maxOccurs="unbounded"/>
-                <xs:element name="obsoletedBy" type="Identifier" minOccurs="0"
+                <xs:element name="obsoletedBy" type="common:Identifier" minOccurs="0"
                     maxOccurs="unbounded"/>
-                <xs:element name="derivedFrom" type="Identifier" minOccurs="0"
+                <xs:element name="derivedFrom" type="common:Identifier" minOccurs="0"
                     maxOccurs="unbounded"/>
-                <xs:element name="describes" type="Identifier" minOccurs="0"
+                <xs:element name="describes" type="common:Identifier" minOccurs="0"
                     maxOccurs="unbounded"/>
-                <xs:element name="describedBy" type="Identifier" minOccurs="0"
+                <xs:element name="describedBy" type="common:Identifier" minOccurs="0"
                     maxOccurs="unbounded"/>
                 <xs:element name="checksum" type="Checksum"
                     minOccurs="1" maxOccurs="1" />
@@ -157,12 +146,12 @@
                 <xs:element name="dateUploaded" type="xs:dateTime"/>
                 <xs:element name="dateSysMetadataModified" type="xs:dateTime"/>
 
-                <xs:element name="originMemberNode" type="NodeReference"/>
-                <xs:element name="authoritativeMemberNode" type="NodeReference"/>
+                <xs:element name="originMemberNode" type="common:NodeReference"/>
+                <xs:element name="authoritativeMemberNode" type="common:NodeReference"/>
                 <xs:element name="replica" maxOccurs="unbounded" minOccurs="0">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="replicaMemberNode" type="NodeReference"/>
+                            <xs:element name="replicaMemberNode" type="common:NodeReference"/>
                             <xs:element name="replicationStatus">
                                 <xs:simpleType>
                                     <xs:restriction base="xs:string">
@@ -182,13 +171,5 @@
         </xs:complexType>
     
     <xs:element name="systemMetadata" type="SystemMetadata"></xs:element>
-
-    <!-- A derived string type with at least length 1 and it must contain non-whitespace -->
-    <xs:simpleType name="NonEmptyString">
-        <xs:restriction base="xs:string">
-            <xs:minLength value="1"/>
-            <xs:pattern value="[\s]*[\S][\s\S]*"/>
-        </xs:restriction>
-    </xs:simpleType>
 
 </xs:schema>

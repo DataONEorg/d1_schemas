@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <xs:schema xmlns="http://dataone.org/logging-0.0.1"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    targetNamespace="http://dataone.org/logging-0.0.1"
+    xmlns:common="http://dataone.org/service/types/common/0.1"
+    targetNamespace="http://dataone.org/service/types/logging/0.1"
     elementFormDefault="unqualified" attributeFormDefault="unqualified">
+    <xs:import namespace="http://dataone.org/service/types/common/0.1" 
+        schemaLocation="https://repository.dataone.org/software/cicore/trunk/schemas/common.xsd" />
 
     <!-- TODO: Discuss the namespace for this document, and pick an effective, versioned URI for the namespace -->
 
-    <!-- IdentifierType -->
-    <xs:simpleType name="IdentifierType">
-        <xs:restriction base="NonEmptyStringType"/>
-    </xs:simpleType>
-
-    <!-- NodeReferenceType -->
-    <xs:simpleType name="NodeReferenceType">
-        <xs:restriction base="NonEmptyStringType"/>
-    </xs:simpleType>
-
-    <xs:simpleType name="PrincipalType">
-        <xs:restriction base="NonEmptyStringType"/>
-    </xs:simpleType>
-
-    <xs:simpleType name="EventType">
+    <xs:simpleType name="Event">
         <xs:restriction base="xs:string">
             <xs:enumeration value="create"/>
             <xs:enumeration value="read"/>
@@ -32,21 +21,21 @@
 
     <xs:complexType name="LogEntry">
         <xs:sequence>
-            <xs:element name="entryId" type="IdentifierType" 
+            <xs:element name="entryId" type="common:Identifier" 
                 minOccurs="1" maxOccurs="1"/>
-            <xs:element name="identifier" type="IdentifierType" 
+            <xs:element name="identifier" type="common:Identifier" 
                 minOccurs="1" maxOccurs="1"/>
             <xs:element name="ipAddress" type="xs:string"
                 minOccurs="1" maxOccurs="1"/>
             <xs:element name="userAgent" type="xs:string"
                 minOccurs="1" maxOccurs="1"/>
-            <xs:element name="principal" type="PrincipalType"
+            <xs:element name="principal" type="common:Principal"
                 minOccurs="1" maxOccurs="1"/>
-            <xs:element name="event" type="EventType"
+            <xs:element name="event" type="Event"
                 minOccurs="1" maxOccurs="1"/>
             <xs:element name="dateLogged" type="xs:dateTime"
                 minOccurs="1" maxOccurs="1"/>
-            <xs:element name="memberNode" type="NodeReferenceType"
+            <xs:element name="memberNode" type="common:NodeReference"
                 minOccurs="1" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
@@ -60,13 +49,5 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
-    <!-- A derived string type with at least length 1 and it must contain non-whitespace -->
-    <xs:simpleType name="NonEmptyStringType">
-        <xs:restriction base="xs:string">
-            <xs:minLength value="1"/>
-            <xs:pattern value="[\s]*[\S][\s\S]*"/>
-        </xs:restriction>
-    </xs:simpleType>
 
 </xs:schema>

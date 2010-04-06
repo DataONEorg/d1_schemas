@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://dataone.org/service/types/common/0.1"
+    targetNamespace="http://dataone.org/service/types/common/0.1"
+    elementFormDefault="unqualified" attributeFormDefault="unqualified"> 
+    
+    <!-- A derived string type with at least length 1 and it must contain non-whitespace -->
+    <xs:simpleType name="NonEmptyString">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:pattern value="[\s]*[\S][\s\S]*"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Identifier -->
+    <xs:simpleType name="Identifier">
+        <xs:restriction base="NonEmptyString"/>
+    </xs:simpleType>
+    
+    <!-- NodeReference -->
+    <xs:simpleType name="NodeReference">
+        <xs:restriction base="NonEmptyString"/>
+    </xs:simpleType>
+    
+    <!-- Principal = user identity -->
+    <xs:simpleType name="Principal">
+        <xs:restriction base="NonEmptyString"/>
+    </xs:simpleType>
+    
+</xs:schema>
