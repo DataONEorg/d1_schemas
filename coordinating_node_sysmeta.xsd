@@ -7,21 +7,21 @@
 
     <!-- TODO: Discuss the namespace for this document, and pick an effective, versioned URI for the namespace -->
 
-    <!-- IdentifierType -->
-    <xs:simpleType name="IdentifierType">
-        <xs:restriction base="NonEmptyStringType"/>
+    <!-- Identifier -->
+    <xs:simpleType name="Identifier">
+        <xs:restriction base="NonEmptyString"/>
     </xs:simpleType>
 
-    <!-- NodeReferenceType -->
-    <xs:simpleType name="NodeReferenceType">
-        <xs:restriction base="NonEmptyStringType"/>
+    <!-- NodeReference -->
+    <xs:simpleType name="NodeReference">
+        <xs:restriction base="NonEmptyString"/>
     </xs:simpleType>
 
-    <xs:simpleType name="PrincipalType">
-        <xs:restriction base="NonEmptyStringType"/>
+    <xs:simpleType name="Principal">
+        <xs:restriction base="NonEmptyString"/>
     </xs:simpleType>
 
-    <xs:simpleType name="ObjectFormatType">
+    <xs:simpleType name="ObjectFormat">
         <!-- This should really be a dynamic namespace registry, but for now a simple type will get us started -->
         <xs:restriction base="xs:string">
             <!-- Metadata specifications -->
@@ -62,13 +62,13 @@
     <xs:complexType name="Checksum">
         <xs:simpleContent>
             <xs:extension base="xs:string">
-                <xs:attribute name="algorithm" type="ChecksumAlgorithmType" 
+                <xs:attribute name="algorithm" type="ChecksumAlgorithm" 
                     use="required"/>
             </xs:extension>
         </xs:simpleContent>
     </xs:complexType>
 
-    <xs:simpleType name="ChecksumAlgorithmType">
+    <xs:simpleType name="ChecksumAlgorithm">
         <xs:restriction base="xs:string">
             <xs:enumeration value="SHA-1"/>
             <xs:enumeration value="SHA-224"/>
@@ -79,7 +79,7 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:complexType name="AccessRuleType">
+    <xs:complexType name="AccessRule">
         <xs:attribute name="rule">
             <xs:simpleType>
                 <xs:restriction base="xs:string">
@@ -99,14 +99,14 @@
             </xs:simpleType>
         </xs:attribute>
 
-        <xs:attribute name="principal" type="PrincipalType"/>
+        <xs:attribute name="principal" type="Principal"/>
     </xs:complexType>
 
-    <xs:complexType name="ReplicationPolicyType">
+    <xs:complexType name="ReplicationPolicy">
         <xs:sequence>
-            <xs:element name="preferredMemberNode" type="NodeReferenceType"
+            <xs:element name="preferredMemberNode" type="NodeReference"
                 minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="blockedMemberNode" type="NodeReferenceType"
+            <xs:element name="blockedMemberNode" type="NodeReference"
                 minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
 
@@ -126,43 +126,43 @@
         <xs:complexType name="SystemMetadata">
             <xs:sequence>
                 <!-- Client Provided system metadata fields -->
-                <xs:element name="identifier" type="IdentifierType" minOccurs="1" maxOccurs="1"/>
-                <xs:element name="objectFormat" type="ObjectFormatType"/>
+                <xs:element name="identifier" type="Identifier" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="objectFormat" type="ObjectFormat"/>
                 <xs:element name="size" type="xs:long"/>
-                <xs:element name="submitter" type="PrincipalType"/>
-                <xs:element name="rightsHolder" type="PrincipalType"/>
+                <xs:element name="submitter" type="Principal"/>
+                <xs:element name="rightsHolder" type="Principal"/>
 
                 <!-- Client provided relationship fields -->
-                <xs:element name="obsoletes" type="IdentifierType" minOccurs="0"
+                <xs:element name="obsoletes" type="Identifier" minOccurs="0"
                     maxOccurs="unbounded"/>
-                <xs:element name="obsoletedBy" type="IdentifierType" minOccurs="0"
+                <xs:element name="obsoletedBy" type="Identifier" minOccurs="0"
                     maxOccurs="unbounded"/>
-                <xs:element name="derivedFrom" type="IdentifierType" minOccurs="0"
+                <xs:element name="derivedFrom" type="Identifier" minOccurs="0"
                     maxOccurs="unbounded"/>
-                <xs:element name="describes" type="IdentifierType" minOccurs="0"
+                <xs:element name="describes" type="Identifier" minOccurs="0"
                     maxOccurs="unbounded"/>
-                <xs:element name="describedBy" type="IdentifierType" minOccurs="0"
+                <xs:element name="describedBy" type="Identifier" minOccurs="0"
                     maxOccurs="unbounded"/>
                 <xs:element name="checksum" type="Checksum"
                     minOccurs="1" maxOccurs="1" />
                 <xs:element name="embargoExpires" type="xs:dateTime"
                     minOccurs="0"/>
-                <xs:element name="accessRule" type="AccessRuleType"
+                <xs:element name="accessRule" type="AccessRule"
                     minOccurs="0" maxOccurs="unbounded" />
                 <!-- Need to define ReplicationPolicy -->
-                <xs:element name="replicationPolicy" type="ReplicationPolicyType"
+                <xs:element name="replicationPolicy" type="ReplicationPolicy"
                     minOccurs="0" maxOccurs="1" />
 
                 <!-- Fields provided by Member Node and Coordinating Node -->
                 <xs:element name="dateUploaded" type="xs:dateTime"/>
                 <xs:element name="dateSysMetadataModified" type="xs:dateTime"/>
 
-                <xs:element name="originMemberNode" type="NodeReferenceType"/>
-                <xs:element name="authoritativeMemberNode" type="NodeReferenceType"/>
+                <xs:element name="originMemberNode" type="NodeReference"/>
+                <xs:element name="authoritativeMemberNode" type="NodeReference"/>
                 <xs:element name="replica" maxOccurs="unbounded" minOccurs="0">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="replicaMemberNode" type="NodeReferenceType"/>
+                            <xs:element name="replicaMemberNode" type="NodeReference"/>
                             <xs:element name="replicationStatus">
                                 <xs:simpleType>
                                     <xs:restriction base="xs:string">
@@ -184,7 +184,7 @@
     <xs:element name="systemMetadata" type="SystemMetadata"></xs:element>
 
     <!-- A derived string type with at least length 1 and it must contain non-whitespace -->
-    <xs:simpleType name="NonEmptyStringType">
+    <xs:simpleType name="NonEmptyString">
         <xs:restriction base="xs:string">
             <xs:minLength value="1"/>
             <xs:pattern value="[\s]*[\S][\s\S]*"/>
