@@ -10,64 +10,6 @@
     
     <!-- TODO: Discuss the namespace for this document, and pick an effective, versioned URI for the namespace -->
 
-    <xs:simpleType name="ObjectFormat">
-        <!-- This should really be a dynamic namespace registry, but for now a simple type will get us started -->
-        <xs:restriction base="xs:string">
-            <!-- Metadata specifications -->
-            <xs:enumeration value="eml://ecoinformatics.org/eml-2.0.0"/>
-            <xs:enumeration value="eml://ecoinformatics.org/eml-2.0.1"/>
-            <xs:enumeration value="eml://ecoinformatics.org/eml-2.1.0"/>
-            <xs:enumeration value="FGDC-STD-001.1-1999"/>
-            <!-- FGDC BDP -->
-            <xs:enumeration value="FGDC-STD-001-1998"/>
-            <!-- FGDC CSDGM -->
-            <xs:enumeration value="INCITS 453-2009"/>
-            <!-- NAP of ISO 19115 -->
-            <xs:enumeration value="http://www.unidata.ucar.edu/namespaces/netcdf/ncml-2.2"/>
-            <!-- NcML -->
-            <xs:enumeration value="CF-1.0"/>
-            <xs:enumeration value="CF-1.1"/>
-            <xs:enumeration value="CF-1.2"/>
-            <xs:enumeration value="CF-1.3"/>
-            <xs:enumeration value="CF-1.4"/>
-            <xs:enumeration value="http://www.cuahsi.org/waterML/1.0/"/>
-            <xs:enumeration value="http://www.cuahsi.org/waterML/1.1/"/>
-
-            <!-- Data formats -->
-            <xs:enumeration value="netCDF-3"/>
-            <!-- NetCDF Classic and 64-bit offset formats -->
-            <xs:enumeration value="netCDF-4"/>
-            <!-- NetCDF-4 and netCDF-4 classic model formats -->
-            <xs:enumeration value="text/plain" />
-            <xs:enumeration value="text/csv"/>
-            <xs:enumeration value="image/gif"/>
-            <xs:enumeration value="http://rs.tdwg.org/dwc/xsd/simpledarwincore/"/>
-            <!-- DwC current schema standard -->
-            <xs:enumeration value="http://digir.net/schema/conceptual/darwin/2003/1.0/darwin2.xsd"/>
-            <!--  CLASSIC -->
-        </xs:restriction>
-    </xs:simpleType>
-
-    <xs:complexType name="Checksum">
-        <xs:simpleContent>
-            <xs:extension base="xs:string">
-                <xs:attribute name="algorithm" type="ChecksumAlgorithm" 
-                    use="required"/>
-            </xs:extension>
-        </xs:simpleContent>
-    </xs:complexType>
-
-    <xs:simpleType name="ChecksumAlgorithm">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="SHA-1"/>
-            <xs:enumeration value="SHA-224"/>
-            <xs:enumeration value="SHA-256"/>
-            <xs:enumeration value="SHA-384"/>
-            <xs:enumeration value="SHA-512"/>
-            <xs:enumeration value="MD5"/>
-        </xs:restriction>
-    </xs:simpleType>
-
     <xs:complexType name="AccessRule">
         <xs:attribute name="rule">
             <xs:simpleType>
@@ -112,62 +54,62 @@
     </xs:complexType>
 
     <!-- Definition of the SystemMetdata element -->
-    <xs:complexType name="SystemMetadata">
-        <xs:sequence>
-            <!-- Client Provided system metadata fields -->
-            <xs:element name="identifier" type="common:Identifier" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="objectFormat" type="ObjectFormat"/>
-            <xs:element name="size" type="xs:long"/>
-            <xs:element name="submitter" type="common:Principal"/>
-            <xs:element name="rightsHolder" type="common:Principal"/>
+        <xs:complexType name="SystemMetadata">
+            <xs:sequence>
+                <!-- Client Provided system metadata fields -->
+                <xs:element name="identifier" type="common:Identifier" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="objectFormat" type="common:ObjectFormat"/>
+                <xs:element name="size" type="xs:long"/>
+                <xs:element name="submitter" type="common:Principal"/>
+                <xs:element name="rightsHolder" type="common:Principal"/>
 
-            <!-- Client provided relationship fields -->
-            <xs:element name="obsoletes" type="common:Identifier" minOccurs="0"
-                maxOccurs="unbounded"/>
-            <xs:element name="obsoletedBy" type="common:Identifier" minOccurs="0"
-                maxOccurs="unbounded"/>
-            <xs:element name="derivedFrom" type="common:Identifier" minOccurs="0"
-                maxOccurs="unbounded"/>
-            <xs:element name="describes" type="common:Identifier" minOccurs="0"
-                maxOccurs="unbounded"/>
-            <xs:element name="describedBy" type="common:Identifier" minOccurs="0"
-                maxOccurs="unbounded"/>
-            <xs:element name="checksum" type="Checksum"
-                minOccurs="1" maxOccurs="1" />
-            <xs:element name="embargoExpires" type="xs:dateTime"
-                minOccurs="0"/>
-            <xs:element name="accessRule" type="AccessRule"
-                minOccurs="0" maxOccurs="unbounded" />
-            <xs:element name="replicationPolicy" type="ReplicationPolicy"
-                minOccurs="0" maxOccurs="1" />
+                <!-- Client provided relationship fields -->
+                <xs:element name="obsoletes" type="common:Identifier" minOccurs="0"
+                    maxOccurs="unbounded"/>
+                <xs:element name="obsoletedBy" type="common:Identifier" minOccurs="0"
+                    maxOccurs="unbounded"/>
+                <xs:element name="derivedFrom" type="common:Identifier" minOccurs="0"
+                    maxOccurs="unbounded"/>
+                <xs:element name="describes" type="common:Identifier" minOccurs="0"
+                    maxOccurs="unbounded"/>
+                <xs:element name="describedBy" type="common:Identifier" minOccurs="0"
+                    maxOccurs="unbounded"/>
+                <xs:element name="checksum" type="common:Checksum"
+                    minOccurs="1" maxOccurs="1" />
+                <xs:element name="embargoExpires" type="xs:dateTime"
+                    minOccurs="0"/>
+                <xs:element name="accessRule" type="AccessRule"
+                    minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="replicationPolicy" type="ReplicationPolicy"
+                    minOccurs="0" maxOccurs="1" />
 
-            <!-- Fields provided by Member Node and Coordinating Node -->
-            <xs:element name="dateUploaded" type="xs:dateTime"/>
-            <xs:element name="dateSysMetadataModified" type="xs:dateTime"/>
+                <!-- Fields provided by Member Node and Coordinating Node -->
+                <xs:element name="dateUploaded" type="xs:dateTime"/>
+                <xs:element name="dateSysMetadataModified" type="xs:dateTime"/>
 
-            <xs:element name="originMemberNode" type="common:NodeReference"/>
-            <xs:element name="authoritativeMemberNode" type="common:NodeReference"/>
-            <xs:element name="replica" maxOccurs="unbounded" minOccurs="0">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="replicaMemberNode" type="common:NodeReference"/>
-                        <xs:element name="replicationStatus">
-                            <xs:simpleType>
-                                <xs:restriction base="xs:string">
-                                    <xs:enumeration value="queued"/>
-                                    <xs:enumeration value="requested"/>
-                                    <xs:enumeration value="completed"/>
+                <xs:element name="originMemberNode" type="common:NodeReference"/>
+                <xs:element name="authoritativeMemberNode" type="common:NodeReference"/>
+                <xs:element name="replica" maxOccurs="unbounded" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="replicaMemberNode" type="common:NodeReference"/>
+                            <xs:element name="replicationStatus">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="queued"/>
+                                        <xs:enumeration value="requested"/>
+                                        <xs:enumeration value="completed"/>
                                         <xs:enumeration value="invalidated"/>
-                                </xs:restriction>
-                            </xs:simpleType>
-                        </xs:element>
-                        <xs:element name="replicaVerified" type="xs:dateTime"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="replicaVerified" type="xs:dateTime"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
 
-        </xs:sequence>
-    </xs:complexType>
+            </xs:sequence>
+        </xs:complexType>
     
     <xs:element name="systemMetadata" type="SystemMetadata"></xs:element>
 
