@@ -86,5 +86,4 @@
         </xs:restriction>
     </xs:simpleType>
 
-<xs:element name="placeholder" type="Identifier" />
 </xs:schema>
