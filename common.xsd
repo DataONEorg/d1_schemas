@@ -50,7 +50,9 @@
             <xs:enumeration value="CF-1.4"/>
             <xs:enumeration value="http://www.cuahsi.org/waterML/1.0/"/>
             <xs:enumeration value="http://www.cuahsi.org/waterML/1.1/"/>
-
+            <!-- Dryad -->
+            <xs:enumeration value="DSPACE METS SIP Profile 1.0"/>
+            
             <!-- Data formats -->
             <xs:enumeration value="netCDF-3"/>
             <!-- NetCDF Classic and 64-bit offset formats -->
