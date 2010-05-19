@@ -65,6 +65,7 @@
             <!-- DwC current schema standard -->
             <xs:enumeration value="http://digir.net/schema/conceptual/darwin/2003/1.0/darwin2.xsd"/>
             <!--  CLASSIC -->
+            <xs:enumeration value="application/octet-stream"/>
         </xs:restriction>
     </xs:simpleType>
 
