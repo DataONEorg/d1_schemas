@@ -15,7 +15,7 @@
     </xs:restriction>
   </xs:simpleType>
 
-    <xs:complexType name="nodeType">
+    <xs:complexType name="Node">
       <xs:sequence>
         <xs:element name="identifier" type="common:Identifier" minOccurs="1" maxOccurs="1"/>
         <xs:element name="name" type="common:NonEmptyString"/>
@@ -60,7 +60,7 @@
   <xs:element name="nodeRegistry">
     <xs:complexType name="nodeRegistryType">
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" name="Node" type="nodeType" minOccurs="1"/>
+        <xs:element maxOccurs="unbounded" name="node" type="Node" minOccurs="1"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
