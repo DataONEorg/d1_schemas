@@ -18,7 +18,7 @@
     <xs:complexType name="Node">
       <xs:sequence>
         <xs:element name="identifier" type="common:Identifier" minOccurs="1" maxOccurs="1"/>
-        <xs:element name="name" type="common:NonEmptyString"/>
+        <xs:element name="nodeName" type="common:NodeReference"/>
         <xs:element name="baseURL" type="xs:anyURI"/>
         <xs:element name="services" type="Services" maxOccurs="unbounded"/>
         <xs:element name="synchronization" type="Synchronization"/>
