@@ -33,7 +33,7 @@
       <xs:attribute name="available" use="required" type="xs:boolean"/>
       <xs:attribute name="datechecked" use="required" type="xs:dateTime"/>
       <xs:attribute name="method" use="required" type="xs:NCName"/>
-      <xs:attribute name="rest" use="required"/>
+      <xs:attribute name="rest" use="required"  type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="synchronizationType">
