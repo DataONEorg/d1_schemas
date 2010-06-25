@@ -20,8 +20,8 @@
         <xs:element name="identifier" type="common:Identifier" minOccurs="1" maxOccurs="1"/>
         <xs:element name="name" type="common:NodeReference"/>
         <xs:element name="baseURL" type="xs:anyURI"/>
-        <xs:element name="services" type="Services" maxOccurs="unbounded"/>
-        <xs:element name="synchronization" type="Synchronization"/>
+        <xs:element name="services" type="Services" maxOccurs="unbounded" minOccurs="0"/>
+        <xs:element name="synchronization" type="Synchronization"  minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
       <xs:attribute name="replicate" use="required" type="xs:boolean"/>
       <xs:attribute name="synchronize" use="required" type="xs:boolean"/>
@@ -29,13 +29,18 @@
     </xs:complexType>
 
     <xs:complexType  name="Services">
-      <xs:attribute name="api" use="required" type="xs:NCName"/>
-      <xs:attribute name="available" use="required" type="xs:boolean"/>
-      <xs:attribute name="datechecked" use="required" type="xs:dateTime"/>
-      <xs:attribute name="method" use="required" type="xs:NCName"/>
-      <xs:attribute name="rest" use="required"  type="xs:string"/>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="service" type="Service" minOccurs="0"/>
+      </xs:sequence>
     </xs:complexType>
-
+  <xs:complexType  name="Service">
+    <xs:attribute name="api" use="required" type="xs:NCName"/>
+    <xs:attribute name="available" use="required" type="xs:boolean"/>
+    <xs:attribute name="datechecked" use="required" type="xs:dateTime"/>
+    <xs:attribute name="method" use="required" type="xs:NCName"/>
+    <xs:attribute name="rest" use="required"  type="xs:string"/>
+  </xs:complexType>
+  
     <xs:complexType name="Synchronization">
       <xs:sequence>
         <xs:element  name="schedule" type="Schedule"/>
