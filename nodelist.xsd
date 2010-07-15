@@ -6,8 +6,8 @@
   targetNamespace="http://dataone.org/service/types/NodeList/0.1"
   elementFormDefault="unqualified" attributeFormDefault="unqualified">
   <!-- A derived string type with at least length 1 and it must contain digits-->
-  <xs:import namespace="http://dataone.org/service/types/common/0.1" 
-  schemaLocation="common.xsd" />
+    <xs:import namespace="http://dataone.org/service/types/common/0.1" 
+        schemaLocation="https://repository.dataone.org/software/cicore/trunk/schemas/common.xsd" />
   
   <xs:simpleType name="crontabEntryType">
     <xs:restriction base="xs:string">
