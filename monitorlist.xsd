@@ -8,19 +8,19 @@
   <xs:import namespace="http://dataone.org/service/types/common/0.1"
     schemaLocation="https://repository.dataone.org/software/cicore/trunk/schemas/common.xsd" />
   
-  <xs:complexType name="MonitorObjectEntry">
+  <xs:complexType name="MonitorInfo">
     <xs:sequence>
       <xs:element name="date" type="xs:date" minOccurs="1" maxOccurs="1"/>
       <xs:element name="count" type="xs:int" minOccurs="1" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="MonitorObject">
+  <xs:complexType name="MonitorList">
     <xs:sequence>
-      <xs:element name="monitorObjectEntry" type="MonitorObjectEntry" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="monitorInfo" type="MonitorInfo" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:element name="monitorObject" type="MonitorObject" />
+  <xs:element name="monitorList" type="MonitorList" />
 
 </xs:schema>
