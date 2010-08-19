@@ -27,7 +27,28 @@
     <xs:simpleType name="Principal">
         <xs:restriction base="NonEmptyString"/>
     </xs:simpleType>
+
+    <!-- Version -->
     
+    <!-- ComponentName -->
+    <xs:simpleType name="ComponentName">
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="Apache"/>
+        <xs:enumeration value="CoordinatingNode"/>
+        <xs:enumeration value="Django"/>
+        <xs:enumeration value="LinuxUbuntu"/>
+        <xs:enumeration value="LinuxDebian"/>
+        <xs:enumeration value="MemberNode"/>
+        <xs:enumeration value="Mercury"/>
+        <xs:enumeration value="Metacat"/>
+      </xs:restriction>
+    </xs:simpleType>
+
+    <!-- ComponentVersion -->
+    <xs:simpleType name="ComponentVersion">
+        <xs:restriction base="NonEmptyString"/>
+    </xs:simpleType>
+
   <xs:simpleType name="ObjectFormat">
         <!-- This should really be a dynamic namespace registry, but for now a simple type will get us started -->
         <xs:restriction base="xs:string">
