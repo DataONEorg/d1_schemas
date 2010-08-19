@@ -1,50 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns="http://dataone.org/service/types/StatusResponseList/0.1"
+<xs:schema xmlns="http://dataone.org/service/types/ComponentList/0.1"
 	version="0.1" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://dataone.org/service/types/StatusResponseList/0.1"
+	targetNamespace="http://dataone.org/service/types/ComponentList/0.1"
 	xmlns:common="http://dataone.org/service/types/common/0.1"
 	elementFormDefault="unqualified" attributeFormDefault="unqualified">
 	
 	<xs:import namespace="http://dataone.org/service/types/common/0.1"
 		schemaLocation="https://repository.dataone.org/software/cicore/trunk/schemas/common.xsd" />
 
-	<xs:complexType name="StatusResponse">
-		<xs:sequence>
-			<xs:element name="componentName" type="common:ComponentName"
-				minOccurs="1" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>Name of component in DataONE software stack.
-          </xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="componentVersion" type="common:ComponentVersion"
-				minOccurs="1" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>Version of component in DataONE software stack.
-          </xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:sequence>
-	</xs:complexType>
-
-	<xs:complexType name="StatusResponseList">
+	<xs:complexType name="ComponentList">
 		<xs:annotation>
-			<xs:documentation>An StatusResponseList is the structure returned
+			<xs:documentation>An ComponentList is the structure returned
 				from the version() method. It provides a list of DataONE software stack
         components and their corresponding version numbers.
 			</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="statusResponse" type="StatusResponse"
-				minOccurs="1" maxOccurs="unbounded">
-				<xs:annotation>
-          <xs:documentation>List of DataONE software stack components and their
-            corresponding version numbers.
-          </xs:documentation>
-				</xs:annotation>
-			</xs:element>
+      <xs:element name="Component">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:documentation>Name and version of a DataONE software stack component.
+            </xs:documentation>
+          </xs:annotation>
+          <xs:attribute name="name" type="common:ComponentName" use="required"/>
+          <xs:attribute name="version" type="common:ComponentVersion" use="required"/>
+        </xs:complexType>
+      </xs:element>
 		</xs:sequence>
 	</xs:complexType>
 
-	<xs:element name="statusResponseList" type="StatusResponseList" />
+	<xs:element name="componentList" type="ComponentList" />
 </xs:schema>
