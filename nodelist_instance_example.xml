@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<d1:nodeList xmlns:d1="http://dataone.org/service/types/NodeList/0.1"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://dataone.org/service/types/NodeList/0.1 https://repository.dataone.org/software/cicore/trunk/schemas/nodelist.xsd">
+    <!-- This instance document was generated for testing purposes
+         It contains no useful information.
+    -->
+	<node replicate="true" type="NodeReference" synchronize="true">
+		<identifier>example_daac_mn_id</identifier>
+		<name>example_daac_mn</name>
+		<baseURL>http://eg.daacmn.dataone.utk.edu</baseURL>
+		<services>
+			<service datechecked="2010-05-19T08:12:00.123456" rest="????" api="MN_crud" available="true" method="get"/>
+			<service datechecked="2010-06-19T08:34:00.123456" rest="????" api="MN_crud" available="true" method="getSystemMetadata"/>
+		</services>
+		<synchronization>
+			<schedule sec="0" min="10,40" hour="*" mon="*" mday="*" wday="*" year="*"/>	
+			<lastHarvested>2010-08-23T11:11:11.123456</lastHarvested>
+			<lastCompleteHarvest>2010-08-21T12:12:12.123456</lastCompleteHarvest>
+		</synchronization>
+	</node>
+	<node replicate="true" type="NodeReference" synchronize="true">
+		<identifier>example_knb_mn_id</identifier>
+		<name>example_knb_mn</name>
+		<baseURL>http://knb-mn.ecoinformatics.org</baseURL>
+		<services>
+			<service datechecked="2010-05-19T03:12:00.123456" rest="????" api="MN_crud" available="true" method="get"/>
+			<service datechecked="2010-06-19T03:34:00.123456" rest="????" api="MN_crud" available="true" method="getSystemMetadata"/>
+		</services>
+		<synchronization >
+			<schedule sec="0" min="0,30" hour="*" mon="*" mday="*" wday="*" year="*"/>	
+			<lastHarvested>2010-08-22T11:11:11.123456</lastHarvested>
+			<lastCompleteHarvest>2010-08-20T12:12:12.123456</lastCompleteHarvest>
+		</synchronization>
+	</node>
+</d1:nodeList>
