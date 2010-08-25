@@ -9,56 +9,126 @@
     <xs:import namespace="http://dataone.org/service/types/common/0.1" 
         schemaLocation="https://repository.dataone.org/software/cicore/trunk/schemas/common.xsd" />
   
-  <xs:simpleType name="crontabEntryType">
-    <xs:restriction base="xs:string">
-      <xs:pattern value="([\*\d]{1,2}[\-,]?)+"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-    <xs:complexType name="Node">
-      <xs:sequence>
-        <xs:element name="identifier" type="common:NodeReference" minOccurs="1" maxOccurs="1">
+  <xs:complexType name='NodeList'>
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="node" type="Node" minOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="Node">
+   
+    <xs:annotation>
+      <xs:documentation>A unique implementation of the member node or coordination node software
+        stack. several nodes may exist on a single physical device or hostname </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="identifier" type="common:NodeReference" minOccurs="1" maxOccurs="1">
         <xs:annotation>
-        <xs:documentation>A unique identifier for the node.  This may initially 
-        be the same as the baseURL, however this value should not change for 
-        future implementations of the same node, whereas the baseURL may change 
-        in the future.
-        </xs:documentation>
+          <xs:documentation>A unique identifier for the node. This may initially be the same as the
+            baseURL, however this value should not change for future implementations of the same
+            node, whereas the baseURL may change in the future. </xs:documentation>
         </xs:annotation>
-        </xs:element>
-        <xs:element name="name" type="common:NonEmptyString" />
-        <xs:element name="baseURL" type="xs:anyURI"/>
-        <xs:element name="services" type="Services" maxOccurs="1" minOccurs="0"/>
-        <xs:element name="synchronization" type="Synchronization"  minOccurs="0" maxOccurs="1"/>
-      </xs:sequence>
+      </xs:element>
+      <xs:element name="description" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Description of content maintained by this node and any other free style
+            notes. May be we should allow CDATA element with the purpose of using for display
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="baseURL" type="xs:anyURI"/>
+      <xs:element name="services" type="Services" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="synchronization" type="Synchronization" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="health" type="NodeHealth" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The name of the node is being used in Mercury currently to assign a
+            path, so format should be consistent with dataone directory naming conventions
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="name" use="required" type="xs:NMTOKEN" >
+      <xs:annotation>
+        <xs:documentation>A human readable name of the Node. 
+            The name of the node is being used in Mercury currently to assign a path,
+              so format should be consistent with dataone directory naming conventions
+            </xs:documentation>
+          </xs:annotation>
+    </xs:attribute>
       <xs:attribute name="replicate" use="required" type="xs:boolean"/>
       <xs:attribute name="synchronize" use="required" type="xs:boolean"/>
-      <xs:attribute name="type" use="required" type="xs:NCName"/>
-    </xs:complexType>
+    <xs:attribute name="type" use="required" type="xs:NMTOKEN"/>
+
+  </xs:complexType>
 
     <xs:complexType  name="Services">
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" name="service" type="Service" minOccurs="1"/>
+        <xs:element name="service" type="Service" minOccurs="1" maxOccurs="unbounded" />
       </xs:sequence>
     </xs:complexType>
-  <xs:complexType  name="Service">
-    <xs:attribute name="api" use="required" type="xs:NCName"/>
-    <xs:attribute name="available" use="required" type="xs:boolean"/>
-    <xs:attribute name="datechecked" use="required" type="xs:dateTime"/>
-    <xs:attribute name="method" use="required" type="xs:NCName"/>
-    <xs:attribute name="rest" use="required"  type="xs:string"/>
-  </xs:complexType>
   
+  <xs:complexType  name="Service">
+          <xs:annotation>
+            <xs:documentation>Name and version of a DataONE software stack component are
+               equivalent to the statusresponselist.xsd name and version. 
+               (-rpw notes from meeting 9/25/2010, but Component Name and Version is different than
+                Service API name and version!)
+               A process should check  MN_health.getStatus()  periodically and  
+               update the version, availability and dateChecked for each service.
+               May need to update method definitions at same time
+            </xs:documentation>
+          </xs:annotation>
+        <xs:sequence>
+          <xs:element name="method"  type="ServiceMethod" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+          <xs:attribute name="name" type="common:ServiceName" use="required"/>
+          <xs:attribute name="version" type="common:ServiceVersion" use="required"/>
+	  <xs:attribute name="available" type="xs:boolean"/>
+
+  </xs:complexType>
+
+  <xs:complexType  name="ServiceMethod">
+          <xs:annotation>
+            <xs:documentation>Describes individual methods and their rest paths from the version of the API. 
+		Rest paths are relative to the baseURL. 
+		
+                and determine which method has been implemented by hitting the url. 
+                For an MN, calling an un-implemented method of an API version will raise NotImplemented
+            </xs:documentation>
+          </xs:annotation>
+    <xs:attribute name="name" use="required" type="xs:NMTOKEN"/>
+    <xs:attribute name="rest" use="required"  type="xs:NMTOKEN"/>
+    <xs:attribute name="implemented" use="required" type="xs:boolean"/>
+  </xs:complexType>
+
     <xs:complexType name="Synchronization">
+          <xs:annotation>
+            <xs:documentation>The process by which data is pulled from membernodes down to the coordinating node
+            </xs:documentation>
+          </xs:annotation>
       <xs:sequence>
         <xs:element name="schedule" type="Schedule"/>
-        <xs:element name="lastHarvested" type="xs:dateTime"/>
-        <xs:element name="lastCompleteHarvest" type="xs:dateTime"/>
+        <xs:element name="lastHarvested" type="xs:dateTime">
+        <xs:annotation>
+        <xs:documentation>The last time the mn sychronization daemon ran and found new data to synchronize
+        </xs:documentation>
+        </xs:annotation>
+        </xs:element>
+        <xs:element name="lastCompleteHarvest" type="xs:dateTime">
+        <xs:annotation>
+        <xs:documentation>The last time all the data from a node was pulled from a member node
+        </xs:documentation>
+        </xs:annotation>
+        </xs:element>
       </xs:sequence>
     </xs:complexType>
 
   
     <xs:complexType name="Schedule">
+          <xs:annotation>
+            <xs:documentation>The schedule on which MnSynchronization will run for a particular run
+            </xs:documentation>
+          </xs:annotation>
       <xs:attribute name="hour" use="required" type="crontabEntryType"/>
       <xs:attribute name="mday" use="required" type="crontabEntryType"/>
       <xs:attribute name="min" use="required" type="crontabEntryType"/>
@@ -67,13 +137,56 @@
       <xs:attribute name="wday" use="required" type="crontabEntryType"/>
       <xs:attribute name="year" use="required" type="crontabEntryType"/>
     </xs:complexType>
-
-
-    <xs:complexType name='NodeList'>
+    
+    <xs:complexType name="NodeHealth">
+          <xs:annotation>
+            <xs:documentation>The schedule on which MnSynchronization will run for a particular run
+            </xs:documentation>
+          </xs:annotation>
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" name="node" type="Node" minOccurs="1"/>
+        <xs:element name="ping" type="Ping" />
+        <xs:element name="status"   type="Status" />
       </xs:sequence>
+                <xs:attribute name="state" type="NodeState"
+                use="required"/>
+
     </xs:complexType>
+
+    <xs:complexType name="Ping">
+          <xs:annotation>
+            <xs:documentation>Store results from the Mn_Health.ping method
+            </xs:documentation>
+          </xs:annotation>
+	<xs:attribute name="success" type="xs:boolean" />
+	<xs:attribute name="lastSuccess" type="xs:dateTime" />
+    </xs:complexType>
+    
+    <xs:complexType name="Status">
+          <xs:annotation>
+            <xs:documentation>Store last time checked information from the Mn_Health.status method
+             Other information from status will be stored in the Service Node
+             A process should check  MN_health.getStatus()  periodically and  
+             update the version and availability  for each service.
+            </xs:documentation>
+          </xs:annotation>
+	<xs:attribute name="success" type="xs:boolean" />
+	<xs:attribute name="dateChecked" use="required" type="xs:dateTime"/>
+    </xs:complexType>
+    
+    <xs:simpleType name="crontabEntryType">
+      <xs:restriction base="xs:NMTOKEN">
+        <xs:pattern value="([\*\d]{1,2}[\-,]?)+"/>
+      </xs:restriction>
+    </xs:simpleType> 
+    
+    <xs:simpleType name="NodeState">
+      <xs:restriction base="xs:NMTOKEN">
+        <xs:enumeration value="up"/>
+        <xs:enumeration value="down"/>
+        <xs:enumeration value="unknown"/>
+      </xs:restriction>
+    </xs:simpleType>
+
 
   <xs:element name='nodeList' type='NodeList'>
   </xs:element>
