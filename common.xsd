@@ -49,6 +49,16 @@
         <xs:restriction base="NonEmptyString"/>
     </xs:simpleType>
 
+    <!-- ComponentName -->
+    <xs:simpleType name="ServiceName">
+	<xs:restriction base="NonEmptyString"/>
+    </xs:simpleType>
+
+    <!-- ComponentVersion -->
+    <xs:simpleType name="ServiceVersion">
+        <xs:restriction base="NonEmptyString"/>
+    </xs:simpleType>
+
   <xs:simpleType name="ObjectFormat">
         <!-- This should really be a dynamic namespace registry, but for now a simple type will get us started -->
         <xs:restriction base="xs:string">
