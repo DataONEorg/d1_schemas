@@ -32,7 +32,7 @@
             </xs:documentation>
           </xs:annotation>
           </xs:element>
-      <xs:element name="name" type="xs:NMTOKEN" >
+      <xs:element name="name" type="xs:NMTOKEN" minOccurs="1" maxOccurs="1" >
           <xs:annotation>
           <xs:documentation>A human readable name of the Node. 
             The name of the node is being used in Mercury currently to assign a path,
@@ -85,12 +85,13 @@
           </xs:annotation>
         <xs:sequence>
           <xs:element name="method"  type="ServiceMethod" minOccurs="0" maxOccurs="unbounded" />
-          <xs:element name="name" type="common:ServiceName" />
+          <xs:element name="name" type="common:ServiceName" minOccurs="1" maxOccurs="1" />
         </xs:sequence>
           <xs:attribute name="version" type="common:ServiceVersion" use="required"/>
 	  <xs:attribute name="available" type="xs:boolean"/>
 
   </xs:complexType>
+
 
   <xs:complexType  name="ServiceMethod">
         <xs:annotation>
@@ -101,7 +102,7 @@
         </xs:documentation>
         </xs:annotation>
     <xs:sequence>
-      <xs:element name="name" type="xs:NMTOKEN"/>
+      <xs:element name="name" type="xs:NMTOKEN" minOccurs="1" maxOccurs="1" />
     </xs:sequence>
     
     <xs:attribute name="rest" use="required"  type="xs:NMTOKEN"/>
