@@ -84,11 +84,11 @@
             </xs:documentation>
           </xs:annotation>
         <xs:sequence>
-          <xs:element name="method"  type="ServiceMethod" minOccurs="0" maxOccurs="unbounded" />
-          <xs:element name="name" type="common:ServiceName" minOccurs="1" maxOccurs="1" />
-        </xs:sequence>
-          <xs:attribute name="version" type="common:ServiceVersion" use="required"/>
-	  <xs:attribute name="available" type="xs:boolean"/>
+            <xs:element name="name" type="common:ServiceName" minOccurs="1" maxOccurs="1" />
+            <xs:element name="method"  type="ServiceMethod" minOccurs="0" maxOccurs="unbounded" />
+           </xs:sequence>
+        <xs:attribute name="version" type="common:ServiceVersion" use="required"/>
+	    <xs:attribute name="available" type="xs:boolean"/>
 
   </xs:complexType>
 
