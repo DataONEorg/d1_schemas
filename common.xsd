@@ -82,7 +82,7 @@
             <xs:enumeration value="http://www.cuahsi.org/waterML/1.0/"/>
             <xs:enumeration value="http://www.cuahsi.org/waterML/1.1/"/>
             <!-- Dryad -->
-            <xs:enumeration value="DSPACE METS SIP Profile 1.0"/>
+            <xs:enumeration value="http://www.loc.gov/METS/"/>
             
             <!-- Data formats -->
             <xs:enumeration value="netCDF-3"/>
