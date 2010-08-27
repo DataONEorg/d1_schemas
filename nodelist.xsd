@@ -32,7 +32,7 @@
             </xs:documentation>
           </xs:annotation>
           </xs:element>
-      <xs:element name="name" type="xs:NMTOKEN" minOccurs="1" maxOccurs="1" >
+      <xs:element name="name" type="common:NonEmptyString" minOccurs="1" maxOccurs="1" >
           <xs:annotation>
           <xs:documentation>A human readable name of the Node. 
             The name of the node is being used in Mercury currently to assign a path,
@@ -41,7 +41,7 @@
           </xs:annotation>
           </xs:element>
  
-      <xs:element name="description" type="xs:string">
+      <xs:element name="description" type="common:NonEmptyString">
           <xs:annotation>
           <xs:documentation>Description of content maintained by this node and any other free style
             notes. May be we should allow CDATA element with the purpose of using for display
@@ -101,10 +101,8 @@
 		NotImplemented.
         </xs:documentation>
         </xs:annotation>
-    <xs:sequence>
-      <xs:element name="name" type="xs:NMTOKEN" minOccurs="1" maxOccurs="1" />
-    </xs:sequence>
-    
+
+    <xs:attribute name="name"  type="xs:NMTOKEN" />
     <xs:attribute name="rest" use="required"  type="xs:token"/>
     <xs:attribute name="implemented" use="required" type="xs:boolean"/>
     
