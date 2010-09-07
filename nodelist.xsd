@@ -62,9 +62,28 @@
  
      <xs:attribute name="replicate" use="required" type="xs:boolean"/>
     <xs:attribute name="synchronize" use="required" type="xs:boolean"/>
-    <xs:attribute name="type" use="required" type="xs:NMTOKEN"/>
+    <xs:attribute name="type" use="required" type="NodeType"/>
+    <xs:attribute name="environment" use="required" type="Environment"/>
 
   </xs:complexType>
+
+    <xs:simpleType name="Environment">
+      <xs:restriction base="xs:NMTOKEN">
+        <xs:enumeration value="dev"/>
+        <xs:enumeration value="test"/>
+        <xs:enumeration value="staging"/>
+        <xs:enumeration value="prod"/>
+      </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="NodeType">
+      <xs:restriction base="xs:NMTOKEN">
+        <xs:enumeration value="MN"/>
+        <xs:enumeration value="CN"/>
+        <xs:enumeration value="Monitor"/>
+      </xs:restriction>
+    </xs:simpleType>
+
 
     <xs:complexType  name="Services">
       <xs:sequence>
