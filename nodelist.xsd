@@ -63,7 +63,7 @@
      <xs:attribute name="replicate" use="required" type="xs:boolean"/>
     <xs:attribute name="synchronize" use="required" type="xs:boolean"/>
     <xs:attribute name="type" use="required" type="NodeType"/>
-    <xs:attribute name="environment" use="required" type="Environment"/>
+    <xs:attribute name="environment" use="optional" type="Environment"/>
 
   </xs:complexType>
 
@@ -78,8 +78,8 @@
 
     <xs:simpleType name="NodeType">
       <xs:restriction base="xs:NMTOKEN">
-        <xs:enumeration value="MN"/>
-        <xs:enumeration value="CN"/>
+        <xs:enumeration value="mn"/>
+        <xs:enumeration value="cn"/>
         <xs:enumeration value="Monitor"/>
       </xs:restriction>
     </xs:simpleType>
