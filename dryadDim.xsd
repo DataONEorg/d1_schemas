@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.dspace.org/xmlns/dspace/dim"  xmlns:dim="http://www.dspace.org/xmlns/dspace/dim">
+  <xs:element name="dim">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="dim:field"/>
+      </xs:sequence>
+      <xs:attribute name="dspaceType" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="field">
+    <xs:complexType mixed="true">
+      <xs:attribute name="element" use="required" type="xs:NCName"/>
+      <xs:attribute name="language" use="required"/>
+      <xs:attribute name="mdschema" use="required" type="xs:NCName"/>
+      <xs:attribute name="qualifier" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
