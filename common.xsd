@@ -120,4 +120,10 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <xs:complexType name="Slice">
+      <xs:attribute name="count" use="required" type="xs:int"/>
+      <xs:attribute name="start" use="required" type="xs:int"/>
+      <xs:attribute name="total" use="required" type="xs:int"/>
+    </xs:complexType>
+    
 </xs:schema>

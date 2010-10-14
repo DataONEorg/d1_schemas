@@ -21,16 +21,14 @@
 <!--        <xs:attribute name="identifier" use="required" type="common:Identifier"/> -->
     </xs:complexType>
 
-  <xs:complexType name="ObjectList">
-      
-       <xs:sequence>
-        <xs:element name="objectInfo" type="ObjectInfo"
-                    minOccurs="0" maxOccurs="unbounded" />
-       </xs:sequence>
-      <xs:attribute name="count" use="required" type="xs:int"/>
-      <xs:attribute name="start" use="required" type="xs:int"/>
-      <xs:attribute name="total" use="required" type="xs:int"/>
-
+  <xs:complexType name="ObjectList" >
+    <xs:complexContent>
+      <xs:extension base="common:Slice">
+        <xs:sequence>
+          <xs:element name="objectInfo" type="ObjectInfo" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
   </xs:complexType>
 
   <xs:element name="objectList" type="ObjectList" />
