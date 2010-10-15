@@ -8,6 +8,14 @@
 	<xs:import namespace="http://dataone.org/service/types/common/0.5"
 		schemaLocation="https://repository.dataone.org/software/cicore/trunk/schemas/common.xsd" />
 
+    <xs:complexType name="Component">
+	  <xs:annotation>
+		<xs:documentation>Name and version of a DataONE software stack component.
+		</xs:documentation>
+	  </xs:annotation>
+	  <xs:attribute name="name" type="common:ComponentName" use="required"/>
+	  <xs:attribute name="version" type="common:ComponentVersion" use="required"/>
+    </xs:complexType>
 	<xs:complexType name="ComponentList">
 		<xs:annotation>
 			<xs:documentation>An ComponentList is the structure returned
@@ -16,16 +24,7 @@
 			</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-      <xs:element name="Component">
-        <xs:complexType>
-          <xs:annotation>
-            <xs:documentation>Name and version of a DataONE software stack component.
-            </xs:documentation>
-          </xs:annotation>
-          <xs:attribute name="name" type="common:ComponentName" use="required"/>
-          <xs:attribute name="version" type="common:ComponentVersion" use="required"/>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="component" type="Component"/>
 		</xs:sequence>
 	</xs:complexType>
 
