@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns="http://dataone.org/service/types/ObjectLocationList/0.1"
-	version="0.1" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://dataone.org/service/types/ObjectLocationList/0.1"
-	xmlns:common="http://dataone.org/service/types/common/0.1"
+<xs:schema xmlns="http://dataone.org/service/types/ObjectLocationList/0.5"
+	version="0.5" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://dataone.org/service/types/ObjectLocationList/0.5"
+	xmlns:common="http://dataone.org/service/types/common/0.5"
 	elementFormDefault="unqualified" attributeFormDefault="unqualified">
 	
-	<xs:import namespace="http://dataone.org/service/types/common/0.1"
+	<xs:import namespace="http://dataone.org/service/types/common/0.5"
 		schemaLocation="https://repository.dataone.org/software/cicore/trunk/schemas/common.xsd" />
 
 	<xs:complexType name="ObjectLocation">
