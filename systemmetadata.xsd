@@ -40,19 +40,27 @@
             <xs:element name="blockedMemberNode" type="common:NodeReference"
                 minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
-
-        <xs:attribute name="replicationAllowed">
-            <xs:simpleType>
-                <xs:restriction base="xs:string">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-
+        <xs:attribute name="replicationAllowed" type="xs:boolean" />
         <xs:attribute name="numberReplicas" type="xs:int"/>
     </xs:complexType>
+    
+    <xs:simpleType name="ReplicationStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="queued"/>
+			<xs:enumeration value="requested"/>
+			<xs:enumeration value="completed"/>
+			<xs:enumeration value="invalidated"/>
+		</xs:restriction>
+    </xs:simpleType>
 
+    <xs:complexType name="Replica">
+		<xs:sequence>
+			<xs:element name="replicaMemberNode" type="common:NodeReference"/>
+			<xs:element name="replicationStatus" type="ReplicationStatus" />
+			<xs:element name="replicaVerified" type="xs:dateTime"/>
+		</xs:sequence>
+    </xs:complexType>
+    
     <!-- Definition of the SystemMetdata element -->
         <xs:complexType name="SystemMetadata">
             <xs:sequence>
@@ -89,24 +97,7 @@
 
                 <xs:element name="originMemberNode" type="common:NodeReference"/>
                 <xs:element name="authoritativeMemberNode" type="common:NodeReference"/>
-                <xs:element name="replica" maxOccurs="unbounded" minOccurs="0">
-                    <xs:complexType>
-                        <xs:sequence>
-                            <xs:element name="replicaMemberNode" type="common:NodeReference"/>
-                            <xs:element name="replicationStatus">
-                                <xs:simpleType>
-                                    <xs:restriction base="xs:string">
-                                        <xs:enumeration value="queued"/>
-                                        <xs:enumeration value="requested"/>
-                                        <xs:enumeration value="completed"/>
-                                        <xs:enumeration value="invalidated"/>
-                                    </xs:restriction>
-                                </xs:simpleType>
-                            </xs:element>
-                            <xs:element name="replicaVerified" type="xs:dateTime"/>
-                        </xs:sequence>
-                    </xs:complexType>
-                </xs:element>
+                <xs:element name="replica" maxOccurs="unbounded" minOccurs="0" type="Replica" />
 
             </xs:sequence>
         </xs:complexType>
