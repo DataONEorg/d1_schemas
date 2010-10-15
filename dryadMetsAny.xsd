@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" attributeFormDefault="unqualified" targetNamespace="http://www.loc.gov/METS/" xmlns:mets="http://www.loc.gov/METS/" xmlns:xlink="http://www.w3.org/TR/xlink/" xmlns:dim="http://www.dspace.org/xmlns/dspace/dim">
-  <xs:import namespace="http://www.dspace.org/xmlns/dspace/dim" schemaLocation="https://repository.dataone.org/software/cicore/tags/D1_SCHEMA_0_4/dryadDim.xsd"/>
-  <xs:import namespace="http://www.w3.org/TR/xlink/" schemaLocation="https://repository.dataone.org/software/cicore/tags/D1_SCHEMA_0_4/dryadXlink.xsd"/>
+  <xs:import namespace="http://www.dspace.org/xmlns/dspace/dim" schemaLocation="https://repository.dataone.org/software/cicore/trunk/schemas/dryadDim.xsd"/>
+  <xs:import namespace="http://www.w3.org/TR/xlink/" schemaLocation="https://repository.dataone.org/software/cicore/trunk/schemas/dryadXlink.xsd"/>
   <xs:element name="METS">
     <xs:complexType>
       <xs:sequence>
