@@ -1,57 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns="http://dataone.org/service/types/ObjectLocationList/0.5"
-	version="0.5" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://dataone.org/service/types/ObjectLocationList/0.5"
-	xmlns:common="http://dataone.org/service/types/common/0.5"
-	elementFormDefault="unqualified" attributeFormDefault="unqualified">
-	
-	<xs:import namespace="http://dataone.org/service/types/common/0.5"
-		schemaLocation="https://repository.dataone.org/software/cicore/trunk/schemas/common.xsd" />
-
-	<xs:complexType name="ObjectLocation">
-		<xs:sequence>
-			<xs:element name="nodeIdentifier" type="common:Identifier"
-				minOccurs="1" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>Identifier of the node (the same identifier used
-						in the node registry for identifying the node.
+	   version="0.5" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	   targetNamespace="http://dataone.org/service/types/ObjectLocationList/0.5"
+	   xmlns:common="http://dataone.org/service/types/common/0.5"
+	   elementFormDefault="unqualified" attributeFormDefault="unqualified">
+  
+  <xs:import namespace="http://dataone.org/service/types/common/0.5"
+	     schemaLocation="https://repository.dataone.org/software/cicore/trunk/schemas/common.xsd" />
+  
+  <xs:complexType name="ObjectLocation">
+    <xs:sequence>
+      <xs:element name="nodeIdentifier" type="common:Identifier"
+		  minOccurs="1" maxOccurs="1">
+	<xs:annotation>
+	  <xs:documentation>Identifier of the node (the same identifier used
+	    in the node registry for identifying the node.
           </xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="url" minOccurs="1" maxOccurs="1" type="xs:anyURI">
-				<xs:annotation>
-					<xs:documentation>The full (absolute) URL that can be used to
-						retrieve the object using the get() method of the rest interface.
-					</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:sequence>
-	</xs:complexType>
-
-	<xs:complexType name="ObjectLocationList">
-		<xs:annotation>
-			<xs:documentation>An ObjectLocationList is the structure returned
-				from the resolve() method of the CN REST interface. It provides a
-				list of locations from which the specified object can be retrieved.
-			</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="identifier" type="common:Identifier"
-				minOccurs="1" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>The identifier of the object being resolved.
-					</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="objectLocation" type="ObjectLocation"
-				minOccurs="0" maxOccurs="unbounded">
-				<xs:annotation>
-					<xs:documentation>List of nodes from which the object can be
-						retrieved</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:sequence>
-	</xs:complexType>
-
-	<xs:element name="objectLocationList" type="ObjectLocationList" />
+	</xs:annotation>
+      </xs:element>
+      <xs:element name="baseURL" minOccurs="1" maxOccurs="1" type="xs:anyURI">
+	<xs:annotation>
+	  <xs:documentation>The current base URL for services implemented on the target node.
+	  </xs:documentation>
+	</xs:annotation>
+      </xs:element>
+      <xs:element name="url" minOccurs="1" maxOccurs="1" type="xs:anyURI">
+	<xs:annotation>
+	  <xs:documentation>The full (absolute) URL that can be used to
+	    retrieve the object using the get() method of the rest interface.
+	  </xs:documentation>
+	</xs:annotation>
+      </xs:element>
+      <xs:element name="preference" minOccurs="0" maxOccurs="1" type="xs:integer">
+	<xs:annotation>
+	  <xs:documentation>A weighting parameter that provides a hint to the caller 
+	    for the relative preference for nodes from which the content should be retrieved.
+	  </xs:documentation>
+	</xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="ObjectLocationList">
+    <xs:annotation>
+      <xs:documentation>An ObjectLocationList is the structure returned
+	from the resolve() method of the CN REST interface. It provides a
+	list of locations from which the specified object can be retrieved.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="identifier" type="common:Identifier"
+		  minOccurs="1" maxOccurs="1">
+	<xs:annotation>
+	  <xs:documentation>The identifier of the object being resolved.
+	  </xs:documentation>
+	</xs:annotation>
+      </xs:element>
+      <xs:element name="objectLocation" type="ObjectLocation"
+		  minOccurs="0" maxOccurs="unbounded">
+	<xs:annotation>
+	  <xs:documentation>List of nodes from which the object can be
+	    retrieved</xs:documentation>
+	</xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:element name="objectLocationList" type="ObjectLocationList" />
 </xs:schema>
