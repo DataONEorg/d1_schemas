@@ -125,6 +125,7 @@
       <xs:attribute name="start" use="required" type="xs:int"/>
       <xs:attribute name="total" use="required" type="xs:int"/>
     </xs:complexType>
+    
     <xs:element name="identifier" type="Identifier"  />
-    <xs:element name="checksum" type="Checksum" />			
+		
 </xs:schema>
