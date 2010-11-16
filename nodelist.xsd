@@ -7,7 +7,7 @@
   elementFormDefault="unqualified" attributeFormDefault="unqualified">
   <!-- A derived string type with at least length 1 and it must contain digits-->
     <xs:import namespace="http://dataone.org/service/types/common/0.5" 
-        schemaLocation="https://repository.dataone.org/software/cicore/trunk/schemas/common.xsd" />
+        schemaLocation="https://repository.dataone.org/software/cicore/trunk/d1_schemas/common.xsd" />
   
   <xs:complexType name='NodeList'>
     <xs:sequence>

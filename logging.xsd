@@ -6,7 +6,7 @@
     targetNamespace="http://dataone.org/service/types/logging/0.5"
     elementFormDefault="unqualified" attributeFormDefault="unqualified">
     <xs:import namespace="http://dataone.org/service/types/common/0.5"
-        schemaLocation="https://repository.dataone.org/software/cicore/trunk/schemas/common.xsd" />
+        schemaLocation="https://repository.dataone.org/software/cicore/trunk/d1_schemas/common.xsd" />
     
     <!-- TODO: Discuss the namespace for this document, and pick an effective, versioned URI for the namespace -->
 
