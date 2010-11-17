@@ -18,7 +18,7 @@
   $tag=~s/\./\_/;
   my $tag_svn_url= $repository_url . "tags/" . $tag;
 
-  my $trunk_url = $repository_url . "trunk/schemas";
+  my $trunk_url = $repository_url . "trunk/d1_schemas";
 
   open(SVN_MKDIR, "/usr/bin/svn copy $trunk_url $tag_svn_url -m \"Creating new branch for schema version $version\" |") || die "can't fork: $!";
 
