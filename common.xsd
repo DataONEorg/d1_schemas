@@ -13,11 +13,16 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <!-- Identifier -->
+    <!-- Identifier 
     <xs:simpleType name="Identifier">
         <xs:restriction base="NonEmptyString"/>
-    </xs:simpleType>
-    
+        </xs:simpleType> -->
+    <xs:complexType name="Identifier">
+        <xs:simpleContent>
+            <xs:extension base="NonEmptyString">
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
     <!-- NodeReference -->
     <xs:simpleType name="NodeReference">
         <xs:restriction base="NonEmptyString"/>
