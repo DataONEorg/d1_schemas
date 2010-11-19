@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema  targetNamespace="http://dataone.org/service/types/0.5.1"
+    xmlns:d1="http://dataone.org/service/types/0.5.1"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    version="0.5"
+    elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+<!-- ************************************
+        DEFINE REUSABLE SIMPLE TYPES HERE 
+        ************************************ -->
+    
+    <!-- Checksum Algorithm -->
+    <xs:simpleType name="ChecksumAlgorithm">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SHA-1"/>
+            <xs:enumeration value="SHA-224"/>
+            <xs:enumeration value="SHA-256"/>
+            <xs:enumeration value="SHA-384"/>
+            <xs:enumeration value="SHA-512"/>
+            <xs:enumeration value="MD5"/>
+        </xs:restriction>
+    </xs:simpleType> 
+    
+    <!-- ComponentName -->
+    <xs:simpleType name="ComponentName">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Apache"/>
+            <xs:enumeration value="CoordinatingNode"/>
+            <xs:enumeration value="Django"/>
+            <xs:enumeration value="LinuxUbuntu"/>
+            <xs:enumeration value="LinuxDebian"/>
+            <xs:enumeration value="MemberNode"/>
+            <xs:enumeration value="Mercury"/>
+            <xs:enumeration value="Metacat"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <!-- ComponentVersion -->
+    <xs:simpleType name="ComponentVersion">
+        <xs:restriction base="d1:NonEmptyString"/>
+    </xs:simpleType>
+    
+    <!-- crontrabEntry -->
+    <xs:simpleType name="CrontabEntry">
+        <xs:restriction base="xs:token">
+            <xs:pattern value="([\*\d]{1,2}[\-,]?)+"/>
+        </xs:restriction>
+    </xs:simpleType> 
+    
+    <!-- Event Enumeration -->
+    <xs:simpleType name="Event">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="create"/>
+            <xs:enumeration value="read"/>
+            <xs:enumeration value="update"/>
+            <xs:enumeration value="delete"/>
+            <xs:enumeration value="replicate"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <!-- Environment Enumeration -->
+    <xs:simpleType name="Environment">
+        <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="dev"/>
+            <xs:enumeration value="test"/>
+            <xs:enumeration value="staging"/>
+            <xs:enumeration value="prod"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <!-- Node State -->
+    <xs:simpleType name="NodeState">
+        <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="up"/>
+            <xs:enumeration value="down"/>
+            <xs:enumeration value="unknown"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <!-- NodeReference -->
+    <xs:simpleType name="NodeReference">
+        <xs:restriction base="d1:NonEmptyString"/>
+    </xs:simpleType>
+    
+    <!-- Node Type Enumeration -->
+    <xs:simpleType name="NodeType">
+        <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="mn"/>
+            <xs:enumeration value="cn"/>
+            <xs:enumeration value="Monitor"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <!-- A derived string type with at least length 1 and it must contain non-whitespace -->
+    <xs:simpleType name="NonEmptyString">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:pattern value="[\s]*[\S][\s\S]*"/>
+        </xs:restriction>
+    </xs:simpleType>  
+    <xs:simpleType name="ObjectFormat">
+        <!-- This should really be a dynamic namespace registry, but for now a simple type will get us started -->
+        <xs:restriction base="xs:string">
+            <!-- Metadata specifications -->
+            <xs:enumeration value="eml://ecoinformatics.org/eml-2.0.0"/>
+            <xs:enumeration value="eml://ecoinformatics.org/eml-2.0.1"/>
+            <xs:enumeration value="eml://ecoinformatics.org/eml-2.1.0"/>
+            <xs:enumeration value="FGDC-STD-001.1-1999"/>
+            <!-- FGDC BDP -->
+            <xs:enumeration value="FGDC-STD-001-1998"/>
+            <!-- FGDC CSDGM -->
+            <xs:enumeration value="INCITS 453-2009"/>
+            <!-- NAP of ISO 19115 -->
+            <xs:enumeration value="http://www.unidata.ucar.edu/namespaces/netcdf/ncml-2.2"/>
+            <!-- NcML -->
+            <xs:enumeration value="CF-1.0"/>
+            <xs:enumeration value="CF-1.1"/>
+            <xs:enumeration value="CF-1.2"/>
+            <xs:enumeration value="CF-1.3"/>
+            <xs:enumeration value="CF-1.4"/>
+            <xs:enumeration value="http://www.cuahsi.org/waterML/1.0/"/>
+            <xs:enumeration value="http://www.cuahsi.org/waterML/1.1/"/>
+            <!-- Dryad -->
+            <xs:enumeration value="http://www.loc.gov/METS/"/>
+            
+            <!-- Data formats -->
+            <xs:enumeration value="netCDF-3"/>
+            <!-- NetCDF Classic and 64-bit offset formats -->
+            <xs:enumeration value="netCDF-4"/>
+            <!-- NetCDF-4 and netCDF-4 classic model formats -->
+            <xs:enumeration value="text/plain" />
+            <xs:enumeration value="text/csv"/>
+            <xs:enumeration value="image/gif"/>
+            <xs:enumeration value="http://rs.tdwg.org/dwc/xsd/simpledarwincore/"/>
+            <!-- DwC current schema standard -->
+            <xs:enumeration value="http://digir.net/schema/conceptual/darwin/2003/1.0/darwin2.xsd"/>
+            <!--  CLASSIC -->
+            <xs:enumeration value="application/octet-stream"/>
+        </xs:restriction>
+    </xs:simpleType>
+ 
+    <!-- Principal = user identity -->
+    <xs:simpleType name="Principal">
+        <xs:restriction base="d1:NonEmptyString"/>
+    </xs:simpleType>
+    
+    <!-- Replication Status enumeration -->
+    <xs:simpleType name="ReplicationStatus">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="queued"/>
+            <xs:enumeration value="requested"/>
+            <xs:enumeration value="completed"/>
+            <xs:enumeration value="invalidated"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <!-- Identifier Format enumeration -->
+    <xs:simpleType name="IdentifierFormat">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="OID"/>
+            <xs:enumeration value="LSID"/>
+            <xs:enumeration value="UUID"/>
+            <xs:enumeration value="LSRN"/>
+            <xs:enumeration value="DOI"/>
+            <xs:enumeration value="URI"/>
+            <xs:enumeration value="STRING"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Service Name -->
+    <xs:simpleType name="ServiceName">
+        <xs:restriction base="d1:NonEmptyString"/>
+    </xs:simpleType>
+    
+    
+    <!-- Service Version -->
+    <xs:simpleType name="ServiceVersion">
+        <xs:restriction base="d1:NonEmptyString"/>
+    </xs:simpleType>
+    
+
+
+    <!-- ***************************************
+            DEFINE REUSABLE COMPLEX  TYPES HERE 
+            *************************************** -->
+    
+    <!-- NOTE THAT ALL SERIALIZEABLE ROOT ELEMENTS FOR MESSAGES SHOULD BE OF A COMPLEX TYPE -->
+    
+    <!-- Access Rule -->
+    <xs:complexType name="AccessRule">
+        <xs:attribute name="rule">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="allow"/>
+                    <xs:enumeration value="deny"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        
+        <xs:attribute name="service">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="read"/>
+                    <xs:enumeration value="write"/>
+                    <xs:enumeration value="changePermission"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        
+        <xs:attribute name="principal" type="d1:Principal"/>
+    </xs:complexType>
+    
+    <!-- Checksum -->
+    <xs:complexType name="Checksum">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="algorithm" type="d1:ChecksumAlgorithm"
+                    use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+  
+    <!-- Componenet -->
+    <xs:complexType name="Component">
+        <xs:annotation>
+            <xs:documentation>Name and version of a DataONE software stack component.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="name" type="d1:ComponentName" use="required"/>
+        <xs:attribute name="version" type="d1:ComponentVersion" use="required"/>
+    </xs:complexType>
+    
+    <!-- Component List -->
+    <xs:complexType name="ComponentList">
+        <xs:annotation>
+            <xs:documentation>An ComponentList is the structure returned
+                from the version() method. It provides a list of DataONE software stack
+                components and their corresponding version numbers.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="component" type="d1:Component"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- Identifier  -->
+    <xs:complexType name="Identifier">
+        <xs:simpleContent>
+            <xs:extension base="d1:NonEmptyString">
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    
+    <!-- Log Entry -->
+    <xs:complexType name="LogEntry">
+        <xs:sequence>
+            <xs:element name="entryId" type="d1:Identifier" 
+                minOccurs="1" maxOccurs="1"/>
+            <xs:element name="identifier" type="d1:Identifier" 
+                minOccurs="1" maxOccurs="1"/>
+            <xs:element name="ipAddress" type="xs:string"
+                minOccurs="1" maxOccurs="1"/>
+            <xs:element name="userAgent" type="xs:string"
+                minOccurs="1" maxOccurs="1"/>
+            <xs:element name="principal" type="d1:Principal"
+                minOccurs="1" maxOccurs="1"/>
+            <xs:element name="event" type="d1:Event"
+                minOccurs="1" maxOccurs="1"/>
+            <xs:element name="dateLogged" type="xs:dateTime"
+                minOccurs="1" maxOccurs="1"/>
+            <xs:element name="memberNode" type="d1:NodeReference"
+                minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- Monitor Info -->
+    <xs:complexType name="MonitorInfo">
+        <xs:sequence>
+            <xs:element name="date" type="xs:date" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="count" type="xs:int" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- Monitor List -->
+    <xs:complexType name="MonitorList">
+        <xs:sequence>
+            <xs:element name="monitorInfo" type="d1:MonitorInfo" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- Node -->
+    <xs:complexType name="Node">
+        <xs:annotation>
+            <xs:documentation>
+                A unique implementation of the member node or coordination node software
+                stack. several nodes may exist on a single physical device or hostname 
+            </xs:documentation>
+        </xs:annotation>
+        
+        <xs:sequence>
+            <xs:element name="identifier" type="d1:NodeReference" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>A unique identifier for the node. This may initially be the same as the
+                        baseURL, however this value should not change for future implementations of the same
+                        node, whereas the baseURL may change in the future. 
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="name" type="d1:NonEmptyString" minOccurs="1" maxOccurs="1" >
+                <xs:annotation>
+                    <xs:documentation>A human readable name of the Node. 
+                        The name of the node is being used in Mercury currently to assign a path,
+                        so format should be consistent with dataone directory naming conventions
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            
+            <xs:element name="description" type="d1:NonEmptyString">
+                <xs:annotation>
+                    <xs:documentation>Description of content maintained by this node and any other free style
+                        notes. May be we should allow CDATA element with the purpose of using for display
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="baseURL" type="xs:anyURI"/>
+            <xs:element name="services" type="d1:Services" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="synchronization" type="d1:Synchronization" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="health" type="d1:NodeHealth" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>The name of the node is being used in Mercury currently to assign a
+                        path, so format should be consistent with dataone directory naming conventions
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        
+        <xs:attribute name="replicate" use="required" type="xs:boolean"/>
+        <xs:attribute name="synchronize" use="required" type="xs:boolean"/>
+        <xs:attribute name="type" use="required" type="d1:NodeType"/>
+        <xs:attribute name="environment" use="optional" type="d1:Environment"/>
+        
+    </xs:complexType>
+    
+    <!-- Node Health -->
+    <xs:complexType name="NodeHealth">
+        <xs:annotation>
+            <xs:documentation>The schedule on which MnSynchronization will run for a particular run
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="ping" type="d1:Ping" />
+            <xs:element name="status"   type="d1:Status" />
+        </xs:sequence>
+        
+        <xs:attribute name="state" type="d1:NodeState" use="required"/>
+    </xs:complexType>
+    
+    <!-- Node List -->  
+    <xs:complexType name='NodeList'>
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="node" type="d1:Node" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- Object Info -->
+    <xs:complexType name="ObjectInfo">
+        <xs:sequence>
+            <xs:element name="identifier"  type="d1:Identifier" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="objectFormat" type="d1:ObjectFormat"/>
+            <xs:element name="checksum" type="d1:Checksum"
+                minOccurs="1" maxOccurs="1" />
+            <xs:element name="dateSysMetadataModified" type="xs:dateTime"/>
+            <xs:element name="size" type="xs:long"/>
+            
+        </xs:sequence>
+        <!--        <xs:attribute name="identifier" use="required" type="common:Identifier"/> -->
+    </xs:complexType>
+    
+    <!-- Object List -->
+    <xs:complexType name="ObjectList" >
+        <xs:complexContent>
+            <xs:extension base="d1:Slice">
+                <xs:sequence>
+                    <xs:element name="objectInfo" type="d1:ObjectInfo" minOccurs="0" maxOccurs="unbounded" />
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <!-- Object Location -->
+    <xs:complexType name="ObjectLocation">
+        <xs:sequence>
+            <xs:element name="nodeIdentifier" type="d1:Identifier"
+                minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Identifier of the node (the same identifier used
+                        in the node registry for identifying the node.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="baseURL" minOccurs="1" maxOccurs="1" type="xs:anyURI">
+                <xs:annotation>
+                    <xs:documentation>The current base URL for services implemented on the target node.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="url" minOccurs="1" maxOccurs="1" type="xs:anyURI">
+                <xs:annotation>
+                    <xs:documentation>The full (absolute) URL that can be used to
+                        retrieve the object using the get() method of the rest interface.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="preference" minOccurs="0" maxOccurs="1" type="xs:integer">
+                <xs:annotation>
+                    <xs:documentation>A weighting parameter that provides a hint to the caller 
+                        for the relative preference for nodes from which the content should be retrieved.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- Object Location List -->
+    <xs:complexType name="ObjectLocationList">
+        <xs:annotation>
+            <xs:documentation>An ObjectLocationList is the structure returned
+                from the resolve() method of the CN REST interface. It provides a
+                list of locations from which the specified object can be retrieved.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="identifier" type="d1:Identifier"
+                minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>The identifier of the object being resolved.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="objectLocation" type="d1:ObjectLocation"
+                minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>List of nodes from which the object can be
+                        retrieved</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- Ping -->
+    <xs:complexType name="Ping">
+        <xs:annotation>
+            <xs:documentation>Store results from the Mn_Health.ping method
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="success" type="xs:boolean" />
+        <xs:attribute name="lastSuccess" type="xs:dateTime" />
+    </xs:complexType>
+    
+    <!-- Replica -->
+    <xs:complexType name="Replica">
+        <xs:sequence>
+            <xs:element name="replicaMemberNode" type="d1:NodeReference"/>
+            <xs:element name="replicationStatus" type="d1:ReplicationStatus" />
+            <xs:element name="replicaVerified" type="xs:dateTime"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    
+   <!-- Replication Policy -->
+    <xs:complexType name="ReplicationPolicy">
+        <xs:sequence>
+            <xs:element name="preferredMemberNode" type="d1:NodeReference"
+                minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="blockedMemberNode" type="d1:NodeReference"
+                minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="replicationAllowed" type="xs:boolean" />
+        <xs:attribute name="numberReplicas" type="xs:int"/>
+    </xs:complexType>
+    
+    <!-- Service -->
+    <xs:complexType  name="Service">
+        <xs:annotation>
+            <xs:documentation>Name and version of a DataONE software stack component are
+                equivalent to the statusresponselist.xsd name and version. 
+                (-rpw notes from meeting 9/25/2010, but Component Name and Version is different than
+                Service API name and version!)
+                A process should check  MN_health.getStatus()  periodically and  
+                update the version, availability and dateChecked for each service.
+                May need to update method definitions at same time
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="name" type="d1:ServiceName" minOccurs="1" maxOccurs="1" />
+            <xs:element name="method"  type="d1:ServiceMethod" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="version" type="d1:ServiceVersion" use="required"/>
+        <xs:attribute name="available" type="xs:boolean"/>
+        
+    </xs:complexType>
+    
+    <!-- Service Method -->
+    <xs:complexType  name="ServiceMethod">
+        <xs:annotation>
+            <xs:documentation>Describes individual methods and their rest paths from the version of the API. 
+                Rest paths are relative to the baseURL, and determine which method has been implemented by
+                hitting the url. For an MN, calling an un-implemented method of an API version will raise
+                NotImplemented.
+            </xs:documentation>
+        </xs:annotation>
+        
+        <xs:attribute name="name"  type="xs:NMTOKEN" />
+        <xs:attribute name="rest" use="required"  type="xs:token"/>
+        <xs:attribute name="implemented" use="required" type="xs:boolean"/>
+        
+    </xs:complexType>
+    
+    <!-- Services -->
+    <xs:complexType  name="Services">
+        <xs:sequence>
+            <xs:element name="service" type="d1:Service" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- Schedule -->
+    <xs:complexType name="Schedule">
+        <xs:annotation>
+            <xs:documentation>The schedule on which MnSynchronization will run for a particular run
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="hour" use="required" type="d1:CrontabEntry"/>
+        <xs:attribute name="mday" use="required" type="d1:CrontabEntry"/>
+        <xs:attribute name="min"  use="required" type="d1:CrontabEntry"/>
+        <xs:attribute name="mon"  use="required" type="d1:CrontabEntry"/>
+        <xs:attribute name="sec"  use="required" type="d1:CrontabEntry"/>
+        <xs:attribute name="wday" use="required" type="d1:CrontabEntry"/>
+        <xs:attribute name="year" use="required" type="d1:CrontabEntry"/>
+    </xs:complexType>
+    
+    <!-- Slice -->
+    <xs:complexType name="Slice">
+        <xs:attribute name="count" use="required" type="xs:int"/>
+        <xs:attribute name="start" use="required" type="xs:int"/>
+        <xs:attribute name="total" use="required" type="xs:int"/>
+    </xs:complexType>
+    
+    <!-- Status -->
+    <xs:complexType name="Status">
+        <xs:annotation>
+            <xs:documentation>Store last time checked information from the Mn_Health.status method
+                Other information from status will be stored in the Service Node
+                A process should check  MN_health.getStatus()  periodically and  
+                update the version and availability  for each service.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="success" type="xs:boolean" />
+        <xs:attribute name="dateChecked" use="required" type="xs:dateTime"/>
+    </xs:complexType>
+    
+    <!-- Synchronization -->
+    <xs:complexType name="Synchronization">
+        <xs:annotation>
+            <xs:documentation>The process by which data is pulled from membernodes down
+                to the coordinating node
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="schedule" type="d1:Schedule"/>
+            <xs:element name="lastHarvested" type="xs:dateTime">
+                <xs:annotation>
+                    <xs:documentation>The last time the mn sychronization daemon ran and found new data to synchronize
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="lastCompleteHarvest" type="xs:dateTime">
+                <xs:annotation>
+                    <xs:documentation>The last time all the data from a node was pulled from a member node
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- Definition of the SystemMetdata element -->
+    <xs:complexType name="SystemMetadata">
+        <xs:sequence>
+            <!-- Client Provided system metadata fields -->
+            <xs:element name="identifier" type="d1:Identifier" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="objectFormat" type="d1:ObjectFormat"/>
+            <xs:element name="size" type="xs:long"/>
+            <xs:element name="submitter" type="d1:Principal"/>
+            <xs:element name="rightsHolder" type="d1:Principal"/>
+            
+            <!-- Client provided relationship fields -->
+            <xs:element name="obsoletes" type="d1:Identifier" minOccurs="0"
+                maxOccurs="unbounded"/>
+            <xs:element name="obsoletedBy" type="d1:Identifier" minOccurs="0"
+                maxOccurs="unbounded"/>
+            <xs:element name="derivedFrom" type="d1:Identifier" minOccurs="0"
+                maxOccurs="unbounded"/>
+            <xs:element name="describes" type="d1:Identifier" minOccurs="0"
+                maxOccurs="unbounded"/>
+            <xs:element name="describedBy" type="d1:Identifier" minOccurs="0"
+                maxOccurs="unbounded"/>
+            <xs:element name="checksum" type="d1:Checksum"
+                minOccurs="1" maxOccurs="1" />
+            <xs:element name="embargoExpires" type="xs:dateTime"
+                minOccurs="0"/>
+            <xs:element name="accessRule" type="d1:AccessRule"
+                minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="replicationPolicy" type="d1:ReplicationPolicy"
+                minOccurs="0" maxOccurs="1" />
+            
+            <!-- Fields provided by Member Node and Coordinating Node -->
+            <xs:element name="dateUploaded" type="xs:dateTime"/>
+            <xs:element name="dateSysMetadataModified" type="xs:dateTime"/>
+            
+            <xs:element name="originMemberNode" type="d1:NodeReference"/>
+            <xs:element name="authoritativeMemberNode" type="d1:NodeReference"/>
+            <xs:element name="replica" maxOccurs="unbounded" minOccurs="0" type="d1:Replica" />
+            
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- ******************************************
+            DEFINE ROOT ELEMENTS OF MESSAGES HERE 
+            ****************************************** -->
+    <!-- NOTE THAT ALL SERIALIZEABLE ROOT ELEMENTS FOR MESSAGES SHOULD BE OF A COMPLEX TYPE -->   
+    
+    <!-- checksum root element for Checksum messages-->
+    <xs:element name="checksum" type="d1:Checksum" />
+    
+    <xs:element name="componentList" type="d1:ComponentList" />
+    
+    <!-- identifier root element for Identifier messages -->
+    <xs:element name="identifier" type="d1:Identifier" />
+    
+    <!-- Definition of the Logging element -->
+    <xs:element name="log">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="d1:Slice">
+                    <xs:sequence>
+                        <xs:element name="logEntry" type="d1:LogEntry"
+                            minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="monitorList" type="d1:MonitorList" />
+    
+    <xs:element name='nodeList' type="d1:NodeList"/>
+    
+    <xs:element name="objectList" type="d1:ObjectList" />
+    
+    <xs:element name="objectLocationList" type="d1:ObjectLocationList" />
+    
+    <xs:element name="systemMetadata" type="d1:SystemMetadata" />
+    
+</xs:schema>
