@@ -11,11 +11,12 @@
   die "Must have a /tmp directory for subversion to manipulate" unless (-d $tmp_dir);
 
   my $ok = GetOptions(\%Options, "version=s");
-  die("Specify a new version with --version major.minor") unless ($ok && $Options{version} =~ /\d+\.\d+/);
+
+  die("Specify a new version with --version major.minor[.maintenance]") unless ($ok && $Options{version} =~ /\d+\.\d+\.?\d*/);
   my $version=$Options{version};
 
   my $tag = "D1_SCHEMA_" . $version;
-  $tag=~s/\./\_/;
+  $tag=~s/\./\_/g;
   my $tag_svn_url= $repository_url . "tags/" . $tag;
 
   my $trunk_url = $repository_url . "trunk/d1_schemas";
@@ -42,7 +43,7 @@
 
 
   chdir "${tmp_dir}/${tag}";
-  my @files = glob("*.xsd");
+  my @files = glob("*Types.xsd");
   foreach my $file (@files) 
     {
     my $old = $file;
