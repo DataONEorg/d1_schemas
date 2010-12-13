@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ap:accessPolicy
+    xmlns:ap="http://dataone.org/service/types/AccessPolicy/0.5"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!-- Let Alice read and write, and any AuthenticatedUser read -->
+    <allow>
+        <principal>/C=US/O=SomeIdP/CN=Alice</principal>
+        <permission>read</permission>
+        <permission>write</permission>
+        <resource>doi:10.0000/example_resource_id</resource>
+    <allow>
+    <allow>
+        <principal>/C=US/O=DataONE/CN=AuthenticatedUser</principal>
+        <permission>read</permission>
+        <resource>doi:10.0000/example_resource_id</resource>
+    <allow>
+
+    <!-- Let members of DataManagerGroup read and write, and any Public user
+         Read, but deny Bob (a member of DataManagerGroup) write access -->
+    <allow>
+        <principal>/C=US/O=SomeIdP/CN=DataManagerGroup</principal>
+        <permission>read</permission>
+        <permission>write</permission>
+        <resource>urn:lsid:example.org:data:example_resource_id:1</resource>
+    <allow>
+    <allow>
+        <principal>/C=US/O=DataONE/CN=Public</principal>
+        <permission>read</permission>
+        <resource>urn:lsid:example.org:data:example_resource_id:1</resource>
+    <allow>
+    <deny>
+        <principal>/C=US/O=AnotherIdP/CN=Bob</principal>
+        <permission>write</permission>
+        <resource>urn:lsid:example.org:data:example_resource_id:1</resource>
+    <deny>
+
+</ap:accessPolicy>
