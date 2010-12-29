@@ -14,7 +14,6 @@
   <xs:complexType name="AccessPolicy">
       <xs:sequence>
         <xs:element name="allow" type="AccessRule" maxOccurs="unbounded" />
-        <xs:element name="deny" type="AccessRule" maxOccurs="unbounded" />
       </xs:sequence>
   </xs:complexType>
 

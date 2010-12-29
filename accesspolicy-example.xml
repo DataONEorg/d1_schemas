@@ -17,7 +17,7 @@
     <allow>
 
     <!-- Let members of DataManagerGroup read and write, and any Public user
-         Read, but deny Bob (a member of DataManagerGroup) write access -->
+         Read -->
     <allow>
         <principal>/C=US/O=SomeIdP/CN=DataManagerGroup</principal>
         <permission>read</permission>
@@ -29,10 +29,5 @@
         <permission>read</permission>
         <resource>urn:lsid:example.org:data:example_resource_id:1</resource>
     <allow>
-    <deny>
-        <principal>/C=US/O=AnotherIdP/CN=Bob</principal>
-        <permission>write</permission>
-        <resource>urn:lsid:example.org:data:example_resource_id:1</resource>
-    <deny>
 
 </ap:accessPolicy>
