@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ap:accessPolicy
-    xmlns:ap="http://dataone.org/service/types/AccessPolicy/0.5"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    xmlns:ap="http://dataone.org/service/types/0.6.0"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://dataone.org/service/types/0.6.0 ./dataoneTypes.xsd">
 
-    <!-- Let Alice read and write, and any AuthenticatedUser read -->
+    <!-- Let Alice and Bob read and write, and any AuthenticatedUser read -->
     <allow>
         <principal>/C=US/O=SomeIdP/CN=Alice</principal>
+        <principal>/C=US/O=SomeIdP/CN=Bob</principal>
         <permission>read</permission>
         <permission>write</permission>
         <resource>doi:10.0000/example_resource_id</resource>
+    </allow>
     <allow>
-    <allow>
-        <principal>/C=US/O=DataONE/CN=AuthenticatedUser</principal>
+        <principal>AuthenticatedUser</principal>
         <permission>read</permission>
         <resource>doi:10.0000/example_resource_id</resource>
-    <allow>
+    </allow>
 
     <!-- Let members of DataManagerGroup read and write, and any Public user
          Read -->
@@ -23,11 +26,11 @@
         <permission>read</permission>
         <permission>write</permission>
         <resource>urn:lsid:example.org:data:example_resource_id:1</resource>
+    </allow>
     <allow>
-    <allow>
-        <principal>/C=US/O=DataONE/CN=Public</principal>
+        <principal>Public</principal>
         <permission>read</permission>
         <resource>urn:lsid:example.org:data:example_resource_id:1</resource>
-    <allow>
+    </allow>
 
 </ap:accessPolicy>

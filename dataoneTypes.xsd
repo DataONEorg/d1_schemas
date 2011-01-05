@@ -140,6 +140,25 @@
         </xs:restriction>
     </xs:simpleType>
  
+    <!-- Permission = permitted action -->
+    <xs:simpleType name="Permission">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="read"/>
+            <xs:enumeration value="write"/>
+            <xs:enumeration value="changePermission"/>
+            <xs:enumeration value="execute"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Principal = user identity -->
+    <xs:simpleType name="Principal">
+        <xs:restriction base="d1:NonEmptyString"/>
+        <!-- Note: Can also be special names:
+             AuthenticatedUser: anyone with checked credentials
+             Public: anyone, whether authenticated or not
+        -->
+    </xs:simpleType>
+    
     <!-- Replication Status enumeration -->
     <xs:simpleType name="ReplicationStatus">
         <xs:restriction base="xs:string">
@@ -446,29 +465,6 @@
         <xs:attribute name="lastSuccess" type="xs:dateTime" />
     </xs:complexType>
 
-    <!-- Permission = permitted action -->
-    <xs:complexType name="Permission">
-      <xs:simpleContent>
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="read"/>
-            <xs:enumeration value="write"/>
-            <xs:enumeration value="changePermission"/>
-            <xs:enumeration value="execute"/>
-        </xs:restriction>
-      </xs:simpleContent>
-    </xs:complexType>
-
-    <!-- Principal = user identity -->
-    <xs:complexType name="Principal">
-      <xs:simpleContent>
-        <xs:restriction base="d1:NonEmptyString"/>
-        <!-- Note: Can also be special names:
-             AuthenticatedUser: anyone with checked credentials
-             Public: anyone, whether authenticated or not
-        -->
-      </xs:simpleContent>
-    </xs:complexType>
-    
     <!-- PrincipalList -->
     <xs:complexType name="PrincipalList">
         <xs:sequence>
