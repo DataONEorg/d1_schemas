@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema  targetNamespace="http://dataone.org/service/types/0.5.1"
-    xmlns:d1="http://dataone.org/service/types/0.5.1"
+<xs:schema  targetNamespace="http://dataone.org/service/types/0.6.0"
+    xmlns:d1="http://dataone.org/service/types/0.6.0"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    version="0.5"
+    version="0.6"
     elementFormDefault="unqualified" attributeFormDefault="unqualified">
 
 <!-- ************************************
@@ -98,6 +98,7 @@
             <xs:pattern value="[\s]*[\S][\s\S]*"/>
         </xs:restriction>
     </xs:simpleType>  
+
     <xs:simpleType name="ObjectFormat">
         <!-- This should really be a dynamic namespace registry, but for now a simple type will get us started -->
         <xs:restriction base="xs:string">
@@ -139,11 +140,6 @@
         </xs:restriction>
     </xs:simpleType>
  
-    <!-- Principal = user identity -->
-    <xs:simpleType name="Principal">
-        <xs:restriction base="d1:NonEmptyString"/>
-    </xs:simpleType>
-    
     <!-- Replication Status enumeration -->
     <xs:simpleType name="ReplicationStatus">
         <xs:restriction base="xs:string">
@@ -185,30 +181,23 @@
             *************************************** -->
     
     <!-- NOTE THAT ALL SERIALIZEABLE ROOT ELEMENTS FOR MESSAGES SHOULD BE OF A COMPLEX TYPE -->
-    
-    <!-- Access Rule -->
-    <xs:complexType name="AccessRule">
-        <xs:attribute name="rule">
-            <xs:simpleType>
-                <xs:restriction base="xs:string">
-                    <xs:enumeration value="allow"/>
-                    <xs:enumeration value="deny"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        
-        <xs:attribute name="service">
-            <xs:simpleType>
-                <xs:restriction base="xs:string">
-                    <xs:enumeration value="read"/>
-                    <xs:enumeration value="write"/>
-                    <xs:enumeration value="changePermission"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        
-        <xs:attribute name="principal" type="d1:Principal"/>
-    </xs:complexType>
+
+  <!-- AccessPolicy -->
+  <xs:complexType name="AccessPolicy">
+      <xs:sequence>
+        <xs:element name="allow" type="d1:AccessRule" 
+            minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+  </xs:complexType>
+
+  <!-- AccessRule -->
+  <xs:complexType name="AccessRule">
+    <xs:sequence>
+      <xs:element name="principal" type="d1:Principal" maxOccurs="unbounded"/>
+      <xs:element name="permission" type="d1:Permission" maxOccurs="unbounded"/>
+      <xs:element name="resource" type="d1:Identifier" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
     
     <!-- Checksum -->
     <xs:complexType name="Checksum">
@@ -220,7 +209,7 @@
         </xs:simpleContent>
     </xs:complexType>
   
-    <!-- Componenet -->
+    <!-- Component -->
     <xs:complexType name="Component">
         <xs:annotation>
             <xs:documentation>Name and version of a DataONE software stack component.
@@ -233,7 +222,7 @@
     <!-- Component List -->
     <xs:complexType name="ComponentList">
         <xs:annotation>
-            <xs:documentation>An ComponentList is the structure returned
+            <xs:documentation>A ComponentList is the structure returned
                 from the version() method. It provides a list of DataONE software stack
                 components and their corresponding version numbers.
             </xs:documentation>
@@ -456,6 +445,37 @@
         <xs:attribute name="success" type="xs:boolean" />
         <xs:attribute name="lastSuccess" type="xs:dateTime" />
     </xs:complexType>
+
+    <!-- Permission = permitted action -->
+    <xs:complexType name="Permission">
+      <xs:simpleContent>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="read"/>
+            <xs:enumeration value="write"/>
+            <xs:enumeration value="changePermission"/>
+            <xs:enumeration value="execute"/>
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+
+    <!-- Principal = user identity -->
+    <xs:complexType name="Principal">
+      <xs:simpleContent>
+        <xs:restriction base="d1:NonEmptyString"/>
+        <!-- Note: Can also be special names:
+             AuthenticatedUser: anyone with checked credentials
+             Public: anyone, whether authenticated or not
+        -->
+      </xs:simpleContent>
+    </xs:complexType>
+    
+    <!-- PrincipalList -->
+    <xs:complexType name="PrincipalList">
+        <xs:sequence>
+            <xs:element name="principal" type="d1:Principal"
+                minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
     
     <!-- Replica -->
     <xs:complexType name="Replica">
@@ -591,6 +611,10 @@
             <xs:element name="size" type="xs:long"/>
             <xs:element name="submitter" type="d1:Principal"/>
             <xs:element name="rightsHolder" type="d1:Principal"/>
+            <xs:element name="accessPolicy" type="d1:AccessPolicy"
+                minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="replicationPolicy" type="d1:ReplicationPolicy"
+                minOccurs="0" maxOccurs="1" />
             
             <!-- Client provided relationship fields -->
             <xs:element name="obsoletes" type="d1:Identifier" minOccurs="0"
@@ -607,10 +631,6 @@
                 minOccurs="1" maxOccurs="1" />
             <xs:element name="embargoExpires" type="xs:dateTime"
                 minOccurs="0"/>
-            <xs:element name="accessRule" type="d1:AccessRule"
-                minOccurs="0" maxOccurs="unbounded" />
-            <xs:element name="replicationPolicy" type="d1:ReplicationPolicy"
-                minOccurs="0" maxOccurs="1" />
             
             <!-- Fields provided by Member Node and Coordinating Node -->
             <xs:element name="dateUploaded" type="xs:dateTime"/>
@@ -628,6 +648,9 @@
             ****************************************** -->
     <!-- NOTE THAT ALL SERIALIZEABLE ROOT ELEMENTS FOR MESSAGES SHOULD BE OF A COMPLEX TYPE -->   
     
+    <!-- access policy -->
+    <xs:element name="accessPolicy" type="d1:AccessPolicy" />
+
     <!-- checksum root element for Checksum messages-->
     <xs:element name="checksum" type="d1:Checksum" />
     
@@ -658,6 +681,12 @@
     
     <xs:element name="objectLocationList" type="d1:ObjectLocationList" />
     
+    <xs:element name="permission" type="d1:Permission" />
+
+    <xs:element name="principal" type="d1:Principal" />
+
+    <xs:element name="principalList" type="d1:PrincipalList" />
+
     <xs:element name="systemMetadata" type="d1:SystemMetadata" />
     
 </xs:schema>
