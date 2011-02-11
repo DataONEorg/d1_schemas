@@ -107,6 +107,7 @@
             <xs:enumeration value="eml://ecoinformatics.org/eml-2.0.1"/>
             <xs:enumeration value="eml://ecoinformatics.org/eml-2.1.0"/>
             <xs:enumeration value="FGDC-STD-001.1-1999"/>
+            <xs:enumeration value="eml://ecoinformatics.org/eml-2.1.1"/>
             <!-- FGDC BDP -->
             <xs:enumeration value="FGDC-STD-001-1998"/>
             <!-- FGDC CSDGM -->
@@ -131,7 +132,13 @@
             <!-- NetCDF-4 and netCDF-4 classic model formats -->
             <xs:enumeration value="text/plain" />
             <xs:enumeration value="text/csv"/>
+            <xs:enumeration value="image/bmp"/>
             <xs:enumeration value="image/gif"/>
+            <xs:enumeration value="image/jp2"/>
+            <xs:enumeration value="image/jpeg"/>
+            <xs:enumeration value="image/png"/>
+            <xs:enumeration value="image/svg+xml"/>
+            <xs:enumeration value="image/tiff"/>
             <xs:enumeration value="http://rs.tdwg.org/dwc/xsd/simpledarwincore/"/>
             <!-- DwC current schema standard -->
             <xs:enumeration value="http://digir.net/schema/conceptual/darwin/2003/1.0/darwin2.xsd"/>
