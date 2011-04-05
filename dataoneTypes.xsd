@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema  targetNamespace="http://dataone.org/service/types/0.6.0"
-    xmlns:d1="http://dataone.org/service/types/0.6.0"
+<xs:schema  targetNamespace="http://dataone.org/service/types/0.5.1"
+    xmlns:d1="http://dataone.org/service/types/0.5.1"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    version="0.6"
+    version="0.5.1"
     elementFormDefault="unqualified" attributeFormDefault="unqualified">
 
 <!-- ************************************
@@ -415,7 +415,7 @@
     <xs:complexType name="ObjectFormat">
       <xs:annotation>
         <xs:documentation>
-          An ObjectFormat is the structure returned from the getObjectFormat()
+          An ObjectFormat is the structure returned from the getFormat()
           method of the CN REST interface.  It provides the unique identifier
           and the name associated with the object format.  Future 
           versions may contain additional structured content from external
