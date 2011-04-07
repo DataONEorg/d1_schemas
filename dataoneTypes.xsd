@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema  targetNamespace="http://ns.dataone.org/service/types/0.6.0"
-    xmlns:d1="http://dataone.org/service/types/0.6.0"
+    xmlns:d1="http://ns.dataone.org/service/types/0.6.0"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     version="0.6.0"
     elementFormDefault="unqualified" attributeFormDefault="unqualified">
@@ -200,7 +200,7 @@
     <!-- Challenge -->
     <xs:complexType name="Challenge">
        <xs:sequence>
-         <xs:element name="certificate" type="d1:x509Certificate" 
+         <xs:element name="certificate" type="d1:X509Certificate" 
              minOccurs="1" maxOccurs="1" />
          <xs:element name="encryptedNonce" type="d1:EncryptedNonce" 
              minOccurs="1" maxOccurs="1" />
