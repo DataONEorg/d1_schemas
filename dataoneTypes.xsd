@@ -167,6 +167,11 @@
         <xs:restriction base="d1:NonEmptyString"/>
     </xs:simpleType>
     
+    <!-- X509Certificate  -->
+    <xs:simpleType name="X509Certificate">
+      <xs:restriction base="d1:NonEmptyString" />
+    </xs:simpleType>
+    
 
 
     <!-- ***************************************
@@ -175,22 +180,32 @@
     
     <!-- NOTE THAT ALL SERIALIZEABLE ROOT ELEMENTS FOR MESSAGES SHOULD BE OF A COMPLEX TYPE -->
 
-  <!-- AccessPolicy -->
-  <xs:complexType name="AccessPolicy">
-      <xs:sequence>
-        <xs:element name="allow" type="d1:AccessRule" 
-            minOccurs="1" maxOccurs="unbounded" />
-      </xs:sequence>
-  </xs:complexType>
+    <!-- AccessPolicy -->
+    <xs:complexType name="AccessPolicy">
+        <xs:sequence>
+            <xs:element name="allow" type="d1:AccessRule" 
+                minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- AccessRule -->
+    <xs:complexType name="AccessRule">
+        <xs:sequence>
+        <xs:element name="principal" type="d1:Principal" maxOccurs="unbounded"/>
+        <xs:element name="permission" type="d1:Permission" maxOccurs="unbounded"/>
+        <xs:element name="resource" type="d1:Identifier" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
 
-  <!-- AccessRule -->
-  <xs:complexType name="AccessRule">
-    <xs:sequence>
-      <xs:element name="principal" type="d1:Principal" maxOccurs="unbounded"/>
-      <xs:element name="permission" type="d1:Permission" maxOccurs="unbounded"/>
-      <xs:element name="resource" type="d1:Identifier" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
+    <!-- Challenge -->
+    <xs:complexType name="Challenge">
+       <xs:sequence>
+         <xs:element name="certificate" type="d1:x509Certificate" 
+             minOccurs="1" maxOccurs="1" />
+         <xs:element name="encryptedNonce" type="d1:EncryptedNonce" 
+             minOccurs="1" maxOccurs="1" />
+       </xs:sequence>
+    </xs:complexType>
     
     <!-- Checksum -->
     <xs:complexType name="Checksum">
