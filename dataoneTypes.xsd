@@ -8,6 +8,11 @@
 <!-- ************************************
         DEFINE REUSABLE SIMPLE TYPES HERE 
         ************************************ -->
+
+    <!-- AuthToken  -->
+    <xs:simpleType name="AuthToken">
+      <xs:restriction base="d1:NonEmptyString" />
+    </xs:simpleType>
     
     <!-- Checksum Algorithm -->
     <xs:simpleType name="ChecksumAlgorithm">
@@ -46,6 +51,11 @@
             <xs:pattern value="([\*\d]{1,2}[\-,]?)+"/>
         </xs:restriction>
     </xs:simpleType> 
+    
+    <!-- EncryptedNonce  -->
+    <xs:simpleType name="EncryptedNonce">
+      <xs:restriction base="d1:NonEmptyString" />
+    </xs:simpleType>
     
     <!-- Event Enumeration -->
     <xs:simpleType name="Event">
@@ -212,6 +222,18 @@
         </xs:annotation>
         <xs:sequence>
             <xs:element name="component" type="d1:Component"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Group -->
+    <xs:complexType name="Group">
+        <xs:sequence>
+            <xs:element name="principal" type="d1:Principal" 
+                minOccurs="1" maxOccurs="1" />
+            <xs:element name="groupName" type="d1:NonEmptyString" 
+                minOccurs="1" maxOccurs="1" />
+            <xs:element name="hasMember" type="d1:Principal" 
+                minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
     </xs:complexType>
     
@@ -467,6 +489,40 @@
       </xs:complexContent> 
     </xs:complexType>
     
+    <!-- Person -->
+    <xs:complexType name="Person">
+        <xs:sequence>
+            <xs:element name="principal" type="d1:Principal" 
+                minOccurs="1" maxOccurs="1" />
+            <xs:element name="givenName" type="d1:NonEmptyString" 
+                minOccurs="1" maxOccurs="unbounded" />
+            <xs:element name="familyName" type="d1:NonEmptyString" 
+                minOccurs="1" maxOccurs="1" />
+            <xs:element name="email" type="d1:NonEmptyString" 
+                minOccurs="1" maxOccurs="unbounded" />
+            <xs:element name="isMemberOf" type="d1:Principal" 
+                minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="equivalentIdentity" type="d1:Principal" 
+                minOccurs="0" maxOccurs="unbounded" />
+            <!-- Do we need further Person metadata?
+            <xs:element name="institution" type="d1:NonEmptyString"
+                minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="department" type="d1:NonEmptyString"
+                minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="address1" type="d1:NonEmptyString"
+                minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="address2" type="d1:NonEmptyString"
+                minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="city" type="d1:NonEmptyString"
+                minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="state" type="d1:NonEmptyString"
+                minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="zip" type="d1:NonEmptyString"
+                minOccurs="0" maxOccurs="unbounded"/>
+            -->
+        </xs:sequence>
+    </xs:complexType>
+
     <!-- Ping -->
     <xs:complexType name="Ping">
         <xs:annotation>
@@ -479,10 +535,12 @@
 
     <!-- PrincipalList -->
     <xs:complexType name="PrincipalList">
-        <xs:sequence>
-            <xs:element name="principal" type="d1:Principal"
-                minOccurs="1" maxOccurs="unbounded"/>
-        </xs:sequence>
+        <xs:choice>
+            <xs:element name="person" type="d1:Person"
+                minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="group" type="d1:Group"
+                minOccurs="0" maxOccurs="unbounded"/>
+        </xs:choice>
     </xs:complexType>
     
     <!-- Replica -->
