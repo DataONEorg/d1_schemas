@@ -11,11 +11,23 @@
 
     <!-- AuthToken  -->
     <xs:simpleType name="AuthToken">
+   <xs:annotation>
+   <xs:documentation>An AuthToken is an Identifier that is used to reference an authenticated
+AuthSession that has been established via the act of authenticating a
+Principal with a Coordinating Node. The AuthToken identifier follows the
+same formatting and content rules as the Identifier class, and should be
+representable in simple 7-bit ASCII or as a UTF-8 string. The value SHOULD
+additionally be constrained to be less than 8K in order to be transportable
+in typical HTTP header fields. The AuthToken represents an AuthSession,
+which is tied to an authenticated Principal and can only be used for
+requests from a particular Address.
+   </xs:documentation>
+   </xs:annotation>
       <xs:restriction base="d1:NonEmptyString" />
     </xs:simpleType>
     
     <!-- Checksum Algorithm -->
-    <xs:simpleType name="ChecksumAlgorithm">
+    <xs:simpleType name="ChecksumAlgorithm">2
         <xs:restriction base="xs:string">
             <xs:enumeration value="SHA-1"/>
             <xs:enumeration value="SHA-224"/>
@@ -54,11 +66,25 @@
     
     <!-- EncryptedNonce  -->
     <xs:simpleType name="EncryptedNonce">
+      <xs:annotation>
+        <xs:documentation>A random number that has been encrypted as part of a two-phase
+  authentication protocol and that is only used once for session
+  authentication. The Nonce is initially encrypted using a client's public key
+  and sent to the client, where it is decrypted by the client (proving access
+  that he associated private key), and then re-encrypted using the server's
+  public key. When the server decrypts the returned Nonce, if it matches then
+  it establishes an authenticated session.</xs:documentation>
+      </xs:annotation>
       <xs:restriction base="d1:NonEmptyString" />
     </xs:simpleType>
     
     <!-- Event Enumeration -->
     <xs:simpleType name="Event">
+      <xs:annotation>
+      <xs:documentation>The controlled list of events that are logged, 
+      which will include 'CREATE', 'UPDATE', 'DELETE', 'READ', 'REPLICATE' 
+      events.</xs:documentation>
+      </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:enumeration value="create"/>
             <xs:enumeration value="read"/>
@@ -89,6 +115,9 @@
     
     <!-- NodeReference -->
     <xs:simpleType name="NodeReference">
+      <xs:annotation>
+      <xs:documentation>Member Node identifier drawn from the DataONE :mod:`cn_register &lt;registry service&gt;`.</xs:documentation>
+      </xs:annotation>
         <xs:restriction base="d1:NonEmptyString"/>
     </xs:simpleType>
     
@@ -101,8 +130,10 @@
         </xs:restriction>
     </xs:simpleType>
     
-    <!-- A derived string type with at least length 1 and it must contain non-whitespace -->
     <xs:simpleType name="NonEmptyString">
+      <xs:annotation>
+      <xs:documentation>A derived string type with at least length 1 and it must contain non-whitespace.</xs:documentation>
+      </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:minLength value="1"/>
             <xs:pattern value="[\s]*[\S][\s\S]*"/>
@@ -111,11 +142,32 @@
 
     <!-- Identifier  -->
     <xs:simpleType name="Identifier">
+      <xs:annotation>
+        <xs:documentation>An :term:`identifier` (:term:`PID`) in the DataONE system. This is
+  equivalent to a Unicode string of printable characters, excluding
+  whitespace. All representations of identifiers must be encoded in 7-bit
+  ASCII or UTF-8.</xs:documentation>
+        <xs:documentation>Identifiers have a maximum length of 800 characters. Some discussion on this
+  is described in `ticket 577`_.
+        </xs:documentation>
+        <xs:documentation>.. _ticket 577: https://redmine.dataone.org/issues/577
+        </xs:documentation>
+      </xs:annotation>
       <xs:restriction base="d1:NonEmptyString" />
     </xs:simpleType>
     
     <!-- Permission = permitted action -->
     <xs:simpleType name="Permission">
+    <xs:annotation>
+    <xs:documentation>A string value indicating the set of actions that can be performed on a
+  resource as specified in an access policy.  The set of permissions include
+  the ability to read a resource, modify a resource (write), and to change
+  the set of access control policies for a resource (changePermission).  In
+  addition, there is a permission that controls ability to execute a service
+  (execute). Permissions are cumulative, in that higher level permissions
+  include all of the priveledges of lower levels (e.g., given write access, one
+  also implicitly has read access).</xs:documentation>
+    </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:enumeration value="read"/>
             <xs:enumeration value="write"/>
@@ -126,6 +178,14 @@
 
     <!-- Principal = user identity -->
     <xs:simpleType name="Principal">
+      <xs:annotation>
+        <xs:documentation>Person (user), Group, or Organization, or System.</xs:documentation>
+        <xs:documentation>The formal name identifiying a user or group from the DataONE 
+  Identity Management Service. The principal is represented by a unique,
+  persistent, non-reassignable identifier string that follows the same
+  constraints as the Identifier.</xs:documentation>
+        <xs:documentation>Used by :mod:`SystemMetadata`</xs:documentation>
+      </xs:annotation>
         <xs:restriction base="d1:NonEmptyString"/>
         <!-- Note: Can also be special names:
              AuthenticatedUser: anyone with checked credentials
@@ -145,6 +205,10 @@
     
     <!-- Identifier Format enumeration -->
     <xs:simpleType name="IdentifierFormat">
+      <xs:annotation>
+        <xs:documentation>Initially an enumerated list of strings that specify different types of identifiers.
+        </xs:documentation>
+      </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:enumeration value="OID"/>
             <xs:enumeration value="LSID"/>
@@ -292,8 +356,7 @@
     <!-- Node -->
     <xs:complexType name="Node">
         <xs:annotation>
-            <xs:documentation>
-                A unique implementation of the member node or coordination node software
+            <xs:documentation>A unique implementation of the member node or coordination node software
                 stack. several nodes may exist on a single physical device or hostname 
             </xs:documentation>
         </xs:annotation>
@@ -451,8 +514,7 @@
     <!-- Object Format -->
     <xs:complexType name="ObjectFormat">
       <xs:annotation>
-        <xs:documentation>
-          An ObjectFormat is the structure returned from the getFormat()
+        <xs:documentation>An ObjectFormat is the structure returned from the getFormat()
           method of the CN REST interface.  It provides the unique identifier
           and the name associated with the object format.  Future 
           versions may contain additional structured content from external
@@ -462,8 +524,7 @@
       <xs:sequence>
         <xs:element name="formatName" type="xs:string" minOccurs="1" maxOccurs="1">
           <xs:annotation>
-            <xs:documentation>
-              For objects that are typed using a Document Type Definition, 
+            <xs:documentation>For objects that are typed using a Document Type Definition, 
               this lists the well-known and accepted named version of the DTD.
             </xs:documentation>
           </xs:annotation>
@@ -472,8 +533,7 @@
       </xs:sequence>
       <xs:attribute name="identifier" type="d1:Identifier" >
           <xs:annotation>
-              <xs:documentation>
-                  The unique identifier of the object format in the DataONE
+              <xs:documentation>The unique identifier of the object format in the DataONE
                   Object Format Vocabulary.  The identifier should comply with
                   DataONE Identifier rules, i.e. no whitespace, UTF-8 or 
                   US-ASCII printable characters.
@@ -485,8 +545,7 @@
     <!-- Object Format List -->
     <xs:complexType name="ObjectFormatList">
       <xs:annotation>  
-        <xs:documentation>
-          An ObjectFormatList is the structure returned from the listFormats() 
+        <xs:documentation>An ObjectFormatList is the structure returned from the listFormats() 
           method of the CN REST interface.  It provides a list of named object
           formats defined in the DataONE system.  Each ObjectFormat returned in 
           the list describes the object format via its name, and future 
