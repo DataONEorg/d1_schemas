@@ -27,7 +27,7 @@ requests from a particular Address.
     </xs:simpleType>
     
     <!-- Checksum Algorithm -->
-    <xs:simpleType name="ChecksumAlgorithm">2
+    <xs:simpleType name="ChecksumAlgorithm">
         <xs:restriction base="xs:string">
             <xs:enumeration value="SHA-1"/>
             <xs:enumeration value="SHA-224"/>
@@ -522,24 +522,25 @@ requests from a particular Address.
         </xs:documentation>
       </xs:annotation>
       <xs:sequence>
+        <xs:element name="fmtid" type="xs:string" minOccurs="1" maxOccurs="1">
+          <xs:annotation>
+            <xs:documentation>The unique identifier of the object format in the 
+              DataONE Object Format Vocabulary.  The identifier should comply 
+              with DataONE Identifier rules, i.e. no whitespace, UTF-8 or 
+              US-ASCII printable characters.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
         <xs:element name="formatName" type="xs:string" minOccurs="1" maxOccurs="1">
           <xs:annotation>
-            <xs:documentation>For objects that are typed using a Document Type Definition, 
-              this lists the well-known and accepted named version of the DTD.
+            <xs:documentation>The human-readable name for the format.  The 
+              name should be a descriptive string based on the well-known and 
+              accepted title and version of the format.
             </xs:documentation>
           </xs:annotation>
         </xs:element>
         <xs:any minOccurs="0"/>
       </xs:sequence>
-      <xs:attribute name="identifier" type="d1:Identifier" >
-          <xs:annotation>
-              <xs:documentation>The unique identifier of the object format in the DataONE
-                  Object Format Vocabulary.  The identifier should comply with
-                  DataONE Identifier rules, i.e. no whitespace, UTF-8 or 
-                  US-ASCII printable characters.
-              </xs:documentation>
-          </xs:annotation>
-      </xs:attribute>
     </xs:complexType>
     
     <!-- Object Format List -->
