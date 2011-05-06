@@ -6,22 +6,12 @@ for the pattern of type structures being used by DataONE.
 
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
- xmlns:exslt="http://exslt.org/common"
- xmlns:math="http://exslt.org/math"
- xmlns:date="http://exslt.org/dates-and-times"
- xmlns:func="http://exslt.org/functions"
- xmlns:set="http://exslt.org/sets"
- xmlns:str="http://exslt.org/strings"
- xmlns:dyn="http://exslt.org/dynamic"
- xmlns:saxon="http://icl.com/saxon"
- xmlns:xalanredirect="org.apache.xalan.xslt.extensions.Redirect"
- xmlns:xt="http://www.jclark.com/xt"
- xmlns:libxslt="http://xmlsoft.org/XSLT/namespace"
- xmlns:test="http://xmlsoft.org/XSLT/"
  xmlns:xs="http://www.w3.org/2001/XMLSchema"
- extension-element-prefixes="exslt math date func set str dyn saxon xalanredirect xt libxslt test"
- exclude-result-prefixes="math str">
-<xsl:output omit-xml-declaration="yes" indent="no" method="text"/>
+ xmlns:str="http://exslt.org/strings"
+ extension-element-prefixes="str"
+ exclude-result-prefixes="str">
+<xsl:import href="exslt/str/functions/replace/str.replace.xsl" />
+<xsl:output omit-xml-declaration="yes" indent="yes" method="xml"/>
 <xsl:variable name="MODULE">STypes.</xsl:variable>
 
 <xsl:template match="/">
@@ -34,11 +24,15 @@ for the pattern of type structures being used by DataONE.
 </xsl:template>
 
 
-<!-- convert text to a single line -->
-<xsl:template name="formatBlock">
-  <xsl:param name="outputString"/>
-  <xsl:param name="prefix" />
-  <xsl:value-of select="$prefix"></xsl:value-of><xsl:value-of select="str:replace($outputString,'&#xa;',' ')"></xsl:value-of>
+<xsl:template name="t1">
+  <!-- Render the simple types first -->
+  <xsl:for-each select="//xs:simpleType">
+    <xsl:call-template name="simpleType"></xsl:call-template>
+  </xsl:for-each>
+  <!-- Then the complex types. -->
+  <xsl:for-each select="//xs:complexType">
+    <xsl:call-template name="complexType"></xsl:call-template>
+  </xsl:for-each>
 </xsl:template>
 
 
@@ -67,7 +61,7 @@ for the pattern of type structures being used by DataONE.
     <xsl:value-of select="'&#xa;&#xa;'"></xsl:value-of>
   </xsl:for-each>
   <xsl:if test="count(xs:restriction/xs:enumeration) &gt; 0">
-    <xsl:value-of select="concat($sprefix,'Possible values::&#xa;&#xa;')" />
+    <xsl:value-of select="concat($sprefix,'Enumerated values::&#xa;&#xa;')" />
     <xsl:value-of select="concat($sprefix,'  ')"/><xsl:text>( </xsl:text>
     <xsl:call-template name="join">
       <xsl:with-param name="valueList" select="xs:restriction/xs:enumeration/@value" />
@@ -76,7 +70,12 @@ for the pattern of type structures being used by DataONE.
     </xsl:call-template>
     <xsl:text> )</xsl:text>
   </xsl:if>
-  <xsl:value-of select="'&#xa;&#xa;&#xa;'"></xsl:value-of>
+  <xsl:text>&#xa;&#xa;</xsl:text>
+  <!-- Show the source of this type definition -->
+  <xsl:call-template name="showsource">
+    <xsl:with-param name="prefix" select="$sprefix" />
+  </xsl:call-template>
+  <xsl:text>&#xa;&#xa;</xsl:text>
 </xsl:template>
 
 
@@ -114,8 +113,8 @@ for the pattern of type structures being used by DataONE.
   <xsl:param name="sprefix" select="''" />
   <xsl:variable name="minocc">
     <xsl:choose>
-      <xsl:when test="count(@minOccurs) &gt; 0">1</xsl:when>
-      <xsl:otherwise>0</xsl:otherwise>
+      <xsl:when test="count(@minOccurs) &gt; 0"><xsl:value-of select="@minOccurs" /></xsl:when>
+      <xsl:otherwise>1</xsl:otherwise>
     </xsl:choose>
   </xsl:variable>
   <xsl:variable name="maxocc">
@@ -237,7 +236,22 @@ for the pattern of type structures being used by DataONE.
       <!--  TODO -->
     </xsl:when> 
   </xsl:choose>
-  <xsl:value-of select="'&#xa;&#xa;&#xa;'"></xsl:value-of>
+  <xsl:text>&#xa;</xsl:text>
+  <xsl:call-template name="showsource">
+    <xsl:with-param name="prefix" select="$sprefix" />
+  </xsl:call-template>
+  <xsl:text>&#xa;</xsl:text>
+</xsl:template>
+
+<!-- Generate an XML source block -->
+<xsl:template name="showsource">
+  <xsl:param name="prefix" select="''" />
+  <xsl:param name="sprefix" select="concat($prefix,'   ')" />
+  <xsl:value-of select="$prefix"/><xsl:text>Schema Source:&#xa;&#xa;</xsl:text>
+  <xsl:value-of select="$prefix" /><xsl:text>.. code-block:: xml&#xa;&#xa;</xsl:text>
+  <xsl:value-of select="$sprefix" />
+  <xsl:apply-templates name="docopy" select="."></xsl:apply-templates>
+  <xsl:text>&#xa;&#xa;</xsl:text>  
 </xsl:template>
 
 
@@ -259,15 +273,23 @@ for the pattern of type structures being used by DataONE.
 </xsl:template>
 
 
-<xsl:template name="t1">
-  <!-- Render the simple types first -->
-  <xsl:for-each select="//xs:simpleType">
-    <xsl:call-template name="simpleType"></xsl:call-template>
-  </xsl:for-each>
-  <!-- Then the complex types. -->
-  <xsl:for-each select="//xs:complexType">
-    <xsl:call-template name="complexType"></xsl:call-template>
-  </xsl:for-each>
+<!-- convert text to a single line -->
+<xsl:template name="formatBlock">
+  <xsl:param name="outputString"/>
+  <xsl:param name="prefix" />
+  <xsl:value-of select="$prefix"></xsl:value-of><xsl:value-of select="str:replace($outputString,'&#xa;',' ')"></xsl:value-of>
+</xsl:template>
+
+<!--  Copy template -->
+<xsl:template name="docopy" match="node() | @*">
+  <xsl:choose>
+  <xsl:when test="name(.) != 'xs:annotation'">
+    <xsl:copy>
+      <xsl:apply-templates select="@* | node()" />
+    </xsl:copy>
+  </xsl:when>
+  <xsl:otherwise></xsl:otherwise>
+  </xsl:choose>
 </xsl:template>
 
 </xsl:stylesheet>
