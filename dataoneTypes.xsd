@@ -796,9 +796,7 @@ requests from a particular Address.
     <xs:element name="objectList" type="d1:ObjectList" />
     
     <xs:element name="objectLocationList" type="d1:ObjectLocationList" />
-    
-    <xs:element name="objectFormatList" type="d1:ObjectFormatList" />
-    
+        
     <xs:element name="permission" type="d1:Permission" />
 
     <xs:element name="principal" type="d1:Principal" />
