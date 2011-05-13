@@ -124,22 +124,6 @@ requests from a particular Address.
             <xs:minLength value="1"/>
             <xs:pattern value="[\s]*[\S][\s\S]*"/>
         </xs:restriction>
-    </xs:simpleType>  
-
-    <!-- Identifier  -->
-    <xs:simpleType name="Identifier">
-      <xs:annotation>
-        <xs:documentation>An :term:`identifier` (:term:`PID`) in the DataONE system. This is
-  equivalent to a Unicode string of printable characters, excluding
-  whitespace. All representations of identifiers must be encoded in 7-bit
-  ASCII or UTF-8.</xs:documentation>
-        <xs:documentation>Identifiers have a maximum length of 800 characters. Some discussion on this
-  is described in `ticket 577`_.
-        </xs:documentation>
-        <xs:documentation>.. _ticket 577: https://redmine.dataone.org/issues/577
-        </xs:documentation>
-      </xs:annotation>
-      <xs:restriction base="d1:NonEmptyString" />
     </xs:simpleType>
 
     <xs:simpleType name="ObjectFormat">
@@ -342,6 +326,26 @@ requests from a particular Address.
             <xs:element name="hasMember" type="d1:Principal" 
                 minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
+    </xs:complexType>
+    
+    <!-- Identifier  -->
+    <xs:complexType name="Identifier">
+        <xs:annotation>
+          <xs:documentation>An :term:`identifier` (:term:`PID`) in the DataONE system. This is
+                            equivalent to a Unicode string of printable characters, excluding
+                            whitespace. All representations of identifiers must be encoded in 7-bit
+                            ASCII or UTF-8.
+          </xs:documentation>
+          <xs:documentation>Identifiers have a maximum length of 800 characters. Some discussion on this
+                            is described in `ticket 577`_.
+          </xs:documentation>
+          <xs:documentation>.. _ticket 577: https://redmine.dataone.org/issues/577
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="d1:NonEmptyString">
+            </xs:extension>
+        </xs:simpleContent>
     </xs:complexType>
     
     <!-- Log Entry -->
