@@ -194,23 +194,6 @@ requests from a particular Address.
       </xs:restriction>
     </xs:simpleType>
     
-    <!-- Principal = user identity -->
-    <xs:simpleType name="Principal">
-      <xs:annotation>
-        <xs:documentation>Person (user), Group, or Organization, or System.</xs:documentation>
-        <xs:documentation>The formal name identifiying a user or group from the DataONE 
-  Identity Management Service. The principal is represented by a unique,
-  persistent, non-reassignable identifier string that follows the same
-  constraints as the Identifier.</xs:documentation>
-        <xs:documentation>Used by :mod:`SystemMetadata`</xs:documentation>
-      </xs:annotation>
-        <xs:restriction base="d1:NonEmptyString"/>
-        <!-- Note: Can also be special names:
-        	 VerifiedUser: anyone with checked credentials for whom their real name and email has been verified
-             AuthenticatedUser: anyone with checked credentials
-             Public: anyone, whether authenticated or not
-        -->
-    </xs:simpleType>
     
     <!-- Replication Status enumeration -->
     <xs:simpleType name="ReplicationStatus">
@@ -344,6 +327,27 @@ requests from a particular Address.
         </xs:annotation>
         <xs:simpleContent>
             <xs:extension base="d1:NonEmptyString">
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    
+     <!-- Principal = user identity -->
+    <xs:complexType name="Principal">
+      <xs:annotation>
+        <xs:documentation>Person (user), Group, or Organization, or System.</xs:documentation>
+        <xs:documentation>The formal name identifiying a user or group from the DataONE 
+  Identity Management Service. The principal is represented by a unique,
+  persistent, non-reassignable identifier string that follows the same
+  constraints as the Identifier.</xs:documentation>
+        <xs:documentation>Used by :mod:`SystemMetadata`</xs:documentation>
+      </xs:annotation>
+       <xs:simpleContent>
+            <xs:extension base="d1:NonEmptyString">
+        <!-- Note: Can also be special names:
+        	 VerifiedUser: anyone with checked credentials for whom their real name and email has been verified
+             AuthenticatedUser: anyone with checked credentials
+             Public: anyone, whether authenticated or not
+        -->
             </xs:extension>
         </xs:simpleContent>
     </xs:complexType>
@@ -801,8 +805,6 @@ requests from a particular Address.
     
     <xs:element name="objectLocationList" type="d1:ObjectLocationList" />
         
-    <xs:element name="permission" type="d1:Permission" />
-
     <xs:element name="principal" type="d1:Principal" />
 
     <xs:element name="principalList" type="d1:PrincipalList" />
