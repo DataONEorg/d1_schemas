@@ -229,13 +229,6 @@
     <xs:simpleType name="ServiceVersion">
         <xs:restriction base="d1:NonEmptyString"/>
     </xs:simpleType>
-    
-    <!-- X509Certificate  -->
-    <xs:simpleType name="X509Certificate">
-      <xs:restriction base="d1:NonEmptyString" />
-    </xs:simpleType>
-    
-
 
     <!-- ***************************************
             DEFINE REUSABLE COMPLEX  TYPES HERE 
@@ -254,7 +247,7 @@
     <!-- AccessRule -->
     <xs:complexType name="AccessRule">
         <xs:sequence>
-        	<xs:element name="principal" type="d1:Principal" 
+        	<xs:element name="subject" type="d1:Subject" 
         	            minOccurs="1" maxOccurs="unbounded" />
         	<xs:element name="permission" type="d1:Permission" 
         	            minOccurs="1" maxOccurs="unbounded" />
@@ -268,12 +261,12 @@
       <xs:annotation>
         <xs:documentation>An AuthToken is an Identifier that is used to reference an authenticated
 AuthSession that has been established via the act of authenticating a
-Principal with a Coordinating Node. The AuthToken identifier follows the
+Subject with a Coordinating Node. The AuthToken identifier follows the
 same formatting and content rules as the Identifier class, and should be
 representable in simple 7-bit ASCII or as a UTF-8 string. The value SHOULD
 additionally be constrained to be less than 8K in order to be transportable
 in typical HTTP header fields. The AuthToken represents an AuthSession,
-which is tied to an authenticated Principal and can only be used for
+which is tied to an authenticated Subject and can only be used for
 requests from a particular Address.
         </xs:documentation>
       </xs:annotation>
@@ -319,11 +312,11 @@ requests from a particular Address.
     <!-- Group -->
     <xs:complexType name="Group">
         <xs:sequence>
-            <xs:element name="principal" type="d1:Principal" 
+            <xs:element name="subject" type="d1:Subject" 
                 minOccurs="1" maxOccurs="1" />
             <xs:element name="groupName" type="d1:NonEmptyString" 
                 minOccurs="1" maxOccurs="1" />
-            <xs:element name="hasMember" type="d1:Principal" 
+            <xs:element name="hasMember" type="d1:Subject" 
                 minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
     </xs:complexType>
@@ -344,26 +337,6 @@ requests from a particular Address.
         </xs:annotation>
         <xs:simpleContent>
             <xs:extension base="d1:NonEmptyString">
-            </xs:extension>
-        </xs:simpleContent>
-    </xs:complexType>
-      <!-- Principal = user identity -->
-    <xs:complexType name="Principal">
-      <xs:annotation>
-        <xs:documentation>Person (user), Group, or Organization, or System.</xs:documentation>
-        <xs:documentation>The formal name identifiying a user or group from the DataONE 
-  Identity Management Service. The principal is represented by a unique,
-  persistent, non-reassignable identifier string that follows the same
-  constraints as the Identifier.</xs:documentation>
-        <xs:documentation>Used by :mod:`SystemMetadata`</xs:documentation>
-      </xs:annotation>
-       <xs:simpleContent>
-            <xs:extension base="d1:NonEmptyString">
-        <!-- Note: Can also be special names:
-        	 VerifiedUser: anyone with checked credentials for whom their real name and email has been verified
-             AuthenticatedUser: anyone with checked credentials
-             Public: anyone, whether authenticated or not
-        -->
             </xs:extension>
         </xs:simpleContent>
     </xs:complexType>
@@ -391,7 +364,7 @@ requests from a particular Address.
                 minOccurs="1" maxOccurs="1"/>
             <xs:element name="userAgent" type="xs:string"
                 minOccurs="1" maxOccurs="1"/>
-            <xs:element name="principal" type="d1:Principal"
+            <xs:element name="subject" type="d1:Subject"
                 minOccurs="1" maxOccurs="1"/>
             <xs:element name="event" type="d1:Event"
                 minOccurs="1" maxOccurs="1"/>
@@ -578,7 +551,7 @@ requests from a particular Address.
     <!-- Person -->
     <xs:complexType name="Person">
         <xs:sequence>
-            <xs:element name="principal" type="d1:Principal" 
+            <xs:element name="subject" type="d1:Subject" 
                 minOccurs="1" maxOccurs="1" />
             <xs:element name="givenName" type="d1:NonEmptyString" 
                 minOccurs="1" maxOccurs="unbounded" />
@@ -586,9 +559,9 @@ requests from a particular Address.
                 minOccurs="1" maxOccurs="1" />
             <xs:element name="email" type="d1:NonEmptyString" 
                 minOccurs="1" maxOccurs="unbounded" />
-            <xs:element name="isMemberOf" type="d1:Principal" 
+            <xs:element name="isMemberOf" type="d1:Subject" 
                 minOccurs="0" maxOccurs="unbounded" />
-            <xs:element name="equivalentIdentity" type="d1:Principal" 
+            <xs:element name="equivalentIdentity" type="d1:Subject" 
                 minOccurs="0" maxOccurs="unbounded" />
             <!-- Do we need further Person metadata?
             <xs:element name="institution" type="d1:NonEmptyString"
@@ -619,16 +592,6 @@ requests from a particular Address.
         <xs:attribute name="lastSuccess" type="xs:dateTime" />
     </xs:complexType>
 
-    <!-- PrincipalList -->
-    <xs:complexType name="PrincipalList">
-        <xs:choice>
-            <xs:element name="person" type="d1:Person"
-                minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="group" type="d1:Group"
-                minOccurs="0" maxOccurs="unbounded"/>
-        </xs:choice>
-    </xs:complexType>
-    
     <!-- Replica -->
     <xs:complexType name="Replica">
         <xs:sequence>
@@ -695,6 +658,23 @@ requests from a particular Address.
         </xs:sequence>
     </xs:complexType>
     
+    <!-- Session -->
+    <xs:complexType  name="Session">
+        <xs:annotation>
+            <xs:documentation>Information about the authenticated session for a service transaction.  Session data
+                              is retrieved from the SSL client certificate and populated in the Session object.  The
+                              subject represents the person or system that authenticated successfully, and the subjectList
+                              contains a listing of alternate identities (both Persons and Groups) that are also valid identities
+                              for this user.  The subjectList should include at least one Person or Group entry that provides
+                              the attributes of the subject that was authenticated. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="subject" type="d1:Subject" minOccurs="1" maxOccurs="1" />
+            <xs:element name="subjectList" type="d1:SubjectList" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
     <!-- Schedule -->
     <xs:complexType name="Schedule">
         <xs:annotation>
@@ -753,7 +733,38 @@ requests from a particular Address.
             </xs:element>
         </xs:sequence>
     </xs:complexType>
+
+    <!-- Subject = user identity -->
+    <xs:complexType name="Subject">
+      <xs:annotation>
+        <xs:documentation>Person (user), Group, or Organization, or System.</xs:documentation>
+        <xs:documentation>The formal name identifiying a user or group from the DataONE 
+  Identity Management Service. The subject is represented by a unique,
+  persistent, non-reassignable identifier string that follows the same
+  constraints as Identifier.</xs:documentation>
+        <xs:documentation>Used by :mod:`SystemMetadata`</xs:documentation>
+      </xs:annotation>
+       <xs:simpleContent>
+            <xs:extension base="d1:NonEmptyString">
+        <!-- Note: Can also be special names:
+        	 VerifiedUser: anyone with checked credentials for whom their real name and email has been verified
+             AuthenticatedUser: anyone with checked credentials
+             Public: anyone, whether authenticated or not
+        -->
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
     
+    <!-- SubjectList -->
+    <xs:complexType name="SubjectList">
+        <xs:choice>
+            <xs:element name="person" type="d1:Person"
+                minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="group" type="d1:Group"
+                minOccurs="0" maxOccurs="unbounded"/>
+        </xs:choice>
+    </xs:complexType>
+        
     <!-- Definition of the SystemMetdata element -->
     <xs:complexType name="SystemMetadata">
         <xs:sequence>
@@ -761,8 +772,8 @@ requests from a particular Address.
             <xs:element name="identifier" type="d1:Identifier" minOccurs="1" maxOccurs="1"/>
             <xs:element name="objectFormat" type="d1:ObjectFormat"/>
             <xs:element name="size" type="xs:long"/>
-            <xs:element name="submitter" type="d1:Principal"/>
-            <xs:element name="rightsHolder" type="d1:Principal"/>
+            <xs:element name="submitter" type="d1:Subject"/>
+            <xs:element name="rightsHolder" type="d1:Subject"/>
             <xs:element name="accessPolicy" type="d1:AccessPolicy"
                 minOccurs="0" maxOccurs="1" />
             <xs:element name="replicationPolicy" type="d1:ReplicationPolicy"
@@ -823,9 +834,9 @@ requests from a particular Address.
     <xs:element name="objectLocationList" type="d1:ObjectLocationList" />
         
 
-    <xs:element name="principal" type="d1:Principal" />
+    <xs:element name="subject" type="d1:Subject" />
 
-    <xs:element name="principalList" type="d1:PrincipalList" />
+    <xs:element name="subjectList" type="d1:SubjectList" />
 
     <xs:element name="systemMetadata" type="d1:SystemMetadata" />
     
