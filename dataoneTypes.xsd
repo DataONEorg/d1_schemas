@@ -8,23 +8,6 @@
 <!-- ************************************
         DEFINE REUSABLE SIMPLE TYPES HERE 
         ************************************ -->
-
-    <!-- AuthToken  -->
-    <xs:simpleType name="AuthToken">
-      <xs:annotation>
-        <xs:documentation>An AuthToken is an Identifier that is used to reference an authenticated
-AuthSession that has been established via the act of authenticating a
-Principal with a Coordinating Node. The AuthToken identifier follows the
-same formatting and content rules as the Identifier class, and should be
-representable in simple 7-bit ASCII or as a UTF-8 string. The value SHOULD
-additionally be constrained to be less than 8K in order to be transportable
-in typical HTTP header fields. The AuthToken represents an AuthSession,
-which is tied to an authenticated Principal and can only be used for
-requests from a particular Address.
-        </xs:documentation>
-      </xs:annotation>
-      <xs:restriction base="d1:NonEmptyString" />
-    </xs:simpleType>
     
     <!-- Checksum Algorithm -->
     <xs:simpleType name="ChecksumAlgorithm">
@@ -194,6 +177,20 @@ requests from a particular Address.
       </xs:restriction>
     </xs:simpleType>
     
+    <!-- QueryType = named types of search query formats -->
+    <xs:simpleType name="QueryType">
+      <xs:annotation>
+        <xs:documentation>A string value indicating the type of a query from a controlled list.
+                          The types of queries will expand with subsequent release versions, but
+                          the CN will only support certain query types for search during any particular
+                          release.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="SOLR"/>
+        <xs:enumeration value="ECOGRID"/>
+      </xs:restriction>
+    </xs:simpleType>
     
     <!-- Replication Status enumeration -->
     <xs:simpleType name="ReplicationStatus">
@@ -266,6 +263,26 @@ requests from a particular Address.
         </xs:sequence>
     </xs:complexType>
     
+        <!-- AuthToken  -->
+    <xs:complexType name="AuthToken">
+      <xs:annotation>
+        <xs:documentation>An AuthToken is an Identifier that is used to reference an authenticated
+AuthSession that has been established via the act of authenticating a
+Principal with a Coordinating Node. The AuthToken identifier follows the
+same formatting and content rules as the Identifier class, and should be
+representable in simple 7-bit ASCII or as a UTF-8 string. The value SHOULD
+additionally be constrained to be less than 8K in order to be transportable
+in typical HTTP header fields. The AuthToken represents an AuthSession,
+which is tied to an authenticated Principal and can only be used for
+requests from a particular Address.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:simpleContent>
+            <xs:extension base="d1:NonEmptyString">
+            </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+    
     <!-- Checksum -->
     <xs:complexType name="Checksum">
         <xs:simpleContent>
@@ -330,8 +347,7 @@ requests from a particular Address.
             </xs:extension>
         </xs:simpleContent>
     </xs:complexType>
-    
-     <!-- Principal = user identity -->
+      <!-- Principal = user identity -->
     <xs:complexType name="Principal">
       <xs:annotation>
         <xs:documentation>Person (user), Group, or Organization, or System.</xs:documentation>
@@ -352,6 +368,18 @@ requests from a particular Address.
         </xs:simpleContent>
     </xs:complexType>
     
+    <!--  Log -->
+	<xs:complexType name="Log">
+		<xs:complexContent>
+			<xs:extension base="d1:Slice">
+				<xs:sequence>
+					<xs:element name="logEntry" type="d1:LogEntry"
+						minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+        
     <!-- Log Entry -->
     <xs:complexType name="LogEntry">
         <xs:sequence>
@@ -784,19 +812,8 @@ requests from a particular Address.
     <xs:element name="identifier" type="d1:Identifier" />
     
     <!-- Definition of the Logging element -->
-    <xs:element name="log">
-        <xs:complexType>
-            <xs:complexContent>
-                <xs:extension base="d1:Slice">
-                    <xs:sequence>
-                        <xs:element name="logEntry" type="d1:LogEntry"
-                            minOccurs="0" maxOccurs="unbounded"/>
-                    </xs:sequence>
-                </xs:extension>
-            </xs:complexContent>
-        </xs:complexType>
-    </xs:element>
-    
+    <xs:element name="log" type="d1:Log" />
+        
     <xs:element name="monitorList" type="d1:MonitorList" />
     
     <xs:element name='nodeList' type="d1:NodeList"/>
@@ -805,6 +822,7 @@ requests from a particular Address.
     
     <xs:element name="objectLocationList" type="d1:ObjectLocationList" />
         
+
     <xs:element name="principal" type="d1:Principal" />
 
     <xs:element name="principalList" type="d1:PrincipalList" />
