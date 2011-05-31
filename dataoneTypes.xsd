@@ -343,6 +343,10 @@ requests from a particular Address.
     
     <!--  Log -->
 	<xs:complexType name="Log">
+	    <xs:annotation>
+	      <xs:documentation>Represents a collection of LogEntry elements, used to transfer log information between DataONE components. 
+	      </xs:documentation>    
+	    </xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="d1:Slice">
 				<xs:sequence>
@@ -355,6 +359,9 @@ requests from a particular Address.
         
     <!-- Log Entry -->
     <xs:complexType name="LogEntry">
+        <xs:annotation>
+            <xs:documentation>Represents a single log entry resulting from the action of a single event.</xs:documentation>
+        </xs:annotation>
         <xs:sequence>
             <xs:element name="entryId" type="d1:Identifier" 
                 minOccurs="1" maxOccurs="1"/>
@@ -491,7 +498,7 @@ requests from a particular Address.
     <!-- Object Location -->
     <xs:complexType name="ObjectLocation">
         <xs:sequence>
-            <xs:element name="nodeIdentifier" type="d1:Identifier"
+            <xs:element name="nodeIdentifier" type="d1:NodeReference"
                 minOccurs="1" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>Identifier of the node (the same identifier used
@@ -605,10 +612,33 @@ requests from a particular Address.
    <!-- Replication Policy -->
     <xs:complexType name="ReplicationPolicy">
         <xs:sequence>
+            <xs:element name="requiredMemberNode" type="d1:NodeReference"
+                minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>When present, the object MUST only be replicated to 
+                        nodes listed as a requiredMemberNode. This overrides any other 
+                        entries in the list of target nodes in ReplicationPolicy.
+                    </xs:documentation>
+                </xs:annotation>                
+            </xs:element>
             <xs:element name="preferredMemberNode" type="d1:NodeReference"
-                minOccurs="0" maxOccurs="unbounded"/>
+                minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+                <xs:documentation>Nodes listed here have preference over other nodes for 
+                    replication targets.
+                </xs:documentation>
+            </xs:annotation>    
+            </xs:element>
             <xs:element name="blockedMemberNode" type="d1:NodeReference"
-                minOccurs="0" maxOccurs="unbounded"/>
+                minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>The object MUST never be replicated to nodes 
+                        listed as blockedMemberNodes. Where there is a conflict between 
+                        a requiredMemberNode and a blockedMemberNode entry, the 
+                        blockedMemberNode entry prevails.
+                    </xs:documentation>
+                </xs:annotation>                
+            </xs:element>
         </xs:sequence>
         <xs:attribute name="replicationAllowed" type="xs:boolean" />
         <xs:attribute name="numberReplicas" type="xs:int"/>
