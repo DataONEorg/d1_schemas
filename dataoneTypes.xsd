@@ -498,7 +498,6 @@ requests from a particular Address.
             <xs:element name="size" type="xs:long"/>
             
         </xs:sequence>
-        <!--        <xs:attribute name="identifier" use="required" type="common:Identifier"/> -->
     </xs:complexType>
     
     <!-- Object List -->
