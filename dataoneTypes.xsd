@@ -535,7 +535,7 @@ requests from a particular Address.
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="preference" minOccurs="0" maxOccurs="1" type="xs:integer">
+            <xs:element name="preference" minOccurs="0" maxOccurs="1" type="xs:int">
                 <xs:annotation>
                     <xs:documentation>A weighting parameter that provides a hint to the caller 
                         for the relative preference for nodes from which the content should be retrieved.
