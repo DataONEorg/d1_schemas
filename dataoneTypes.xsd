@@ -51,8 +51,8 @@
     <xs:simpleType name="Event">
       <xs:annotation>
       <xs:documentation>The controlled list of events that are logged, 
-      which will include 'CREATE', 'UPDATE', 'DELETE', 'READ', 'REPLICATE' 
-      events.</xs:documentation>
+      which will include 'CREATE', 'UPDATE', 'DELETE', 'READ', 'REPLICATE', and
+      'SYNCHRONIZATION_FAILED' events.</xs:documentation>
       </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:enumeration value="create"/>
@@ -60,6 +60,7 @@
             <xs:enumeration value="update"/>
             <xs:enumeration value="delete"/>
             <xs:enumeration value="replicate"/>
+            <xs:enumeration value="synchronization_failed"/>
         </xs:restriction>
     </xs:simpleType>
     
