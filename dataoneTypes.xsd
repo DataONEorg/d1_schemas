@@ -658,12 +658,32 @@ requests from a particular Address.
             <xs:documentation>The available Dataone Service APIs that are exposed on a Node
                 Name and version of a DataONE software stack component are
                 equivalent to the statusresponselist.xsd name and version. 
+                Without a restriction, all service methods are available to all callers.
+                Restrictions may be placed on individual methods of the service to limit 
+                the service to a certain set of Subjects.
             </xs:documentation>
         </xs:annotation>
-        <xs:element name="name" type="d1:ServiceName" minOccurs="1" maxOccurs="1" />
+        <xs:sequence>
+	        <xs:element name="name" type="d1:ServiceName" minOccurs="1" maxOccurs="1" />
+	        <xs:element name="restriction" type="d1:ServiceMethodRestriction" minOccurs="0" maxOccurs="unbounded" />
+	    </xs:sequence>    
         <xs:attribute name="version" type="d1:ServiceVersion" use="required"/>
         <xs:attribute name="available" type="xs:boolean"/>
         
+    </xs:complexType>
+    
+    <!-- Service Method Restriction -->
+    <xs:complexType  name="ServiceMethodRestriction">
+        <xs:annotation>
+            <xs:documentation>Describes the restriction policy for a given method.
+                Only subjects listed in the allowed list are allowed to invoke the method.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+        	<xs:element name="allowed" type="d1:SubjectList" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+        <xs:attribute name="name"  type="xs:NMTOKEN" />
+        <xs:attribute name="rest" use="required"  type="xs:token"/>
     </xs:complexType>
     
     <!-- Services -->
