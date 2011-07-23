@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema  targetNamespace="http://ns.dataone.org/service/types/0.6.3"
-    xmlns:d1="http://ns.dataone.org/service/types/0.6.3"
+<xs:schema  targetNamespace="http://ns.dataone.org/service/types/v1"
+    xmlns:d1="http://ns.dataone.org/service/types/v1"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    version="0.6.3"
+    version="v1"
     elementFormDefault="unqualified" attributeFormDefault="unqualified">
 
 <!-- ************************************
@@ -206,26 +206,6 @@
         	<xs:element name="permission" type="d1:Permission" 
         	            minOccurs="1" maxOccurs="unbounded" />
         </xs:sequence>
-    </xs:complexType>
-    
-        <!-- AuthToken  -->
-    <xs:complexType name="AuthToken">
-      <xs:annotation>
-        <xs:documentation>An AuthToken is an Identifier that is used to reference an authenticated
-AuthSession that has been established via the act of authenticating a
-Subject with a Coordinating Node. The AuthToken identifier follows the
-same formatting and content rules as the Identifier class, and should be
-representable in simple 7-bit ASCII or as a UTF-8 string. The value SHOULD
-additionally be constrained to be less than 8K in order to be transportable
-in typical HTTP header fields. The AuthToken represents an AuthSession,
-which is tied to an authenticated Subject and can only be used for
-requests from a particular Address.
-        </xs:documentation>
-      </xs:annotation>
-      <xs:simpleContent>
-            <xs:extension base="d1:NonEmptyString">
-            </xs:extension>
-      </xs:simpleContent>
     </xs:complexType>
     
     <!-- Checksum -->
@@ -807,6 +787,9 @@ requests from a particular Address.
             <xs:element name="identifier" type="d1:Identifier" minOccurs="1" maxOccurs="1"/>
             <xs:element name="objectFormat" type="d1:ObjectFormat"/>
             <xs:element name="size" type="xs:long"/>
+            <xs:element name="checksum" type="d1:Checksum"
+                minOccurs="1" maxOccurs="1" />
+            
             <xs:element name="submitter" type="d1:Subject"/>
             <xs:element name="rightsHolder" type="d1:Subject"/>
             <xs:element name="accessPolicy" type="d1:AccessPolicy"
@@ -814,30 +797,18 @@ requests from a particular Address.
             <xs:element name="replicationPolicy" type="d1:ReplicationPolicy"
                 minOccurs="0" maxOccurs="1" />
             
-            <!-- Client provided relationship fields -->
             <xs:element name="obsoletes" type="d1:Identifier" minOccurs="0"
                 maxOccurs="unbounded"/>
             <xs:element name="obsoletedBy" type="d1:Identifier" minOccurs="0"
                 maxOccurs="unbounded"/>
-            <xs:element name="derivedFrom" type="d1:Identifier" minOccurs="0"
+            <xs:element name="resourceMap" type="d1:Identifier" minOccurs="0"
                 maxOccurs="unbounded"/>
-            <xs:element name="describes" type="d1:Identifier" minOccurs="0"
-                maxOccurs="unbounded"/>
-            <xs:element name="describedBy" type="d1:Identifier" minOccurs="0"
-                maxOccurs="unbounded"/>
-            <xs:element name="checksum" type="d1:Checksum"
-                minOccurs="1" maxOccurs="1" />
-            <xs:element name="embargoExpires" type="xs:dateTime"
-                minOccurs="0"/>
-            
-            <!-- Fields provided by Member Node and Coordinating Node -->
+                            
             <xs:element name="dateUploaded" type="xs:dateTime"/>
-            <xs:element name="dateSysMetadataModified" type="xs:dateTime"/>
-            
+            <xs:element name="dateSysMetadataModified" type="xs:dateTime"/>            
             <xs:element name="originMemberNode" type="d1:NodeReference"/>
             <xs:element name="authoritativeMemberNode" type="d1:NodeReference"/>
             <xs:element name="replica" maxOccurs="unbounded" minOccurs="0" type="d1:Replica" />
-            
         </xs:sequence>
     </xs:complexType>
     
