@@ -73,14 +73,6 @@
         </xs:restriction>
     </xs:simpleType>
     
-    <!-- NodeReference -->
-    <xs:simpleType name="NodeReference">
-      <xs:annotation>
-      <xs:documentation>Member Node identifier drawn from the DataONE :mod:`cn_register &lt;registry service&gt;`.</xs:documentation>
-      </xs:annotation>
-        <xs:restriction base="d1:NonEmptyString"/>
-    </xs:simpleType>
-    
     <!-- Node Type Enumeration -->
     <xs:simpleType name="NodeType">
         <xs:restriction base="xs:NMTOKEN">
@@ -400,6 +392,17 @@
             <xs:element maxOccurs="unbounded" name="node" type="d1:Node" minOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
+    
+    <!-- NodeReference -->
+    <xs:complexType name="NodeReference">
+      <xs:annotation>
+      <xs:documentation>Member Node identifier drawn from the DataONE :mod:`cn_register &lt;registry service&gt;`.</xs:documentation>
+      </xs:annotation>
+       <xs:simpleContent>
+            <xs:extension base="d1:NonEmptyString">
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>    
     
         <!-- Object Format -->
     <xs:complexType name="ObjectFormat">
@@ -839,6 +842,8 @@
     <xs:element name="objectFormat" type="d1:ObjectFormat" />
 
     <xs:element name="objectFormatList" type="d1:ObjectFormatList" />
+    
+    <xs:element name="nodeReference" type="d1:NodeReference" />
     
     <xs:element name="person" type="d1:Person" />
 
