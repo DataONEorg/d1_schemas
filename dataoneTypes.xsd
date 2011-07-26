@@ -784,11 +784,10 @@
     <xs:complexType name="SystemMetadata">
         <xs:sequence>
             <!-- Client Provided system metadata fields -->
-            <xs:element name="identifier" type="d1:Identifier" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="identifier" type="d1:Identifier"/>
             <xs:element name="objectFormat" type="d1:ObjectFormat"/>
             <xs:element name="size" type="xs:long"/>
-            <xs:element name="checksum" type="d1:Checksum"
-                minOccurs="1" maxOccurs="1" />
+            <xs:element name="checksum" type="d1:Checksum"/>
             
             <xs:element name="submitter" type="d1:Subject"/>
             <xs:element name="rightsHolder" type="d1:Subject"/>
@@ -797,10 +796,8 @@
             <xs:element name="replicationPolicy" type="d1:ReplicationPolicy"
                 minOccurs="0" maxOccurs="1" />
             
-            <xs:element name="obsoletes" type="d1:Identifier" minOccurs="0"
-                maxOccurs="unbounded"/>
-            <xs:element name="obsoletedBy" type="d1:Identifier" minOccurs="0"
-                maxOccurs="unbounded"/>
+            <xs:element name="obsoletes" type="d1:Identifier" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="obsoletedBy" type="d1:Identifier" minOccurs="0" maxOccurs="1"/>
             <xs:element name="resourceMap" type="d1:Identifier" minOccurs="0"
                 maxOccurs="unbounded"/>
                             
