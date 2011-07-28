@@ -833,6 +833,8 @@
         
     <xs:element name="monitorList" type="d1:MonitorList" />
     
+    <xs:element name='node' type="d1:Node"/>
+    
     <xs:element name='nodeList' type="d1:NodeList"/>
     
     <xs:element name="objectList" type="d1:ObjectList" />
