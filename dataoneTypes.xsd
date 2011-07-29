@@ -52,7 +52,7 @@
       <xs:annotation>
       <xs:documentation>The controlled list of events that are logged, 
       which will include 'CREATE', 'UPDATE', 'DELETE', 'READ', 'REPLICATE',
-      'SYNCHRONIZATION_FAILED', and 'REPLICATION_FAILED' events.</xs:documentation>
+      'SYNCHRONIZATION_FAILED' and 'REPLICATION_FAILED' events.</xs:documentation>
       </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:enumeration value="create"/>
@@ -802,13 +802,11 @@
             
             <xs:element name="obsoletes" type="d1:Identifier" minOccurs="0" maxOccurs="1"/>
             <xs:element name="obsoletedBy" type="d1:Identifier" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="resourceMap" type="d1:Identifier" minOccurs="0"
-                maxOccurs="unbounded"/>
                             
-            <xs:element name="dateUploaded" type="xs:dateTime"/>
-            <xs:element name="dateSysMetadataModified" type="xs:dateTime"/>            
-            <xs:element name="originMemberNode" type="d1:NodeReference"/>
-            <xs:element name="authoritativeMemberNode" type="d1:NodeReference"/>
+            <xs:element name="dateUploaded" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="dateSysMetadataModified" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>            
+            <xs:element name="originMemberNode" type="d1:NodeReference" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="authoritativeMemberNode" type="d1:NodeReference" minOccurs="0" maxOccurs="1"/>
             <xs:element name="replica" maxOccurs="unbounded" minOccurs="0" type="d1:Replica" />
         </xs:sequence>
     </xs:complexType>
@@ -834,9 +832,9 @@
         
     <xs:element name="monitorList" type="d1:MonitorList" />
     
-    <xs:element name='node' type="d1:Node"/>
-    
     <xs:element name='nodeList' type="d1:NodeList"/>
+    
+    <xs:element name='node' type="d1:Node"/>
     
     <xs:element name="objectList" type="d1:ObjectList" />
     
