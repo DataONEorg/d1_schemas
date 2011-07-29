@@ -803,8 +803,8 @@
             <xs:element name="obsoletes" type="d1:Identifier" minOccurs="0" maxOccurs="1"/>
             <xs:element name="obsoletedBy" type="d1:Identifier" minOccurs="0" maxOccurs="1"/>
                             
-            <xs:element name="dateUploaded" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="dateSysMetadataModified" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>            
+            <xs:element name="dateUploaded" type="xs:dateTime"/>
+            <xs:element name="dateSysMetadataModified" type="xs:dateTime"/>            
             <xs:element name="originMemberNode" type="d1:NodeReference" minOccurs="0" maxOccurs="1"/>
             <xs:element name="authoritativeMemberNode" type="d1:NodeReference" minOccurs="0" maxOccurs="1"/>
             <xs:element name="replica" maxOccurs="unbounded" minOccurs="0" type="d1:Replica" />
