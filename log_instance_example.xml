@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<d1:log xmlns:d1="http://dataone.org/service/types/logging/0.5"
+<d1:log xmlns:d1="http://ns.dataone.org/service/types/v1"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://dataone.org/service/types/logging/0.5 https://repository.dataone.org/software/cicore/trunk/d1_schemas/logging.xsd">
+     xsi:schemaLocation="http://ns.dataone.org/service/types/v1 https://repository.dataone.org/software/cicore/trunk/d1_schemas/dataoneTypes.xsd"
+     count="5"
+     start="1"
+     total="5">
     <logEntry>
         <entryId>845797</entryId>
         <identifier>nceas.951.27</identifier>
         <ipAddress>128.111.220.17</ipAddress>
         <userAgent>Kepler/1.0.0</userAgent>
-        <principal>public</principal>
+        <subject>public</subject>
         <event>read</event>
         <dateLogged>2010-02-01T00:00:11.152</dateLogged>
         <memberNode>mnode:001:KNB</memberNode>
@@ -17,7 +20,7 @@
         <identifier>nceas.962.1</identifier>
         <ipAddress>128.111.242.15</ipAddress>
         <userAgent>Morpho/1.8.0</userAgent>
-        <principal>uid=jones,o=unaffiliated,dc=ecoinformatics,dc=org</principal>
+        <subject>uid=jones,o=unaffiliated,dc=ecoinformatics,dc=org</subject>
         <event>create</event>
         <dateLogged>2010-02-01T09:51:46.068</dateLogged>
         <memberNode>mnode:002:Dryad</memberNode>
@@ -27,7 +30,7 @@
         <identifier>nceas.962.2</identifier>
         <ipAddress>128.111.220.240</ipAddress>
         <userAgent>Morpho/1.8.0</userAgent>
-        <principal>uid=jones,o=unaffiliated,dc=ecoinformatics,dc=org</principal>
+        <subject>uid=jones,o=unaffiliated,dc=ecoinformatics,dc=org</subject>
         <event>update</event>
         <dateLogged>2010-02-01T10:03:48.715</dateLogged>
         <memberNode>mnode:002:ORNL_DAAC</memberNode>
@@ -37,7 +40,7 @@
         <identifier>nceas.966.1</identifier>
         <ipAddress>128.111.242.15</ipAddress>
         <userAgent>Morpho/1.8.0</userAgent>
-        <principal>uid=jones,o=unaffiliated,dc=ecoinformatics,dc=org</principal>
+        <subject>uid=jones,o=unaffiliated,dc=ecoinformatics,dc=org</subject>
         <event>delete</event>
         <dateLogged>2010-02-01T09:51:46.068</dateLogged>
         <memberNode>mnode:001:KNB</memberNode>
@@ -47,7 +50,7 @@
         <identifier>nceas.911.1</identifier>
         <ipAddress>128.111.242.15</ipAddress>
         <userAgent>Metacat/1.10.3</userAgent>
-        <principal>uid=someuser,o=unaffiliated,dc=ecoinformatics,dc=org</principal>
+        <subject>uid=someuser,o=unaffiliated,dc=ecoinformatics,dc=org</subject>
         <event>replicate</event>
         <dateLogged>2010-02-01T09:51:46.068</dateLogged>
         <memberNode>mnode:001:KNB</memberNode>
