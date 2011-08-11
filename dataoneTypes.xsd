@@ -2,7 +2,7 @@
 <xs:schema  targetNamespace="http://ns.dataone.org/service/types/v1"
     xmlns:d1="http://ns.dataone.org/service/types/v1"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    version="0.6.3"
+    version="0.6.4"
     elementFormDefault="unqualified" attributeFormDefault="unqualified">
 
 <!-- ************************************
@@ -121,6 +121,7 @@
         <xs:enumeration value="write"/>
         <xs:enumeration value="changePermission"/>
         <xs:enumeration value="execute"/>
+        <xs:enumeration value="replicate"/>
       </xs:restriction>
     </xs:simpleType>
     
@@ -480,7 +481,7 @@
             <xs:element name="checksum" type="d1:Checksum"
                 minOccurs="1" maxOccurs="1" />
             <xs:element name="dateSysMetadataModified" type="xs:dateTime"/>
-            <xs:element name="size" type="xs:long"/>
+            <xs:element name="size" type="xs:unsignedLong"/>
             
         </xs:sequence>
     </xs:complexType>
@@ -626,7 +627,7 @@
                 <xs:annotation>
                     <xs:documentation>The object MUST never be replicated to nodes 
                         listed as blockedMemberNodes. Where there is a conflict between 
-                        a requiredMemberNode and a blockedMemberNode entry, the 
+                        a preferredMemberNode and a blockedMemberNode entry, the 
                         blockedMemberNode entry prevails.
                     </xs:documentation>
                 </xs:annotation>                
@@ -790,7 +791,7 @@
             <!-- Client Provided system metadata fields -->
             <xs:element name="identifier" type="d1:Identifier"/>
             <xs:element name="objectFormat" type="d1:ObjectFormat"/>
-            <xs:element name="size" type="xs:long"/>
+            <xs:element name="size" type="xs:unsignedLong"/>
             <xs:element name="checksum" type="d1:Checksum"/>
             
             <xs:element name="submitter" type="d1:Subject"/>
