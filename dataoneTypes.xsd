@@ -104,6 +104,18 @@
         <xs:restriction base="d1:NonEmptyString"></xs:restriction>
     </xs:simpleType>
         
+    <!-- NonEmptyString800 -->
+    <xs:simpleType name="NonEmptyString800">
+        <xs:annotation>
+          <xs:documentation> An NonEmptyString800 is a NonEmptyString string 
+          with a maximum length of 800.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="d1:NonEmptyString">
+        	<xs:maxLength value="800"></xs:maxLength>
+        </xs:restriction>
+    </xs:simpleType>
+    
     <!-- Permission = permitted action -->
     <xs:simpleType name="Permission">
       <xs:annotation>
@@ -255,14 +267,17 @@
                             whitespace. All representations of identifiers must be encoded in 7-bit
                             ASCII or UTF-8.
           </xs:documentation>
-          <xs:documentation>Identifiers have a maximum length of 800 characters. Some discussion on this
-                            is described in `ticket 577`_.
+          <xs:documentation>Identifiers have a maximum length of 800 characters, and a variety of other properties
+                            designed for preservation and longevity. Some discussion on this
+                            is described in the `PID documentation`_ and in decision `ticket 577`_.
           </xs:documentation>
           <xs:documentation>.. _ticket 577: https://redmine.dataone.org/issues/577
           </xs:documentation>
+          <xs:documentation>.. _PID documentation: http://mule1.dataone.org/ArchitectureDocs-current/design/PIDs.html
+          </xs:documentation>
         </xs:annotation>
         <xs:simpleContent>
-            <xs:extension base="d1:NonEmptyString">
+            <xs:extension base="d1:NonEmptyString800">
             </xs:extension>
         </xs:simpleContent>
     </xs:complexType>
@@ -802,7 +817,7 @@
         <xs:sequence>
             <!-- Client Provided system metadata fields -->
             <xs:element name="identifier" type="d1:Identifier"/>
-            <xs:element name="objectFormat" type="d1:ObjectFormat"/>
+            <xs:element name="objectFormat" type="d1:ObjectFormatIdentifier"/>
             <xs:element name="size" type="xs:unsignedLong"/>
             <xs:element name="checksum" type="d1:Checksum"/>
             
