@@ -817,7 +817,7 @@
         <xs:sequence>
             <!-- Client Provided system metadata fields -->
             <xs:element name="identifier" type="d1:Identifier"/>
-            <xs:element name="objectFormat" type="d1:ObjectFormatIdentifier"/>
+            <xs:element name="fmtid" type="d1:ObjectFormatIdentifier"/>
             <xs:element name="size" type="xs:unsignedLong"/>
             <xs:element name="checksum" type="d1:Checksum"/>
             
