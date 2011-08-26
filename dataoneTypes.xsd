@@ -504,7 +504,7 @@
     <xs:complexType name="ObjectInfo">
         <xs:sequence>
             <xs:element name="identifier"  type="d1:Identifier" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="objectFormat" type="d1:ObjectFormat"/>
+            <xs:element name="fmtid" type="d1:ObjectFormatIdentifier"/>
             <xs:element name="checksum" type="d1:Checksum"
                 minOccurs="1" maxOccurs="1" />
             <xs:element name="dateSysMetadataModified" type="xs:dateTime"/>
