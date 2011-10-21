@@ -10,40 +10,24 @@
         ************************************ -->
     
     <!-- Checksum Algorithm -->
-    <xs:simpleType name="ChecksumAlgorithm">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="SHA-1"/>
-            <xs:enumeration value="SHA-224"/>
-            <xs:enumeration value="SHA-256"/>
-            <xs:enumeration value="SHA-384"/>
-            <xs:enumeration value="SHA-512"/>
-            <xs:enumeration value="MD5"/>
-        </xs:restriction>
-    </xs:simpleType> 
+  <xs:simpleType name="ChecksumAlgorithm">
+    <xs:annotation>
+      <xs:documentation>The checksum algorithm used to calculate a checksum.
+      DataONE will publish a known list of algorithm names that can be supported,
+      but compliant implementations must support at least SHA-1. 
+      </xs:documentation>
+        <xs:documentation>Valid entries include: SHA-1, SHA-224, SHA-256, SHA-384, SHA-512, MD5</xs:documentation>
+        <xs:documentation>The default checksum is *SHA-1*.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+    </xs:restriction>
+  </xs:simpleType> 
     
-    <!-- ComponentName -->
-    <xs:simpleType name="ComponentName">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="Apache"/>
-            <xs:enumeration value="CoordinatingNode"/>
-            <xs:enumeration value="Django"/>
-            <xs:enumeration value="LinuxUbuntu"/>
-            <xs:enumeration value="LinuxDebian"/>
-            <xs:enumeration value="MemberNode"/>
-            <xs:enumeration value="Mercury"/>
-            <xs:enumeration value="Metacat"/>
-        </xs:restriction>
-    </xs:simpleType>
-    
-    <!-- ComponentVersion -->
-    <xs:simpleType name="ComponentVersion">
-        <xs:restriction base="d1:NonEmptyString"/>
-    </xs:simpleType>
-    
-    <!-- crontrabEntry -->
+    <!-- CrontabEntry -->
     <xs:simpleType name="CrontabEntry">
+        <xs:annotation><xs:documentation>A single value in the series that forms a single crontab entry.</xs:documentation></xs:annotation>
         <xs:restriction base="xs:token">
-            <xs:pattern value="([\*\d]{1,2}[\-,]?)+"/>
+            <xs:pattern value="([\?\*\d]{1,2}[\-,]?)+"/>
         </xs:restriction>
     </xs:simpleType> 
     
@@ -97,8 +81,8 @@
     <!-- Object Format Identifier -->
     <xs:simpleType name="ObjectFormatIdentifier">
         <xs:annotation>
-          <xs:documentation> An ObjectFormatIdentifier is a string identifying
-          the object format. It must be unique in the containing ObjectFormatList.
+          <xs:documentation>A string used to identify an instance of :class:`Types.ObjectFormat` and MUST
+          be unique within an instance of :class:`Types.ObjectFormatList`.
           </xs:documentation>
         </xs:annotation>
         <xs:restriction base="d1:NonEmptyString"></xs:restriction>
@@ -112,72 +96,55 @@
           </xs:documentation>
         </xs:annotation>
         <xs:restriction base="d1:NonEmptyString">
-        	<xs:maxLength value="800"></xs:maxLength>
+          <xs:maxLength value="800"></xs:maxLength>
         </xs:restriction>
     </xs:simpleType>
     
     <!-- Permission = permitted action -->
-    <xs:simpleType name="Permission">
-      <xs:annotation>
-        <xs:documentation>A string value indicating the set of actions that can be performed on a
-  resource as specified in an access policy.  The set of permissions include
-  the ability to read a resource, modify a resource (write), and to change
-  the set of access control policies for a resource (changePermission).  In
-  addition, there is a permission that controls ability to execute a service
-  (execute). Permissions are cumulative, in that higher level permissions
-  include all of the priveledges of lower levels (e.g., given write access, one
-  also implicitly has read access).</xs:documentation>
-      </xs:annotation>
-      <xs:restriction base="xs:string">
-        <xs:enumeration value="read"/>
-        <xs:enumeration value="write"/>
-        <xs:enumeration value="changePermission"/>
-        <xs:enumeration value="execute"/>
-        <xs:enumeration value="replicate"/>
-      </xs:restriction>
-    </xs:simpleType>
+  <xs:simpleType name="Permission">
+    <xs:annotation>
+      <xs:documentation>A string value indicating the set of actions that
+        can be performed on a resource as specified in an access policy. The
+        set of permissions include the ability to read a resource, modify a
+        resource (write), and to change the set of access control policies
+        for a resource (changePermission). In addition, there is a permission
+        that controls ability to execute a service (execute), and a 
+        permission that controls the ability of a node to replicate an object 
+        to itself from another node.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="read" />
+      <xs:enumeration value="write" />
+      <xs:enumeration value="changePermission" />
+      <xs:enumeration value="execute" />
+      <xs:enumeration value="replicate" />
+    </xs:restriction>
+  </xs:simpleType>
     
-    <!-- QueryType = named types of search query formats -->
-    <xs:simpleType name="QueryType">
-      <xs:annotation>
-        <xs:documentation>A string value indicating the type of a query from a controlled list.
-                          The types of queries will expand with subsequent release versions, but
-                          the CN will only support certain query types for search during any particular
-                          release.
-        </xs:documentation>
-      </xs:annotation>
-      <xs:restriction base="xs:string">
-        <xs:enumeration value="SOLR"/>
-        <xs:enumeration value="ECOGRID"/>
-      </xs:restriction>
-    </xs:simpleType>
-    
-    <!-- Replication Status enumeration -->
-    <xs:simpleType name="ReplicationStatus">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="queued"/>
-            <xs:enumeration value="requested"/>
-            <xs:enumeration value="completed"/>
-            <xs:enumeration value="invalidated"/>
-        </xs:restriction>
-    </xs:simpleType>
-    
-    <!-- Identifier Format enumeration -->
-    <xs:simpleType name="IdentifierFormat">
-      <xs:annotation>
-        <xs:documentation>Initially an enumerated list of strings that specify different types of identifiers.
-        </xs:documentation>
-      </xs:annotation>
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="OID"/>
-            <xs:enumeration value="LSID"/>
-            <xs:enumeration value="UUID"/>
-            <xs:enumeration value="LSRN"/>
-            <xs:enumeration value="DOI"/>
-            <xs:enumeration value="URI"/>
-            <xs:enumeration value="STRING"/>
-        </xs:restriction>
-    </xs:simpleType>
+    <!-- Replication Status -->
+  <xs:simpleType name="ReplicationStatus">
+    <xs:annotation>
+      <xs:documentation>A controlled string value indicating the current
+      state of a replica of an object.  When an object 
+      identified that needs to be replicated, it is added to the replication
+      task queue and is marked as 'queued'; a CN node will then pick up 
+      that task and request that it be replicated to a MN and marks that it
+      is 'requested'; when a MN finishes replicating the object, it informs
+      the CN that it is finished and it is marked as 'completed'; periodically
+      the CN checks each replica to be sure it is both available and valid 
+      (matching checksum with original), and if it is either unavailable in 
+      invalid then it marks it as 'invalidated', which indicates that the 
+      replication policy needs to be checked again. 
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="queued" />
+      <xs:enumeration value="requested" />
+      <xs:enumeration value="completed" />
+      <xs:enumeration value="invalidated" />
+    </xs:restriction>
+  </xs:simpleType>
 
     <!-- Service Name -->
     <xs:simpleType name="ServiceName">
@@ -198,6 +165,14 @@
 
     <!-- AccessPolicy -->
     <xs:complexType name="AccessPolicy">
+        <xs:annotation>
+            <xs:documentation>A set of rules that specifies as a whole the allowable permissions that a
+                given user or system has for accessing a resource, including both data and
+                metadata resources and service resources. An access policy consists of a
+                sequence of allow rules that grant permissions to principals, which can be
+                individual users, groups of users, symbolic users, or systems and services.
+            </xs:documentation>
+        </xs:annotation>
         <xs:sequence>
             <xs:element name="allow" type="d1:AccessRule" 
                 minOccurs="1" maxOccurs="unbounded" />
@@ -206,16 +181,30 @@
     
     <!-- AccessRule -->
     <xs:complexType name="AccessRule">
+        <xs:annotation>
+            <xs:documentation>A rule that is used to allow a :term:`subject` to perform an action (such as
+                read or write) on an object in DataONE. Rules are tuples (subject,
+                permission) specifying which permissions are allowed for the subjects(s).
+                The resource on which the access control rules are being applied is
+                determined by the containing System Metadata document, or in the case of
+                methods such as :func:`CNAuthorization.setAccessPolicy`, by the *pid* in the
+                method parameters.</xs:documentation>
+            <xs:documentation>Access control rules are specified by the :term:`Origin Member Node` when the
+                object is first registered in DataONE. If no rules are specified at that
+                time, then the object is deemed to be private and the only user with access
+                to the object (read, write, or otherwise) is the :term:`Rights Holder`.</xs:documentation>
+        </xs:annotation>
         <xs:sequence>
-        	<xs:element name="subject" type="d1:Subject" 
-        	            minOccurs="1" maxOccurs="unbounded" />
-        	<xs:element name="permission" type="d1:Permission" 
-        	            minOccurs="1" maxOccurs="unbounded" />
+          <xs:element name="subject" type="d1:Subject" 
+                      minOccurs="1" maxOccurs="unbounded" />
+          <xs:element name="permission" type="d1:Permission" 
+                      minOccurs="1" maxOccurs="unbounded" />
         </xs:sequence>
     </xs:complexType>
     
     <!-- Checksum -->
     <xs:complexType name="Checksum">
+        <xs:annotation><xs:documentation>Represents the value of a computed checksum.</xs:documentation></xs:annotation>
         <xs:simpleContent>
             <xs:extension base="xs:string">
                 <xs:attribute name="algorithm" type="d1:ChecksumAlgorithm"
@@ -223,39 +212,20 @@
             </xs:extension>
         </xs:simpleContent>
     </xs:complexType>
-  
-    <!-- Component -->
-    <xs:complexType name="Component">
-        <xs:annotation>
-            <xs:documentation>Name and version of a DataONE software stack component.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:attribute name="name" type="d1:ComponentName" use="required"/>
-        <xs:attribute name="version" type="d1:ComponentVersion" use="required"/>
-    </xs:complexType>
-    
-    <!-- Component List -->
-    <xs:complexType name="ComponentList">
-        <xs:annotation>
-            <xs:documentation>A ComponentList is the structure returned
-                from the version() method. It provides a list of DataONE software stack
-                components and their corresponding version numbers.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:element name="component" type="d1:Component"/>
-        </xs:sequence>
-    </xs:complexType>
 
     <!-- Group -->
     <xs:complexType name="Group">
+        <xs:annotation><xs:documentation>Group represents metadata about a Subject that is a group of other Subjects
+            and that can be used by clients and nodes for displaying AccessPolicy
+            information.</xs:documentation></xs:annotation>
         <xs:sequence>
             <xs:element name="subject" type="d1:Subject" 
-                minOccurs="1" maxOccurs="1" />
+                minOccurs="1" maxOccurs="1" ><xs:annotation><xs:documentation>The unique identifier of the group.</xs:documentation></xs:annotation></xs:element>
             <xs:element name="groupName" type="d1:NonEmptyString" 
-                minOccurs="1" maxOccurs="1" />
+                minOccurs="1" maxOccurs="1" ><xs:annotation><xs:documentation>The name of the Group.</xs:documentation></xs:annotation></xs:element>
             <xs:element name="hasMember" type="d1:Subject" 
-                minOccurs="0" maxOccurs="unbounded" />
+                minOccurs="0" maxOccurs="unbounded" ><xs:annotation><xs:documentation>A Subject that is a member of this group, expressed using the
+                    unique identifier for that Subject.</xs:documentation></xs:annotation></xs:element>
         </xs:sequence>
     </xs:complexType>
     
@@ -283,25 +253,26 @@
     </xs:complexType>
     
     <!--  Log -->
-	<xs:complexType name="Log">
-	    <xs:annotation>
-	      <xs:documentation>Represents a collection of LogEntry elements, used to transfer log information between DataONE components. 
-	      </xs:documentation>    
-	    </xs:annotation>
-		<xs:complexContent>
-			<xs:extension base="d1:Slice">
-				<xs:sequence>
-					<xs:element name="logEntry" type="d1:LogEntry"
-						minOccurs="0" maxOccurs="unbounded" />
-				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
+  <xs:complexType name="Log">
+      <xs:annotation>
+        <xs:documentation>Represents a collection of LogEntry elements, used to transfer log information between DataONE components. 
+        </xs:documentation>    
+      </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="d1:Slice">
+        <xs:sequence>
+          <xs:element name="logEntry" type="d1:LogEntry"
+            minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
         
     <!-- Log Entry -->
     <xs:complexType name="LogEntry">
         <xs:annotation>
-            <xs:documentation>Represents a single log entry resulting from the action of a single event.</xs:documentation>
+            <xs:documentation>A single log entry as reported by a Member Node or Coordinating Node through
+                the :func:`MNCore.getLogRecords` and :func:`CNCore.getLogRecords` methods.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="entryId" type="d1:Identifier" 
@@ -325,6 +296,10 @@
     
     <!-- Monitor Info -->
     <xs:complexType name="MonitorInfo">
+        <xs:annotation>
+          <xs:documentation>A single log entry as reported by a 
+          Member Node or Coordinating Node through the getMonitorInfos methods.
+          </xs:documentation></xs:annotation>
         <xs:sequence>
             <xs:element name="date" type="xs:date" minOccurs="1" maxOccurs="1"/>
             <xs:element name="count" type="xs:int" minOccurs="1" maxOccurs="1"/>
@@ -341,8 +316,8 @@
     <!-- Node -->
     <xs:complexType name="Node">
         <xs:annotation>
-            <xs:documentation>A unique implementation of the member node or coordination node software
-                stack. several nodes may exist on a single physical device or hostname 
+            <xs:documentation>A set of values that describe a member or coordinating node, its Internet location, the services it
+                supports and its replication policy. Several nodes may exist on a single physical device or hostname.
             </xs:documentation>
         </xs:annotation>
         
@@ -374,10 +349,16 @@
             <xs:element name="baseURL" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
             <xs:element name="services" type="d1:Services" minOccurs="0" maxOccurs="1"/>
             <xs:element name="synchronization" type="d1:Synchronization" minOccurs="0" maxOccurs="1"/>
-            <xs:element name="health" type="d1:NodeHealth" minOccurs="0" maxOccurs="1">
+            <xs:element name="ping" type="d1:Ping" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="subject" type="d1:Subject" minOccurs="0" maxOccurs="unbounded">
                 <xs:annotation>
-                    <xs:documentation>The name of the node is being used in Mercury currently to assign a
-                        path, so format should be consistent with dataone directory naming conventions
+                    <xs:documentation>The Subject of this node, which can be repeated as needed.  
+                    The Node.subject represents the identifier of the node that would be found in X.509 
+                    certificates that would be used to securely communicate with this node.  Thus, it is
+                    an X.509 Distinguished Name that applies to the host on which the Node is operating. 
+                    When (and if) this hostname changes the new subject for the node would be added to the
+                    Node so that we can track the subject that has been used in various access control 
+                    rules over time.
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
@@ -398,25 +379,15 @@
         <xs:attribute name="replicate" use="required" type="xs:boolean"/>
         <xs:attribute name="synchronize" use="required" type="xs:boolean"/>
         <xs:attribute name="type" use="required" type="d1:NodeType"/>
+        <xs:attribute name="state" use="required" type="d1:NodeState" />
         
-    </xs:complexType>
-    
-    <!-- Node Health -->
-    <xs:complexType name="NodeHealth">
-        <xs:annotation>
-            <xs:documentation>The schedule on which MnSynchronization will run for a particular run
-            </xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:element name="ping" type="d1:Ping" />
-            <xs:element name="status"   type="d1:Status" />
-        </xs:sequence>
-        
-        <xs:attribute name="state" type="d1:NodeState" use="required"/>
     </xs:complexType>
     
     <!-- Node List -->  
     <xs:complexType name='NodeList'>
+        <xs:annotation><xs:documentation> A list of Node entries that is 
+        returned by :func:`CNCore.listNodes()`.</xs:documentation>
+            <xs:documentation>NodeList is described in :mod:`NodeList`.</xs:documentation></xs:annotation>
         <xs:sequence>
             <xs:element maxOccurs="unbounded" name="node" type="d1:Node" minOccurs="1"/>
         </xs:sequence>
@@ -425,7 +396,8 @@
     <!-- NodeReference -->
     <xs:complexType name="NodeReference">
       <xs:annotation>
-      <xs:documentation>Member Node identifier drawn from the DataONE :mod:`cn_register &lt;registry service&gt;`.</xs:documentation>
+      <xs:documentation>Member Node identifier drawn from the DataONE
+      :mod:`cn_register &lt;registry service&gt;`.</xs:documentation>
       </xs:annotation>
        <xs:simpleContent>
             <xs:extension base="d1:NonEmptyString">
@@ -436,9 +408,11 @@
         <!-- Object Format -->
     <xs:complexType name="ObjectFormat">
       <xs:annotation>
+          <xs:documentation>One value from the DataONE Object Format Vocabulary, 
+          which is returned by :func:`CNCore.getFormat()`.</xs:documentation>
         <xs:documentation>An ObjectFormat is the structure returned from the 
         getFormat() method of the CN REST interface.  It provides the 
-        unique identifierand the name associated with the object format.  
+        unique identifier and the name associated with the object format.  
         Future versions may contain additional structured content from 
         external common typing systems.
         </xs:documentation>
@@ -464,14 +438,14 @@
             </xs:documentation>
           </xs:annotation>
         </xs:element>
-        <xs:element name="scienceMetadata" type="xs:boolean" 
+        <xs:element name="formatType" type="xs:string" 
           minOccurs="1" maxOccurs="1">
           <xs:annotation>
-            <xs:documentation>
-              A boolean field indicating whether or not this format is science
-              metadata describing a science data object.  If the format is a
-              self-describing data format that includes science metadata, then 
-              the field should also be set to true.
+            <xs:documentation>A string field indicating whether or not this 
+            format is science data(DATA), science metadata(METADATA) or a 
+            resource map(RESOURCE).  If the format is a self-describing data 
+            format that includes science metadata, then the field should also be 
+            set to science metadata.
             </xs:documentation>
           </xs:annotation>
         </xs:element>
@@ -483,10 +457,10 @@
     <xs:complexType name="ObjectFormatList">
       <xs:annotation>  
         <xs:documentation>An ObjectFormatList is the structure returned from 
-        the listFormats() method of the CN REST interface.  It provides a list 
-        of named objectformats defined in the DataONE system.  Each 
-        ObjectFormat returned in the list describes the object format via its 
-        name, and future versions may contain additional structured content 
+        the :func:`CNCore.listFormats()` method of the CN REST interface.  It 
+        provides a list of named objectformats defined in the DataONE system.  
+        Each ObjectFormat returned in the list describes the object format via 
+        its  name, and future versions may contain additional structured content 
         from common external typing systems.
         </xs:documentation>
       </xs:annotation>    
@@ -526,6 +500,10 @@
     
     <!-- Object Location -->
     <xs:complexType name="ObjectLocation">
+        <xs:annotation>
+            <xs:documentation>Portion of an ObjectLocationList indicating the node from which the object
+                can be retrieved. </xs:documentation>
+        </xs:annotation>
         <xs:sequence>
             <xs:element name="nodeIdentifier" type="d1:NodeReference"
                 minOccurs="1" maxOccurs="1">
@@ -546,6 +524,9 @@
                     <xs:documentation>The full (absolute) URL that can be used to
                         retrieve the object using the get() method of the rest interface.
                     </xs:documentation>
+                    <xs:documentation>For example, if identifer
+                        was "ABX154", and the node had a base URL of ``http://mn1.dataone.org/mn``
+                        then the value would be ``http://mn1.dataone.org/mn/object/ABX154``</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="preference" minOccurs="0" maxOccurs="1" type="xs:int">
@@ -562,7 +543,7 @@
     <xs:complexType name="ObjectLocationList">
         <xs:annotation>
             <xs:documentation>An ObjectLocationList is the structure returned
-                from the resolve() method of the CN REST interface. It provides a
+                from the :func:`CNRead.resolve` method of the CN REST interface. It provides a
                 list of locations from which the specified object can be retrieved.
             </xs:documentation>
         </xs:annotation>
@@ -586,19 +567,49 @@
     
     <!-- Person -->
     <xs:complexType name="Person">
+        <xs:annotation>
+            <xs:documentation>Person represents metadata about a Principal that is a person and that 
+                can be used by clients and nodes for displaying :class:`Types.AccessPolicy` information.</xs:documentation>
+        </xs:annotation>
         <xs:sequence>
             <xs:element name="subject" type="d1:Subject" 
-                minOccurs="1" maxOccurs="1" />
+                minOccurs="1" maxOccurs="1" >
+                <xs:annotation>
+                    <xs:documentation>The unique identifier for the person.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="givenName" type="d1:NonEmptyString" 
-                minOccurs="1" maxOccurs="unbounded" />
+                minOccurs="1" maxOccurs="unbounded" >
+                <xs:annotation>
+                    <xs:documentation>The given name of the Person.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="familyName" type="d1:NonEmptyString" 
-                minOccurs="1" maxOccurs="1" />
+                minOccurs="1" maxOccurs="1" >
+                <xs:annotation>
+                    <xs:documentation>The family name of the Person.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="email" type="d1:NonEmptyString" 
-                minOccurs="1" maxOccurs="unbounded" />
+                minOccurs="1" maxOccurs="unbounded" >
+                <xs:annotation>
+                    <xs:documentation>The email address of the Person.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="isMemberOf" type="d1:Subject" 
-                minOccurs="0" maxOccurs="unbounded" />
+                minOccurs="0" maxOccurs="unbounded" >
+                <xs:annotation>
+                    <xs:documentation>A group or role in which the Principal is a member, expressed using the
+                        unique Principal identifier for that group.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="equivalentIdentity" type="d1:Subject" 
-                minOccurs="0" maxOccurs="unbounded" />
+                minOccurs="0" maxOccurs="unbounded" >
+                <xs:annotation>
+                    <xs:documentation>An alternative but equivalent identity for the principal that has been
+                        used in alternate identity systems.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <!-- Do we need further Person metadata?
             <xs:element name="institution" type="d1:NonEmptyString"
                 minOccurs="0" maxOccurs="unbounded"/>
@@ -621,15 +632,32 @@
     <!-- Ping -->
     <xs:complexType name="Ping">
         <xs:annotation>
-            <xs:documentation>Store results from the Mn_Health.ping method
+            <xs:documentation>Store results from the :func:`MNCore.ping` method.
             </xs:documentation>
         </xs:annotation>
-        <xs:attribute name="success" type="xs:boolean" />
-        <xs:attribute name="lastSuccess" type="xs:dateTime" />
+        <xs:attribute name="success" type="xs:boolean" >
+            <xs:annotation>
+                <xs:documentation>A boolean flag indicating TRUE if the node was reached by the last 
+                    :func:`MNCore.ping` call, otherwise FALSE</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="lastSuccess" type="xs:dateTime" >
+            <xs:annotation>
+                <xs:documentation>
+                    The date time value of the last time a successful ping was performed.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:complexType>
 
+  
     <!-- Replica -->
     <xs:complexType name="Replica">
+        <xs:annotation>
+            <xs:documentation>
+                Replica information that forms a part of the SystemMetadata.
+            </xs:documentation>
+        </xs:annotation>
         <xs:sequence>
             <xs:element name="replicaMemberNode" type="d1:NodeReference"/>
             <xs:element name="replicationStatus" type="d1:ReplicationStatus" />
@@ -640,6 +668,11 @@
     
    <!-- Replication Policy -->
     <xs:complexType name="ReplicationPolicy">
+        <xs:annotation>
+            <xs:documentation>
+                Defines the replication policy applied to a particular object.
+            </xs:documentation>
+        </xs:annotation>
         <xs:sequence>
             <xs:element name="preferredMemberNode" type="d1:NodeReference"
                 minOccurs="0" maxOccurs="unbounded">
@@ -676,8 +709,9 @@
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
-	        <xs:element name="restriction" type="d1:ServiceMethodRestriction" minOccurs="0" maxOccurs="unbounded" />
-	    </xs:sequence>    
+          <xs:element name="restriction" type="d1:ServiceMethodRestriction" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>    
+      <xs:attribute name="name" type="d1:ServiceName" use="required" />
 	    <xs:attribute name="name" type="d1:ServiceName" use="required" />
         <xs:attribute name="version" type="d1:ServiceVersion" use="required"/>
         <xs:attribute name="available" type="xs:boolean"/>
@@ -692,7 +726,7 @@
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
-        	<xs:element name="allowed" type="d1:SubjectList" minOccurs="1" maxOccurs="1" />
+          <xs:element name="allowed" type="d1:SubjectList" minOccurs="1" maxOccurs="1" />
         </xs:sequence>
         <xs:attribute name="name"  type="xs:NMTOKEN" />
         <xs:attribute name="rest" use="required"  type="xs:token"/>
@@ -710,22 +744,22 @@
         <xs:annotation>
             <xs:documentation>Information about the authenticated session for a service transaction.  Session data
                               is retrieved from the SSL client certificate and populated in the Session object.  The
-                              subject represents the person or system that authenticated successfully, and the subjectList
+                              subject represents the person or system that authenticated successfully, and the subjectInfo
                               contains a listing of alternate identities (both Persons and Groups) that are also valid identities
-                              for this user.  The subjectList should include at least one Person or Group entry that provides
+                              for this user.  The subjectInfo should include at least one Person or Group entry that provides
                               the attributes of the subject that was authenticated. 
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="subject" type="d1:Subject" minOccurs="1" maxOccurs="1" />
-            <xs:element name="subjectList" type="d1:SubjectList" minOccurs="0" maxOccurs="1" />
+            <xs:element name="subjectInfo" type="d1:SubjectInfo" minOccurs="0" maxOccurs="1" />
         </xs:sequence>
     </xs:complexType>
     
     <!-- Schedule -->
     <xs:complexType name="Schedule">
         <xs:annotation>
-            <xs:documentation>The schedule on which MnSynchronization will run for a particular run
+            <xs:documentation>The schedule on which MnSynchronization will run for a particular run.
             </xs:documentation>
         </xs:annotation>
         <xs:attribute name="hour" use="required" type="d1:CrontabEntry"/>
@@ -742,19 +776,6 @@
         <xs:attribute name="count" use="required" type="xs:int"/>
         <xs:attribute name="start" use="required" type="xs:int"/>
         <xs:attribute name="total" use="required" type="xs:int"/>
-    </xs:complexType>
-    
-    <!-- Status -->
-    <xs:complexType name="Status">
-        <xs:annotation>
-            <xs:documentation>Store last time checked information from the Mn_Health.status method
-                Other information from status will be stored in the Service Node
-                A process should check  MN_health.getStatus()  periodically and  
-                update the version and availability  for each service.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:attribute name="success" type="xs:boolean" />
-        <xs:attribute name="dateChecked" use="required" type="xs:dateTime"/>
     </xs:complexType>
     
     <!-- Synchronization -->
@@ -794,7 +815,7 @@
        <xs:simpleContent>
             <xs:extension base="d1:NonEmptyString">
         <!-- Note: Can also be special names:
-        	 VerifiedUser: anyone with checked credentials for whom their real name and email has been verified
+           VerifiedUser: anyone with checked credentials for whom their real name and email has been verified
              AuthenticatedUser: anyone with checked credentials
              Public: anyone, whether authenticated or not
         -->
@@ -802,8 +823,14 @@
         </xs:simpleContent>
     </xs:complexType>
     
-    <!-- SubjectList -->
-    <xs:complexType name="SubjectList">
+    <!-- SubjectInfo -->
+    <xs:complexType name="SubjectInfo">
+        <xs:annotation>
+            <xs:documentation>
+                A List of subjects, including both Persons and Groups, that is returned
+                from the getSubjectInfo service and listSubjects service.
+            </xs:documentation>
+        </xs:annotation>
         <xs:sequence>
             <xs:element name="person" type="d1:Person"
                 minOccurs="0" maxOccurs="unbounded"/>
@@ -811,9 +838,25 @@
                 minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
+    
+    <!-- SubjectList -->  
+    <xs:complexType name='SubjectList'>
+        <xs:annotation>
+        	<xs:documentation> A list of Subjects used for identity/group management</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="subject" type="d1:Subject" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
         
     <!-- Definition of the SystemMetdata element -->
     <xs:complexType name="SystemMetadata">
+        <xs:annotation>
+            <xs:documentation>
+                A set of low level information about an object in the DataONE system.
+                SystemMetadata is described in :mod:`SystemMetadata`.
+            </xs:documentation>
+        </xs:annotation>
         <xs:sequence>
             <!-- Client Provided system metadata fields -->
             <xs:element name="identifier" type="d1:Identifier"/>
@@ -849,9 +892,7 @@
 
     <!-- checksum root element for Checksum messages-->
     <xs:element name="checksum" type="d1:Checksum" />
-    
-    <xs:element name="componentList" type="d1:ComponentList" />
-    
+        
     <!-- identifier root element for Identifier messages -->
     <xs:element name="identifier" type="d1:Identifier" />
     
@@ -875,10 +916,14 @@
     <xs:element name="nodeReference" type="d1:NodeReference" />
     
     <xs:element name="person" type="d1:Person" />
+    
+    <xs:element name="session" type="d1:Session" />
 
     <xs:element name="subject" type="d1:Subject" />
 
     <xs:element name="subjectList" type="d1:SubjectList" />
+    
+    <xs:element name="subjectInfo" type="d1:SubjectInfo" />
 
     <xs:element name="systemMetadata" type="d1:SystemMetadata" />
     
