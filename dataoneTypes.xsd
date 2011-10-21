@@ -699,7 +699,7 @@
         <xs:sequence>
           <xs:element name="restriction" type="d1:ServiceMethodRestriction" minOccurs="0" maxOccurs="unbounded" />
       </xs:sequence>    
-	    <xs:attribute name="name" type="d1:ServiceName" use="required" />
+      <xs:attribute name="name" type="d1:ServiceName" use="required" />
         <xs:attribute name="version" type="d1:ServiceVersion" use="required"/>
         <xs:attribute name="available" type="xs:boolean"/>
         
