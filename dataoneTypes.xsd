@@ -362,18 +362,6 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="subject" type="d1:Subject" minOccurs="0" maxOccurs="unbounded">
-                <xs:annotation>
-                    <xs:documentation>The Subject of this node, which can be repeated as needed.  
-                    The Node.subject represents the identifier of the node that would be found in X.509 
-                    certificates that would be used to securely communicate with this node.  Thus, it is
-                    an X.509 Distinguished Name that applies to the host on which the Node is operating. 
-                    When (and if) this hostname changes the new subject for the node would be added to the
-                    Node so that we can track the subject that has been used in various access control 
-                    rules over time.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:element>
         </xs:sequence>
         
         <xs:attribute name="replicate" use="required" type="xs:boolean"/>
@@ -711,7 +699,6 @@
         <xs:sequence>
           <xs:element name="restriction" type="d1:ServiceMethodRestriction" minOccurs="0" maxOccurs="unbounded" />
       </xs:sequence>    
-      <xs:attribute name="name" type="d1:ServiceName" use="required" />
 	    <xs:attribute name="name" type="d1:ServiceName" use="required" />
         <xs:attribute name="version" type="d1:ServiceVersion" use="required"/>
         <xs:attribute name="available" type="xs:boolean"/>
