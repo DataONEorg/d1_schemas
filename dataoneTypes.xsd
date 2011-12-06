@@ -329,7 +329,7 @@
                 minOccurs="1" maxOccurs="1"/>
             <xs:element name="dateLogged" type="xs:dateTime"
                 minOccurs="1" maxOccurs="1"/>
-            <xs:element name="memberNode" type="d1:NodeReference"
+            <xs:element name="nodeIdentifier" type="d1:NodeReference"
                 minOccurs="1" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
