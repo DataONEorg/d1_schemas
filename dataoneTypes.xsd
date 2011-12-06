@@ -315,7 +315,7 @@
                 the :func:`MNCore.getLogRecords` and :func:`CNCore.getLogRecords` methods.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="entryId" type="d1:Identifier" 
+            <xs:element name="entryId" type="d1:NonEmptyString" 
                 minOccurs="1" maxOccurs="1"/>
             <xs:element name="identifier" type="d1:Identifier" 
                 minOccurs="1" maxOccurs="1"/>
