@@ -19,7 +19,7 @@ should work OK for the pattern of type structures being used by DataONE.
     version="1.0">
     <!-- Transform DataONE Types to plantuml text output. -->
 
-    <xsl:output omit-xml-declaration="yes" indent="no" method="xml"/>
+    <xsl:output omit-xml-declaration="yes" indent="no" method="text"/>
     <xsl:strip-space elements="*" />
     <xsl:variable name="MODULE">Types.</xsl:variable>
 
