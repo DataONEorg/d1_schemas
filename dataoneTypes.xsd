@@ -442,21 +442,66 @@ Formatting:
     </xs:annotation>
     <xs:sequence>
       <xs:element name="entryId" type="d1:NonEmptyString" 
-          minOccurs="1" maxOccurs="1"/>
+          minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>A unique identifier for this log entry. The
+          identifier should be unique for a particular node; This is not drawn
+          from the same value space as other identifiers in DataONE, and so is
+          not subjec to the same restrictions.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="identifier" type="d1:Identifier" 
-          minOccurs="1" maxOccurs="1"/>
+          minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The :term:`identifier` of the object that was the
+          target of the operation which generated this log entry.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="ipAddress" type="xs:string"
-          minOccurs="1" maxOccurs="1"/>
+          minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The IP address, as reported by the service receiving
+          the request, of the request origin.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="userAgent" type="xs:string"
-          minOccurs="1" maxOccurs="1"/>
+          minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The user agent of the client making the request, as
+          reported in the User-Agent HTTP header.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="subject" type="d1:Subject"
-          minOccurs="1" maxOccurs="1"/>
+          minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The :term:`Subject` used for making the request.
+          This may be the DataONE *public* user if the request is not
+          authenticated, otherwise it will be the Subject of the certificate
+          used for authenticating the request.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="event" type="d1:Event"
-          minOccurs="1" maxOccurs="1"/>
+          minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>An entry from the :class:`Types.Event` enumeration
+          indicating the type of operation that triggered the log message.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="dateLogged" type="xs:dateTime"
-          minOccurs="1" maxOccurs="1"/>
+          minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>A :class:`Types.DateTime` time stamp indicating when
+          the event triggering the log message ocurred. Note that all time
+          stamps in DataONE are in UTC.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:element name="nodeIdentifier" type="d1:NodeReference"
-          minOccurs="1" maxOccurs="1"/>
+          minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The unique identifier for the node where the log
+          message was generated.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
 
