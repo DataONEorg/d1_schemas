@@ -13,7 +13,7 @@
         <subject>public</subject>
         <event>read</event>
         <dateLogged>2010-02-01T00:00:11.152</dateLogged>
-        <memberNode>mnode:001:KNB</memberNode>
+        <nodeIdentifier>mnode:001:KNB</nodeIdentifier>
     </logEntry> 
     <logEntry>
         <entryId>846267</entryId>
@@ -23,7 +23,7 @@
         <subject>uid=jones,o=unaffiliated,dc=ecoinformatics,dc=org</subject>
         <event>create</event>
         <dateLogged>2010-02-01T09:51:46.068</dateLogged>
-        <memberNode>mnode:002:Dryad</memberNode>
+        <nodeIdentifier>mnode:002:Dryad</nodeIdentifier>
     </logEntry> 
     <logEntry>
         <entryId>846284</entryId>
@@ -33,7 +33,7 @@
         <subject>uid=jones,o=unaffiliated,dc=ecoinformatics,dc=org</subject>
         <event>update</event>
         <dateLogged>2010-02-01T10:03:48.715</dateLogged>
-        <memberNode>mnode:002:ORNL_DAAC</memberNode>
+        <nodeIdentifier>mnode:002:ORNL_DAAC</nodeIdentifier>
     </logEntry> 
     <logEntry>
         <entryId>846267</entryId>
@@ -43,7 +43,7 @@
         <subject>uid=jones,o=unaffiliated,dc=ecoinformatics,dc=org</subject>
         <event>delete</event>
         <dateLogged>2010-02-01T09:51:46.068</dateLogged>
-        <memberNode>mnode:001:KNB</memberNode>
+        <nodeIdentifier>mnode:001:KNB</nodeIdentifier>
     </logEntry> 
     <logEntry>
         <entryId>816267</entryId>
@@ -53,6 +53,6 @@
         <subject>uid=someuser,o=unaffiliated,dc=ecoinformatics,dc=org</subject>
         <event>replicate</event>
         <dateLogged>2010-02-01T09:51:46.068</dateLogged>
-        <memberNode>mnode:001:KNB</memberNode>
+        <nodeIdentifier>mnode:001:KNB</nodeIdentifier>
     </logEntry> 
 </d1:log> 
