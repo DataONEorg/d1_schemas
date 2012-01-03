@@ -22,7 +22,7 @@ are included through a file "Types_include.txt".
     version="1.0">
     <!-- Transform DataONE Types to plantuml and restructured text output. -->
 
-    <xsl:output omit-xml-declaration="yes" indent="no" method="text"/>
+    <xsl:output omit-xml-declaration="yes" indent="no" method="xml"/>
     <xsl:strip-space elements="*" />
     <xsl:variable name="MODULE">Types.</xsl:variable>
 

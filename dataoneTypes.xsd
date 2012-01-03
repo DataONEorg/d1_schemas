@@ -77,9 +77,9 @@ Formatting:
   <!-- CrontabEntry -->
   <xs:simpleType name="CrontabEntry">
     <xs:annotation>
-      <xs:documentation>A single value in the series that forms a single
-      crontab entry, following the syntax conventions defined by the `Quartz
-      Scheduler`_.</xs:documentation>
+      <xs:documentation>A single value in the series of values that together 
+      form a single crontab entry. The format follows the syntax conventions 
+      defined by the `Quartz Scheduler`_.</xs:documentation>
       <xs:documentation>.. _Quartz Scheduler: http://www.quartz-scheduler.org/api/2.1.0/org/quartz/CronExpression.html</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
@@ -90,11 +90,12 @@ Formatting:
   <!-- CrontabEntrySeconds -->
   <xs:simpleType name="CrontabEntrySeconds">
     <xs:annotation>
-      <xs:documentation>A restriction on the second field in a single Schedule
-      entry, following the syntax conventions defined by the `Quartz
+      <xs:documentation>A restriction on the seconds field in a single 
+      Schedule entry, following the syntax conventions defined by the `Quartz
       Scheduler`_.</xs:documentation>
-      <xs:documentation>Don't allow wildcards that would cause synchronization
-      on an unrealistic schedule.</xs:documentation>
+      <xs:documentation>The wildcard character value is not allowed in this
+      (seconds) field as this would create an impractical synchronization
+      schedule</xs:documentation>
       <xs:documentation>.. _Quartz Scheduler: http://www.quartz-scheduler.org/api/2.1.0/org/quartz/CronExpression.html</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
@@ -140,7 +141,7 @@ Formatting:
   <xs:simpleType name="NodeType">
     <xs:annotation>
       <xs:documentation>The type of this node, which is either *mn* for
-      Member Nodes, and and *cn* for Coordinating Nodes.</xs:documentation>
+      Member Nodes, or *cn* for Coordinating Nodes.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:NMTOKEN">
       <xs:enumeration value="mn"/>
@@ -218,8 +219,8 @@ Formatting:
   <!-- ReplicationStatus -->
   <xs:simpleType name="ReplicationStatus">
     <xs:annotation>
-      <xs:documentation>A controlled string value indicating the current state
-      of a replica of an object. When an object identified needs to be
+      <xs:documentation>An enumerated string value indicating the current
+      state of a replica of an object. When an object identified needs to be
       replicated, it is added to the replication task queue and is marked as
       *queued*; a CN will pick up that task and request that it be replicated
       to a MN and marks that it as *requested*; when a MN finishes replicating
@@ -256,11 +257,10 @@ Formatting:
   <!-- ServiceVersion -->
   <xs:simpleType name="ServiceVersion">
     <xs:annotation>
-      <xs:documentation>The version of a service that is available on a Node,
-      expressed using the symbolic service level that that service implements,
-      such as "v1" or "v2". DataONE services are released only as major
-      service versions; patches to services are not indicated in this version
-      label.</xs:documentation>
+      <xs:documentation>The version of a service provided by a Node. Service
+      versions are expressed as version labels such as "v1", "v2". DataONE
+      services are released only as major service versions; patches to
+      services are not indicated in this version label.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="d1:NonEmptyString"/>
   </xs:simpleType>
@@ -705,8 +705,10 @@ Formatting:
   <!-- NodeReference -->
   <xs:complexType name="NodeReference">
     <xs:annotation>
-      <xs:documentation>Member Node identifier drawn from the DataONE
-      :mod:`CNReplication &lt;registry service&gt;`.</xs:documentation>
+      <xs:documentation>A unique identifier for a Member Node. The
+      *NodeReference* must be unique across Member Nodes, and must always be
+      assigned to one Member Node instance even in the event of the *BaseURL* or
+      other characteristics changing.</xs:documentation>
     </xs:annotation>
     <xs:simpleContent>
       <xs:extension base="d1:NonEmptyString">
@@ -1111,7 +1113,7 @@ Formatting:
         <xs:documentation>Version of the service supported by the node.
         Version is expressed in whole steps, no minor version identifiers are
         used. For example, the version 1.0.0 API would be indicated by the
-        value &quot;v1&quot;</xs:documentation>
+        value "v1"</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="available" type="xs:boolean">
