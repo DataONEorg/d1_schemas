@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <d1:log xmlns:d1="http://ns.dataone.org/service/types/v1"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://ns.dataone.org/service/types/v1 https://repository.dataone.org/software/cicore/trunk/d1_schemas/dataoneTypes.xsd"
+     xsi:schemaLocation="http://ns.dataone.org/service/types/v1 http://ns.dataone.org/service/types/v1"
      count="5"
      start="1"
      total="5">
