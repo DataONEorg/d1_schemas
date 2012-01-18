@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:d1="http://ns.dataone.org/service/errors/v1"
-  xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0.0"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0.1"
   elementFormDefault="unqualified" attributeFormDefault="unqualified">
   <!-- 
-$HeadURL: $
-$Id: $
+$HeadURL$
+$Id$
 
 About this document:
 

@@ -2,7 +2,7 @@
 <xs:schema  targetNamespace="http://ns.dataone.org/service/types/v1"
     xmlns:d1="http://ns.dataone.org/service/types/v1"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    version="1.0.0"
+    version="1.0.1"
     elementFormDefault="unqualified" attributeFormDefault="unqualified">
 
 <!-- 
