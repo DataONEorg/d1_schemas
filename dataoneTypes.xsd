@@ -2,7 +2,7 @@
 <xs:schema  targetNamespace="http://ns.dataone.org/service/types/v1"
     xmlns:d1="http://ns.dataone.org/service/types/v1"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    version="1.0.2"
+    version="1.0.3"
     elementFormDefault="unqualified" attributeFormDefault="unqualified">
 
 <!-- 
@@ -516,11 +516,11 @@ Formatting:
       <xs:element name="identifier" type="d1:NodeReference" minOccurs="1" 
                   maxOccurs="1">
         <xs:annotation>
-          <xs:documentation>A unique identifier for the node. Although this
-          may initially be the same as the *baseURL*, such practice is not
-          recommended however as this value MUST NOT change for future
-          implementations of the same node, whereas the *baseURL* may change
-          in the future. </xs:documentation>
+          <xs:documentation>A unique identifier for the node of the form 
+          ``urn:node:NODEID`` where NODEID is the node specific identifier. 
+          This value MUST NOT change for future implementations of the 
+          same node, whereas the *baseURL* may change in the future. 
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="name" type="d1:NonEmptyString" minOccurs="1" maxOccurs="1" >
@@ -629,9 +629,8 @@ Formatting:
     </xs:attribute>
     <xs:attribute name="type" use="required" type="d1:NodeType">
       <xs:annotation>
-        <xs:documentation>The type of the node (Coordinating, Member,
-        Monitor), chosen from the :class:`Types.NodeType`
-        type.</xs:documentation>
+        <xs:documentation>The type of the node (Coordinating, Member), chosen 
+        from the :class:`Types.NodeType` type.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="state" use="required" type="d1:NodeState" >
@@ -1609,3 +1608,4 @@ Formatting:
   <xs:element name="synchronization" type="d1:Synchronization" />
   <xs:element name="systemMetadata" type="d1:SystemMetadata" />
 </xs:schema>
+
