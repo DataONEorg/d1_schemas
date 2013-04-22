@@ -51,7 +51,7 @@
     <xs:complexType name="choicesType">
         <xs:annotation>
             <xs:documentation>
-                Root element type that will contain all the various environment configurations
+                Holds all  the possible values of a select or multiselect template type
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
