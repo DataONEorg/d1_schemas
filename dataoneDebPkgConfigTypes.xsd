@@ -30,6 +30,7 @@
             <xs:enumeration value=" text"/>
         </xs:restriction>
     </xs:simpleType>
+    
     <xs:simpleType name="phaseType">
         <xs:annotation>
             <xs:documentation>The controlled list of phases that may describe an envrionment's use in product lifecycle
@@ -47,6 +48,17 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <xs:complexType name="choicesType">
+        <xs:annotation>
+            <xs:documentation>
+                Root element type that will contain all the various environment configurations
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="choice" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    
     <xs:complexType name="debConfType">
         <xs:annotation>
             <xs:documentation>
@@ -101,21 +113,14 @@
         <xs:restriction base="xs:string" />
     </xs:simpleType>
     
-    
-    <xs:complexType  name="templateQuestionType" mixed="true">
+    <xs:complexType name="templateType" abstract="true">
         <xs:annotation>
-        <xs:documentation>
-            extends the templateType to add in an attribute keyref.  It is derived from templateType to show the relationship between key and keyref. The templateQuestionType is the instantiation for an environment of a template.  
-            The templateQuestionType is not derived from the templateFieldsType since the key attribute and  fields of the template should be excluded in the instantiation.
-            The question may contain a value that is considered the default configuration for a machine/environment. Or it may be empty. If it is empty, then the flags of the templateFieldsType should be checked in order to determine
-            if the value of the question is derived or user entered.
-        </xs:documentation>
+            <xs:documentation>
+                extends the template type to add in attribute fields.  The name of the fields must be restricted to the valid types that are acceptable for fields to have.  
+                excluding template field and  including the a flag field. as a question a flag field must have a the key field filled in, otherwise there is no way to distingush one 
+                flag from another.
+            </xs:documentation>
         </xs:annotation>
-        <xs:complexContent>
-            <xs:extension base="dpc:templateType" >
-                <xs:attribute name="keyref" type="dpc:keyType" />
-            </xs:extension>
-        </xs:complexContent>
     </xs:complexType>
     
     <xs:complexType  name="templateFieldsType">
@@ -137,7 +142,7 @@
                     
                     <xs:element minOccurs="1"  maxOccurs="1"  name="description" type="xs:string" />
                     <xs:element minOccurs="1"  maxOccurs="1"  name="type" type="dpc:fieldTypeType" />
-                    <xs:element minOccurs="0" maxOccurs="1" name="choices" type="xs:string" />
+                    <xs:element minOccurs="0" maxOccurs="1" name="choices" type="dpc:choicesType" />
                     <xs:element minOccurs="0"  maxOccurs="1"  name="default" type="xs:string" />
                     <xs:element minOccurs="0"  maxOccurs="unbounded"  name="flag"  type="dpc:flagType" />
                         
@@ -147,17 +152,22 @@
         </xs:complexContent>
     </xs:complexType>
     
-    <xs:complexType name="templateType" abstract="true">
+    <xs:complexType  name="templateQuestionType" mixed="true">
         <xs:annotation>
             <xs:documentation>
-                extends the template type to add in attribute fields.  The name of the fields must be restricted to the valid types that are acceptable for fields to have.  
-                excluding template field and  including the a flag field. as a question a flag field must have a the key field filled in, otherwise there is no way to distingush one 
-                flag from another.
+                extends the templateType to add in an attribute keyref.  It is derived from templateType to show the relationship between key and keyref. The templateQuestionType is the instantiation for an environment of a template.  
+                The templateQuestionType is not derived from the templateFieldsType since the key attribute and  fields of the template should be excluded in the instantiation.
+                The question may contain a value that is considered the default configuration for a machine/environment. Or it may be empty. If it is empty, then the flags of the templateFieldsType should be checked in order to determine
+                if the value of the question is derived or user entered.
             </xs:documentation>
         </xs:annotation>
-
+        <xs:complexContent>
+            <xs:extension base="dpc:templateType" >
+                <xs:attribute name="keyref" type="dpc:keyType" />
+            </xs:extension>
+        </xs:complexContent>
     </xs:complexType>
-    
+
     <xs:complexType name="templatesType">
         <xs:annotation>
             <xs:documentation>
@@ -171,6 +181,6 @@
         </xs:sequence>
     </xs:complexType>
 
-    <xs:element name="debconf" type="dpc:debConfType" ></xs:element>
+    <xs:element name="debconf" type="dpc:debConfType" />
         
 </xs:schema>
