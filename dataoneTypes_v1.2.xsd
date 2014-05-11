@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema  targetNamespace="http://ns.dataone.org/service/types/v1.2"
+	xmlns:d1="http://ns.dataone.org/service/types/v1"
+    xmlns:d1_v1.1="http://ns.dataone.org/service/types/v1.1"
+    xmlns:d1_v1.2="http://ns.dataone.org/service/types/v1.2"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    version="1.2.0"
+    elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+<!-- 
+$HeadURL: https://repository.dataone.org/software/cicore/branches/D1_SCHEMA_v1.1/dataoneTypes.xsd $
+$Id: dataoneTypes.xsd 10341 2012-10-10 14:07:49Z vieglais $
+
+About this document:
+
+  This XML Schema document defines the common data structures that are used
+  to support messaging between the major components of the DataONE
+  infrastructure and to guide structure design for storage of information
+  required for normal operations.
+
+License:
+
+  This work was created by participants in the DataONE project, and is
+  jointly copyrighted by participating institutions in DataONE. For
+  more information on DataONE, see our web site at http://dataone.org.
+
+    Copyright 2014
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+Formatting: 
+
+  - This document should be saved as a UTF-8 encoded file.
+
+  - Indent using spaces, not tabs, with two spaces per indent level.
+
+  - Line wrapping should be set to 80 chars, adjusted as necessary
+
+  - Documentation entries contain formatting instructions for integration with
+    the DataONE architecture documentation, available at:
+
+      http://mule1.dataone.org/ArchitectureDocs-current
+
+-->
+
+<!-- ************************************
+        DEFINE REUSABLE SIMPLE TYPES HERE 
+        ************************************ -->
+
+
+
+  <!-- ***************************************
+          DEFINE REUSABLE COMPLEX  TYPES HERE 
+          *************************************** -->
+
+  <!-- NOTE THAT ALL SERIALIZEABLE ROOT ELEMENTS FOR MESSAGES SHOULD BE OF A
+       COMPLEX TYPE -->
+    <xs:import namespace="http://ns.dataone.org/service/types/v1" 
+        schemaLocation="http://ns.dataone.org/service/types/v1" />
+    <xs:import namespace="http://ns.dataone.org/service/types/v1.1" 
+        schemaLocation="http://ns.dataone.org/service/types/v1.1" />
+
+
+  <!-- OptionList -->
+  <xs:complexType name="OptionList">
+    <xs:annotation>
+      <xs:documentation>A list of options that indicate the possible values for 
+        a DataONE service.  Each option that can be validly sent to a service is listed, providing the specific key that should be used when interacting with the service, as well as a description of that key that allows API users to understand the usage of the key.  For example, an OptionList might contain a list of themes that can be used with the MNView.view service, or for other services that have a configurable but controlled set of parameters.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name ="option" type="d1:NonEmptyString" 
+        minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>The key to be used within an API call to a DataONE 
+          service, including a description of the key and its impact on the 
+          service. For example, a key 'default' can be provided as the theme for 
+          the MNView.view service.  Keys must not contain characters that will 
+          need to be URL escaped.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="key" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>A value that can be used with a DataONE
+        service. Key values must not contain any characters that need to be 
+        URL escaped, and should be short and informative. 
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="description" use="required" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>The description of an option, indicating its
+        intended use and impact on a DataONE service invocation.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <!-- ******************************************
+          DEFINE ROOT ELEMENTS OF MESSAGES HERE 
+          ****************************************** -->
+  <!-- NOTE THAT ALL SERIALIZEABLE ROOT ELEMENTS FOR MESSAGES SHOULD BE OF A 
+       COMPLEX TYPE -->
+
+  <!-- These root-level element definitions are provided for selected types so
+       that those types can be used in serialized messages in method calls in
+       DataONE. Any type that is included as a parameter to or a return type
+       from a DataONE service should have a corresponding root element of that
+       type defined here.
+  -->
+
+  <xs:element name="optionList" type="d1_v1.2:ThemeList" />
+</xs:schema>
+
