@@ -118,6 +118,6 @@ Formatting:
        type defined here.
   -->
 
-  <xs:element name="optionList" type="d1_v1.2:ThemeList" />
+  <xs:element name="optionList" type="d1_v1.2:OptionList" />
 </xs:schema>
 
