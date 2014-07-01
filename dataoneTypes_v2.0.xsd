@@ -65,8 +65,7 @@ Formatting:
 
   <!-- NOTE THAT ALL SERIALIZEABLE ROOT ELEMENTS FOR MESSAGES SHOULD BE OF A
        COMPLEX TYPE -->
-    <xs:import namespace="http://ns.dataone.org/service/types/v1" 
-        schemaLocation="http://ns.dataone.org/service/types/v1" />
+
     <xs:import namespace="http://ns.dataone.org/service/types/v1.1" 
         schemaLocation="http://ns.dataone.org/service/types/v1.1" />
 
