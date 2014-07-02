@@ -169,5 +169,7 @@ Formatting:
   -->
 
   <xs:element name="optionList" type="d1_v2.0:OptionList" />
+  <xs:element name="systemMetadata" type="d1_v2.0:SystemMetadata" />
+  
 </xs:schema>
 
