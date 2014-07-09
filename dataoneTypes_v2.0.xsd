@@ -167,7 +167,28 @@ Formatting:
     			</xs:sequence>
     		</xs:extension>
     	</xs:complexContent>	
-   	</xs:complexType>   	
+   	</xs:complexType>
+   	
+	<!--  ObjectFormatList -->
+	<xs:complexType name="ObjectFormatList">
+		<xs:annotation>  
+		  <xs:documentation>An ObjectFormatList is the structure returned from the
+		  :func:`CNCore.listFormats()` method of the CN REST interface. It
+		  provides a list of named object formats defined in the DataONE system.
+		  Each :class:`Types.ObjectFormat` returned in the list describes the
+		  object format via its name, and future versions may contain additional
+		  structured content from common external typing systems.
+		  </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+		  <xs:extension base="d1:ObjectFormatList">
+		    <xs:sequence>
+		      <xs:element name="objectFormat" type="d1_v2.0:ObjectFormat" minOccurs="1" 
+		                  maxOccurs="unbounded" />
+		    </xs:sequence>
+		  </xs:extension>
+		</xs:complexContent>
+	</xs:complexType>   	
 	
   <!-- OptionList -->
   <xs:complexType name="OptionList">
@@ -219,8 +240,8 @@ Formatting:
   <xs:element name="optionList" type="d1_v2.0:OptionList" />
   <xs:element name="systemMetadata" type="d1_v2.0:SystemMetadata" />
   <xs:element name="node" type="d1_v2.0:Node" />
-  <xs:element name="objectFormat" type="d1_v2.0:ObjectFormat" />
-  
+  <xs:element name="objectFormat" type="d1_v2.0:ObjectFormat" />  
+  <xs:element name="objectFormatList" type="d1_v2.0:ObjectFormatList" />
   
   
 </xs:schema>
