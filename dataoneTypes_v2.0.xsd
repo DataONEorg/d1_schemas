@@ -218,6 +218,10 @@ Formatting:
 
   <xs:element name="optionList" type="d1_v2.0:OptionList" />
   <xs:element name="systemMetadata" type="d1_v2.0:SystemMetadata" />
+  <xs:element name="node" type="d1_v2.0:Node" />
+  <xs:element name="objectFormat" type="d1_v2.0:ObjectFormat" />
+  
+  
   
 </xs:schema>
 
