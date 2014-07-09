@@ -130,14 +130,43 @@ Formatting:
 	    <xs:complexContent>
     		<xs:extension base="d1:Node">
     			<xs:sequence>
-    				<xs:element name="serviceExtensions" type="xs:string">
-				        <xs:annotation>
-				          <xs:documentation>TODO: define the content of this?</xs:documentation>
-				        </xs:annotation>
-				      </xs:element>
+					<xs:element name="serviceExtensions" type="xs:string">
+						<xs:annotation>
+						  <xs:documentation>TODO: define the content of this?</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="property" type="Property" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+						  <xs:documentation>Allows additional attributes be added to the Node document as needed</xs:documentation>
+						</xs:annotation>
+					</xs:element>
     			</xs:sequence>
     		</xs:extension>
     	</xs:complexContent>	
+   	</xs:complexType>
+   	
+   	<!-- Property extension-->
+	<xs:complexType name="Property">
+	    <xs:annotation>
+	      <xs:documentation>Additional Property elements can be included to describe the Node in more detail.
+	      Some properties will come from controlled vocabularies, indicated by the type attribute, while 
+	      others will be free-form key value pairs.</xs:documentation>
+	    </xs:annotation>
+	    <xs:simpleContent>
+    		<xs:extension base="d1:NonEmptyString">
+    			<xs:attribute name="key" type="xs:string" use="required">
+	    			<xs:annotation>
+			        	<xs:documentation>The property key for this entry. Should be unique within the Node element</xs:documentation>
+					</xs:annotation>
+    			</xs:attribute>
+    			<xs:attribute name="type" type="xs:string" use="optional">
+    				<xs:annotation>
+			        	<xs:documentation>The optional type for the property. Can be used to indicate if a controlled vocabulary is used for the 
+			        	property key to better facilitate machine interpretation.</xs:documentation>
+					</xs:annotation>
+    			</xs:attribute>
+    		</xs:extension>
+    	</xs:simpleContent>	
    	</xs:complexType>
    	
    	<!-- Updated ObjectFormat type to allow for MIME type and extension -->
