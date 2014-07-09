@@ -139,6 +139,35 @@ Formatting:
     		</xs:extension>
     	</xs:complexContent>	
    	</xs:complexType>
+   	
+   	<!-- Updated ObjectFormat type to allow for MIME type and extension -->
+	<xs:complexType name="ObjectFormat">
+	    <xs:annotation>
+			<xs:documentation>One value from the DataONE Object Format Vocabulary
+			which is returned by :func:`CNCore.getFormat()`.</xs:documentation>
+			<xs:documentation>An *ObjectFormat* is the structure returned from the
+			:func:`CNCore.getFormat()` method of the CN REST interface. It provides
+			the unique identifier and the name associated with the object format.
+			Future versions may contain additional structured content from external
+			common typing systems. </xs:documentation>
+		</xs:annotation>
+	    <xs:complexContent>
+    		<xs:extension base="d1:ObjectFormat">
+    			<xs:sequence>
+    				<xs:element name="mimeType" type="xs:string">
+				        <xs:annotation>
+				          <xs:documentation>The MIME type for this object format.</xs:documentation>
+				        </xs:annotation>
+					</xs:element>
+					<xs:element name="extension" type="xs:string">
+				        <xs:annotation>
+				          <xs:documentation>The extension to be used when serializing the object to a file.</xs:documentation>
+				        </xs:annotation>
+					</xs:element>
+    			</xs:sequence>
+    		</xs:extension>
+    	</xs:complexContent>	
+   	</xs:complexType>   	
 	
   <!-- OptionList -->
   <xs:complexType name="OptionList">
