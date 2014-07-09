@@ -181,7 +181,7 @@ Formatting:
 		  </xs:documentation>
 		</xs:annotation>
 		<xs:complexContent>
-		  <xs:extension base="d1:ObjectFormatList">
+		  <xs:extension base="d1:Slice">
 		    <xs:sequence>
 		      <xs:element name="objectFormat" type="d1_v2.0:ObjectFormat" minOccurs="1" 
 		                  maxOccurs="unbounded" />
