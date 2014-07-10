@@ -120,6 +120,20 @@ Formatting:
     	</xs:complexContent>	
    	</xs:complexType>
    	
+   	<!-- Node List -->  
+	<xs:complexType name="NodeList">
+	  <xs:annotation>
+	    <xs:documentation> A list of :class:`Types.Node` entries returned by
+	    :func:`CNCore.listNodes()`.</xs:documentation>
+	     <xs:documentation>NodeList is described in
+	     :mod:`NodeList`.</xs:documentation>
+	  </xs:annotation>
+	  <xs:sequence>
+	    <xs:element maxOccurs="unbounded" name="node" type="d1_v2.0:Node" 
+	                minOccurs="1"/>
+	  </xs:sequence>
+	</xs:complexType>
+   	
    	<!-- Updated Node type to allow for Service Extensions-->
 	<xs:complexType name="Node">
 	    <xs:annotation>
@@ -359,6 +373,7 @@ Formatting:
   <xs:element name="optionList" type="d1_v2.0:OptionList" />
   <xs:element name="systemMetadata" type="d1_v2.0:SystemMetadata" />
   <xs:element name="node" type="d1_v2.0:Node" />
+  <xs:element name="nodeList" type="d1_v2.0:NodeList" />  
   <xs:element name="objectFormat" type="d1_v2.0:ObjectFormat" />  
   <xs:element name="objectFormatList" type="d1_v2.0:ObjectFormatList" />
   <xs:element name="log" type="d1_v2.0:Log" />
