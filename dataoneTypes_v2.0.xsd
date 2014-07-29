@@ -144,7 +144,7 @@ Formatting:
 	    <xs:complexContent>
     		<xs:extension base="d1:Node">
     			<xs:sequence>
-					<xs:element name="serviceExtensions" type="xs:string" minOccurs="0">
+					<xs:element name="serviceExtensions" type="ServiceExtension" minOccurs="0">
 						<xs:annotation>
 						  <xs:documentation>TODO: define the content of this?</xs:documentation>
 						</xs:annotation>
@@ -158,6 +158,62 @@ Formatting:
     		</xs:extension>
     	</xs:complexContent>	
    	</xs:complexType>
+
+	<!-- Service Extension-->
+	<xs:complexType name="ServiceExtension">
+		<xs:annotation>
+			<xs:documentation>
+			The goal of Member Node Service Registration (MNSR) is to assist clients in discovery 
+			of services exposed by Member Nodes that may be applicable to a particular type of object
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Descriptive human-readable name of the service.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="type" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Unique Service Type identifier.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Brief human readable description of service to be
+                        presented in user interfaces.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="connection" type="xs:anyURI" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Endpoint where the service is available
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			<xs:element name="formats" type="FormatList" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>A list of formats supported by the service.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>		
+	</xs:complexType>
+
+	<!-- Format List -->
+	<xs:complexType name="FormatList">
+		<xs:annotation>
+			<xs:documentation>A list of ObjectFormatId elements
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="formatType" type="d1:ObjectFormatIdentifier" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
    	
    	<!-- Property extension-->
 	<xs:complexType name="Property">
