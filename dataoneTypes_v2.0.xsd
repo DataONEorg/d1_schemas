@@ -66,9 +66,10 @@ Formatting:
   <!-- NOTE THAT ALL SERIALIZEABLE ROOT ELEMENTS FOR MESSAGES SHOULD BE OF A
        COMPLEX TYPE -->
 
-    <xs:import namespace="http://ns.dataone.org/service/types/v1.1" 
+    <xs:import namespace="http://ns.dataone.org/service/types/v1" 
+        schemaLocation="http://ns.dataone.org/service/types/v1" />
+	<xs:import namespace="http://ns.dataone.org/service/types/v1.1" 
         schemaLocation="http://ns.dataone.org/service/types/v1.1" />
-
 
 	<!-- Updated SystemMetadata type -->
 	<xs:complexType name="SystemMetadata" >
@@ -144,12 +145,12 @@ Formatting:
 	    <xs:complexContent>
     		<xs:extension base="d1:Node">
     			<xs:sequence>
-					<xs:element name="serviceExtensions" type="ServiceExtension" minOccurs="0">
+					<xs:element name="serviceExtensions" type="d1_v2.0:ServiceExtension" minOccurs="0">
 						<xs:annotation>
 						  <xs:documentation>TODO: define the content of this?</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="property" type="Property" minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="property" type="d1_v2.0:Property" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 						  <xs:documentation>Allows additional attributes be added to the Node document as needed</xs:documentation>
 						</xs:annotation>
@@ -194,7 +195,7 @@ Formatting:
 				</xs:annotation>
 			</xs:element>
 			
-			<xs:element name="formats" type="FormatList" minOccurs="0" maxOccurs="1">
+			<xs:element name="formats" type="d1_v2.0:FormatList" minOccurs="0" maxOccurs="1">
 				<xs:annotation>
 					<xs:documentation>A list of formats supported by the service.
 					</xs:documentation>
