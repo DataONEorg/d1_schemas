@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema  targetNamespace="http://ns.dataone.org/service/types/v2.0"
-	xmlns:d1="http://ns.dataone.org/service/types/v1"
+  xmlns:d1="http://ns.dataone.org/service/types/v1"
     xmlns:d1_v1.1="http://ns.dataone.org/service/types/v1.1"
     xmlns:d1_v2.0="http://ns.dataone.org/service/types/v2.0"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -40,7 +40,7 @@ License:
 
 Formatting: 
 
-  - This document should be saved as a UTF-8 encoded file.
+  - This document MUST be saved as a UTF-8 encoded file.
 
   - Indent using spaces, not tabs, with two spaces per indent level.
 
@@ -53,40 +53,30 @@ Formatting:
 
 -->
 
-<!-- ************************************
-        DEFINE REUSABLE SIMPLE TYPES HERE 
-        ************************************ -->
-
-
-
-  <!-- ***************************************
-          DEFINE REUSABLE COMPLEX  TYPES HERE 
-          *************************************** -->
-
   <!-- NOTE THAT ALL SERIALIZEABLE ROOT ELEMENTS FOR MESSAGES SHOULD BE OF A
        COMPLEX TYPE -->
 
     <xs:import namespace="http://ns.dataone.org/service/types/v1" 
         schemaLocation="http://ns.dataone.org/service/types/v1" />
-	<xs:import namespace="http://ns.dataone.org/service/types/v1.1" 
+  <xs:import namespace="http://ns.dataone.org/service/types/v1.1" 
         schemaLocation="http://ns.dataone.org/service/types/v1.1" />
 
-	<!-- Updated SystemMetadata type -->
-	<xs:complexType name="SystemMetadata" >
-	    <xs:annotation>
+  <!-- Updated SystemMetadata type -->
+  <xs:complexType name="SystemMetadata" >
+      <xs:annotation>
         <xs:documentation>System metadata in DataONE APIs version 2.0 extends
         the :class:`types.SystemMetadata` definition of version 1.x by adding 
-        *series identifier* (seriesId), charset, and mediaType elements. Each of
-        these are optional, so Version 1.x System Metadata is compatible with
-        Version 2.x, though not vice-versa.
+        :term:`seriesId`, :term:`charset`, :term:`mediaType`, and 
+        :term:`fileName` elements. Each of these are optional, so Version 1.x 
+        System Metadata is compatible with Version 2.x, though not vice-versa.
         </xs:documentation>
-	    </xs:annotation>
-	    <xs:complexContent>
-    		<xs:extension base="d1:SystemMetadata">
-    			<xs:sequence>
-    				<xs:element name="seriesId" type="d1:Identifier" minOccurs="0">
-				        <xs:annotation>
-				          <xs:documentation>The :term:`seriesId` is a unique Unicode 
+      </xs:annotation>
+      <xs:complexContent>
+        <xs:extension base="d1:SystemMetadata">
+          <xs:sequence>
+            <xs:element name="seriesId" type="d1:Identifier" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>The :term:`seriesId` is a unique Unicode 
                   string that can be used to identify an object revision chain 
                   in DataONE. When included, the seriesId can be used to 
                   reference the latest version of and object in the revision 
@@ -94,12 +84,12 @@ Formatting:
                   replication) will not accept seriesId in place of discrete 
                   identifiers.</xs:documentation>
                   <xs:documentation>The values used for seriesId must be unique 
-                  within DataONE and cannot be the same as the primary 
-                  identifier of an object. </xs:documentation>
+                  within DataONE and cannot be the same as the :term:`primary 
+                  identifier` of an object. </xs:documentation>
                   <xs:documentation>The same encoding rules used for identifier 
                   values apply to seriesId values.</xs:documentation>
-				        </xs:annotation>
-				      </xs:element>
+                </xs:annotation>
+              </xs:element>
               <xs:element name="mediaType" type="xs:string" minOccurs="0">
                 <xs:annotation>
                   <xs:documentation>Optional value drawn from the value space of 
@@ -118,7 +108,7 @@ Formatting:
                     </xs:documentation>
                     <xs:documentation>When specified, the mediaType value here 
                       should be used in preference to the value recorded in the 
-                      Object Format.
+                      referenced :class:`ObjectFormat`.
                     </xs:documentation>
                     <xs:documentation>This value SHOULD be set by the content 
                     creator. It MAY be set by any receiving agent if the value 
@@ -126,8 +116,8 @@ Formatting:
                     specific, and a correct value is specified elsewhere such 
                     as by a HTTP Content-Type parameter.
                     </xs:documentation>
-                    <xs:documentation>This value may only be changed to correct an 
-                      erroneous entry.</xs:documentation>
+                    <xs:documentation>This value may only be changed to correct 
+                      an erroneous entry.</xs:documentation>
                 </xs:annotation>
               </xs:element>
               <xs:element name="charset" type="xs:string" minOccurs="0">
@@ -162,283 +152,237 @@ Formatting:
                     creator.</xs:documentation>
                   <xs:documentation>This value MAY be set by any receiving agent
                     Changing the value is discouraged once set, unless by the 
-                    authoritative Member Node of content owner.</xs:documentation>
+                    authoritative Member Node of content owner.
+                  </xs:documentation>
                 </xs:annotation>
               </xs:element>
-    			</xs:sequence>
-    		</xs:extension>
-    	</xs:complexContent>	
-   	</xs:complexType>
-   	
-   	<!-- Node List -->  
-	<xs:complexType name="NodeList">
-	  <xs:annotation>
-	    <xs:documentation> A list of :class:`Types.Node` entries returned by
-	    :func:`CNCore.listNodes()`.</xs:documentation>
-	     <xs:documentation>NodeList is described in
-	     :mod:`NodeList`.</xs:documentation>
-	  </xs:annotation>
-	  <xs:sequence>
-	    <xs:element maxOccurs="unbounded" name="node" type="d1_v2.0:Node" 
-	                minOccurs="1"/>
-	  </xs:sequence>
-	</xs:complexType>
-   	
-   	<!-- Updated Node type to allow for Service Extensions-->
-	<xs:complexType name="Node">
-	    <xs:annotation>
-	      <xs:documentation>A set of values that describe a member or coordinating
-	      node, its Internet location, and the services it supports. Several nodes
-	      may exist on a single physical device or hostname. </xs:documentation>
-	    </xs:annotation>
-	    <xs:complexContent>
-    		<xs:extension base="d1:Node">
-    			<xs:sequence>
-					<xs:element name="serviceExtensions" type="d1_v2.0:ServiceExtension" minOccurs="0">
-						<xs:annotation>
-						  <xs:documentation>TODO: define the content of this?</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="property" type="d1_v2.0:Property" minOccurs="0" maxOccurs="unbounded">
-						<xs:annotation>
-						  <xs:documentation>Allows additional attributes be added to the Node document as needed</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-    			</xs:sequence>
-    		</xs:extension>
-    	</xs:complexContent>	
-   	</xs:complexType>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>  
+     </xs:complexType>
+     
+     <!-- Node List -->  
+  <xs:complexType name="NodeList">
+    <xs:annotation>
+      <xs:documentation> A list of :class:`v2_0.Types.Node` entries returned by
+      :func:`CNCore.listNodes()`.
+      </xs:documentation>
+      <xs:documentation>NodeList is described in :mod:`NodeList`.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="node" type="d1_v2.0:Node" 
+                  minOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+     
+     <!-- Updated Node type to allow for Service Extensions-->
+  <xs:complexType name="Node">
+      <xs:annotation>
+        <xs:documentation>Extends the Version 1.x :class:`Types.Node` by adding 
+          an optional unbounded parameter entry that can be used to provide 
+          additional simple metadata relevant to a Node. </xs:documentation>
+      </xs:annotation>
+      <xs:complexContent>
+        <xs:extension base="d1:Node">
+          <xs:sequence>
+          <xs:element name="property" 
+                      type="d1_v2.0:Property" 
+                      minOccurs="0" 
+                      maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Allows additional attributes be added to the 
+                Node document as needed.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>  
+     </xs:complexType>
 
-	<!-- Service Extension-->
-	<xs:complexType name="ServiceExtension">
-		<xs:annotation>
-			<xs:documentation>
-			The goal of Member Node Service Registration (MNSR) is to assist clients in discovery 
-			of services exposed by Member Nodes that may be applicable to a particular type of object
-			</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="name" type="xs:string">
-				<xs:annotation>
-					<xs:documentation>Descriptive human-readable name of the service.
-					</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="type" type="xs:string" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>Unique Service Type identifier.
-					</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="description" type="xs:string" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>Brief human readable description of service to be
-                        presented in user interfaces.
-					</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			<xs:element name="connection" type="xs:anyURI" minOccurs="0">
-				<xs:annotation>
-					<xs:documentation>Endpoint where the service is available
-					</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-			
-			<xs:element name="formats" type="d1_v2.0:FormatList" minOccurs="0" maxOccurs="1">
-				<xs:annotation>
-					<xs:documentation>A list of formats supported by the service.
-					</xs:documentation>
-				</xs:annotation>
-			</xs:element>
-		</xs:sequence>		
-	</xs:complexType>
-
-	<!-- Format List -->
-	<xs:complexType name="FormatList">
-		<xs:annotation>
-			<xs:documentation>A list of ObjectFormatId elements
-			</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="formatType" type="d1:ObjectFormatIdentifier" minOccurs="1" maxOccurs="unbounded" />
-		</xs:sequence>
-	</xs:complexType>
-	
-   	
-   	<!-- Property extension-->
-	<xs:complexType name="Property">
-	    <xs:annotation>
-	      <xs:documentation>Additional Property elements can be included to describe the Node in more detail.
-	      Some properties will come from controlled vocabularies, indicated by the type attribute, while 
-	      others will be free-form key value pairs.</xs:documentation>
-	    </xs:annotation>
-	    <xs:simpleContent>
-    		<xs:extension base="xs:string">
-    			<xs:attribute name="key" type="xs:string" use="required">
-	    			<xs:annotation>
-			        	<xs:documentation>The property key for this entry. Should be unique within the Node element</xs:documentation>
-					</xs:annotation>
-    			</xs:attribute>
-    			<xs:attribute name="type" type="xs:string" use="optional">
-    				<xs:annotation>
-			        	<xs:documentation>The optional type for the property. Can be used to indicate if a controlled vocabulary is used for the 
-			        	property key to better facilitate machine interpretation.</xs:documentation>
-					</xs:annotation>
-    			</xs:attribute>
-    		</xs:extension>
-    	</xs:simpleContent>	
-   	</xs:complexType>
-   	
-   	<!-- Updated ObjectFormat type to allow for MIME type and extension -->
-	<xs:complexType name="ObjectFormat">
-	    <xs:annotation>
-			<xs:documentation>One value from the DataONE Object Format Vocabulary
-			which is returned by :func:`CNCore.getFormat()`.</xs:documentation>
-			<xs:documentation>An *ObjectFormat* is the structure returned from the
-			:func:`CNCore.getFormat()` method of the CN REST interface. It provides
-			the unique identifier and the name associated with the object format.
-			Future versions may contain additional structured content from external
-			common typing systems. </xs:documentation>
-		</xs:annotation>
-	    <xs:complexContent>
-    		<xs:extension base="d1:ObjectFormat">
-    			<xs:sequence>
-    				<xs:element name="mediaType" type="xs:string" minOccurs="0">
-				        <xs:annotation>
-				          <xs:documentation>The IANA Media Type for this object format.
+     
+  <!-- Property extension-->
+  <xs:complexType name="Property">
+      <xs:annotation>
+        <xs:documentation>Additional Property elements can be included to 
+          describe the Node in more detail. Some properties will come from 
+          controlled vocabularies, indicated by the type attribute, while 
+          others will be free-form key value pairs.</xs:documentation>
+      </xs:annotation>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="key" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>The property key for this entry. Should be 
+                  unique within the Node element.</xs:documentation>
+          </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="type" type="xs:string" use="optional">
+            <xs:annotation>
+                <xs:documentation>The optional type for the property. Can be 
+                  used to indicate if a controlled vocabulary is used for the
+                  property key to better facilitate machine interpretation.
+                </xs:documentation>
+          </xs:annotation>
+          </xs:attribute>
+        </xs:extension>
+      </xs:simpleContent>  
+     </xs:complexType>
+     
+     <!-- Updated ObjectFormat type to allow for MIME type and extension -->
+  <xs:complexType name="ObjectFormat">
+      <xs:annotation>
+        <xs:documentation>Extends Version 1.x :class:`Types.ObjectFormat` by 
+          adding :term:`mediaType` and :term:`extension` elements.
+        </xs:documentation>
+    </xs:annotation>
+      <xs:complexContent>
+        <xs:extension base="d1:ObjectFormat">
+          <xs:sequence>
+            <xs:element name="mediaType" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>The IANA Media Type for this object format.
                   </xs:documentation>
-				        </xs:annotation>
-					</xs:element>
-					<xs:element name="extension" type="xs:string" minOccurs="0">
-				        <xs:annotation>
-				          <xs:documentation>Suggested file name extension to be used when serializing this type of object to a file.</xs:documentation>
-				        </xs:annotation>
-					</xs:element>
-    			</xs:sequence>
-    		</xs:extension>
-    	</xs:complexContent>	
-   	</xs:complexType>
-   	
-	<!--  ObjectFormatList -->
-	<xs:complexType name="ObjectFormatList">
-		<xs:annotation>  
-		  <xs:documentation>An ObjectFormatList is the structure returned from the
-		  :func:`CNCore.listFormats()` method of the CN REST interface. It
-		  provides a list of named object formats defined in the DataONE system.
-		  Each :class:`Types.ObjectFormat` returned in the list describes the
-		  object format via its name, and future versions may contain additional
-		  structured content from common external typing systems.
-		  </xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-		  <xs:extension base="d1:Slice">
-		    <xs:sequence>
-		      <xs:element name="objectFormat" type="d1_v2.0:ObjectFormat" minOccurs="1" 
-		                  maxOccurs="unbounded" />
-		    </xs:sequence>
-		  </xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
-	
-	<!--  Log -->
-	<xs:complexType name="Log">
-	  <xs:annotation>
-	    <xs:documentation>Represents a collection of :class:`Types.LogEntry`
-	    elements, used to transfer log information between DataONE
-	    components.</xs:documentation>
-	  </xs:annotation>
-	  <xs:complexContent>
-	    <xs:extension base="d1:Slice">
-	      <xs:sequence>
-	        <xs:element name="logEntry" type="d1_v2.0:LogEntry" minOccurs="0"
-	          maxOccurs="unbounded" />
-	      </xs:sequence>
-	    </xs:extension>
-	  </xs:complexContent>
-	</xs:complexType>
-	
-	<!-- LogEntry -->
-	<xs:complexType name="LogEntry">
-	  <xs:annotation>
-	    <xs:documentation>A single log entry as reported by a Member Node or
-	    Coordinating Node through the :func:`MNCore.getLogRecords` or
-	    :func:`CNCore.getLogRecords` methods.</xs:documentation>
-	  </xs:annotation>
-	  <xs:sequence>
-	    <xs:element name="entryId" type="d1:NonEmptyString" 
-	        minOccurs="1" maxOccurs="1">
-	      <xs:annotation>
-	        <xs:documentation>A unique identifier for this log entry. The
-	        identifier should be unique for a particular node; This is not drawn
-	        from the same value space as other identifiers in DataONE, and so is
-	        not subjec to the same restrictions.</xs:documentation>
-	      </xs:annotation>
-	    </xs:element>
-	    <xs:element name="identifier" type="d1:Identifier" 
-	        minOccurs="1" maxOccurs="1">
-	      <xs:annotation>
-	        <xs:documentation>The :term:`identifier` of the object that was the
-	        target of the operation which generated this log entry.</xs:documentation>
-	      </xs:annotation>
-	    </xs:element>
-	    <xs:element name="ipAddress" type="xs:string"
-	        minOccurs="1" maxOccurs="1">
-	      <xs:annotation>
-	        <xs:documentation>The IP address, as reported by the service receiving
-	        the request, of the request origin.</xs:documentation>
-	      </xs:annotation>
-	    </xs:element>
-	    <xs:element name="userAgent" type="xs:string"
-	        minOccurs="1" maxOccurs="1">
-	      <xs:annotation>
-	        <xs:documentation>The user agent of the client making the request, as
-	        reported in the User-Agent HTTP header.</xs:documentation>
-	      </xs:annotation>
-	    </xs:element>
-	    <xs:element name="subject" type="d1:Subject"
-	        minOccurs="1" maxOccurs="1">
-	      <xs:annotation>
-	        <xs:documentation>The :term:`Subject` used for making the request.
-	        This may be the DataONE :term:`public` user if the request is not
-	        authenticated, otherwise it will be the *Subject* of the certificate
-	        used for authenticating the request.</xs:documentation>
-	      </xs:annotation>
-	    </xs:element>
-	    <xs:element name="event" type="d1:NonEmptyString"
-	        minOccurs="1" maxOccurs="1">
-	      <xs:annotation>
-	        <xs:documentation>A non-empty string that indicates the type of even logged.
-	        A value from the :class:`Types.Event` enumeration is recommended but no longer required.</xs:documentation>
-	      </xs:annotation>
-	    </xs:element>
-	    <xs:element name="dateLogged" type="xs:dateTime"
-	        minOccurs="1" maxOccurs="1">
-	      <xs:annotation>
-	        <xs:documentation>A :class:`Types.DateTime` time stamp indicating when
-	        the event triggering the log message ocurred. Note that all time
-	        stamps in DataONE are in UTC.</xs:documentation>
-	      </xs:annotation>
-	    </xs:element>
-	    <xs:element name="nodeIdentifier" type="d1:NodeReference"
-	        minOccurs="1" maxOccurs="1">
-	      <xs:annotation>
-	        <xs:documentation>The unique identifier for the node where the log
-	        message was generated.</xs:documentation>
-	      </xs:annotation>
-	    </xs:element>
-	  </xs:sequence>
-	</xs:complexType>
-	
-	
+                </xs:annotation>
+          </xs:element>
+          <xs:element name="extension" type="xs:string" minOccurs="0">
+                <xs:annotation>
+                  <xs:documentation>Suggested file name extension to be used 
+                    when serializing this type of object to a file. The value 
+                    should not include the period (.).</xs:documentation>
+                </xs:annotation>
+          </xs:element>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>  
+     </xs:complexType>
+     
+  <!--  ObjectFormatList -->
+  <xs:complexType name="ObjectFormatList">
+    <xs:annotation>  
+      <xs:documentation>Extends :class:`Types.ObjectFormatList` to provide a 
+        list of :class:`v2_0.Types.ObjectFormat`.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="d1:Slice">
+        <xs:sequence>
+          <xs:element name="objectFormat" 
+                      type="d1_v2.0:ObjectFormat" 
+                      minOccurs="1" 
+                      maxOccurs="unbounded" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <!--  Log -->
+  <xs:complexType name="Log">
+    <xs:annotation>
+      <xs:documentation>Extends :class:`Types.Log` to represent a collection of 
+        :class:`v2_0.Types.LogEntry` elements, used to transfer log information 
+        between DataONE components.</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="d1:Slice">
+        <xs:sequence>
+          <xs:element name="logEntry" type="d1_v2.0:LogEntry" minOccurs="0"
+            maxOccurs="unbounded" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <!-- LogEntry -->
+  <xs:complexType name="LogEntry">
+    <xs:annotation>
+      <xs:documentation>Extends :class:`Types.LogEntry` by relaxing the value 
+        space for the *event* element.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="entryId" type="d1:NonEmptyString" 
+          minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>A unique identifier for this log entry. The
+          identifier should be unique for a particular node; This is not drawn
+          from the same value space as other identifiers in DataONE, and so is
+          not subjec to the same restrictions.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="identifier" type="d1:Identifier" 
+          minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The :term:`identifier` of the object that was the
+          target of the operation which generated this log entry.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ipAddress" type="xs:string"
+          minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The IP address, as reported by the service receiving
+          the request, of the request origin.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="userAgent" type="xs:string"
+          minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The user agent of the client making the request, as
+          reported in the User-Agent HTTP header.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="subject" type="d1:Subject"
+          minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The :term:`Subject` used for making the request.
+          This may be the DataONE :term:`public` user if the request is not
+          authenticated, otherwise it will be the *Subject* of the certificate
+          used for authenticating the request.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="event" type="d1:NonEmptyString"
+          minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>A non-empty string that indicates the type of even 
+            logged. A value from the :class:`Types.Event` enumeration is 
+            recommended but no longer required for Version 2.x.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="dateLogged" type="xs:dateTime"
+          minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>A :class:`Types.DateTime` time stamp indicating when
+          the event triggering the log message ocurred. Note that all time
+          stamps in DataONE are in UTC.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="nodeIdentifier" type="d1:NodeReference"
+          minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The unique identifier for the node where the log
+          message was generated.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
   <!-- OptionList -->
   <xs:complexType name="OptionList">
     <xs:annotation>
       <xs:documentation>A list of options that indicate the possible values for 
-        a DataONE service.  Each option that can be validly sent to a service is listed, providing the specific key that should be used when interacting with the service, as well as a description of that key that allows API users to understand the usage of the key.  For example, an OptionList might contain a list of themes that can be used with the MNView.view service, or for other services that have a configurable but controlled set of parameters.</xs:documentation>
+        a DataONE service. Each option that can be validly sent to a service is
+        listed, providing the specific key that should be used when interacting 
+        with the service, as well as a description of that key that allows API 
+        users to understand the usage of the key.  For example, an OptionList 
+        might contain a list of themes that can be used with the MNView.view 
+        service, or for other services that have a configurable but controlled 
+        set of parameters.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name ="option" type="d1:NonEmptyString" 
-        minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="option" 
+                  type="d1:NonEmptyString" 
+                  minOccurs="0" 
+                  maxOccurs="unbounded">
         <xs:annotation>
           <xs:documentation>The key to be used within an API call to a DataONE 
           service, including a description of the key and its impact on the 
@@ -479,6 +423,7 @@ Formatting:
 
   <xs:element name="optionList" type="d1_v2.0:OptionList" />
   <xs:element name="systemMetadata" type="d1_v2.0:SystemMetadata" />
+  <xs:element name="property" type="d1_v2.0:Property" />
   <xs:element name="node" type="d1_v2.0:Node" />
   <xs:element name="nodeList" type="d1_v2.0:NodeList" />  
   <xs:element name="objectFormat" type="d1_v2.0:ObjectFormat" />  
