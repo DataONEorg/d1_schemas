@@ -3,7 +3,7 @@
 	xmlns:d1="http://ns.dataone.org/service/types/v1"
     xmlns:d1_v1.1="http://ns.dataone.org/service/types/v1.1"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    version="1.1.0"
+    version="1.1.1"
     elementFormDefault="unqualified" attributeFormDefault="unqualified">
 
 <!-- 
@@ -64,8 +64,8 @@ Formatting:
 
   <!-- NOTE THAT ALL SERIALIZEABLE ROOT ELEMENTS FOR MESSAGES SHOULD BE OF A
        COMPLEX TYPE -->
-    <xs:import namespace="http://ns.dataone.org/service/types/v1" 
-        schemaLocation="https://repository.dataone.org/software/cicore/trunk/d1_schemas/dataoneTypes.xsd" />
+  <xs:import namespace="http://ns.dataone.org/service/types/v1" 
+        schemaLocation="http://ns.dataone.org/service/types/v1" />
 
 
   <!-- QueryEngineDescription -->
